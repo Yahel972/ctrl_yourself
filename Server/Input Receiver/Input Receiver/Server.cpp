@@ -72,11 +72,7 @@ Message* setMessageType(std::string msg)
 {
 	if (std::regex_match(msg, std::regex("<[0-9]+x[0-9]+>")))
 	{
-		// slicing x&y coordinations:
-		int x = atoi(msg.substr(1, msg.find('x')).c_str());
-		int y = atoi(msg.substr(msg.find('x') + 1, msg.find('>')).c_str());
-
-		return new MousePosMessage(msg, x, y);;
+		return new MousePosMessage(msg);  // the constructor will extract the coordinations
 	}
 
 	return NULL;
