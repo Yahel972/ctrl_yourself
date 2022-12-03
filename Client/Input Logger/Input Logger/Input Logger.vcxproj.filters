@@ -18,9 +18,15 @@
     <ClInclude Include="KeyLogger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MouseLogger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KeyLogger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseLogger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

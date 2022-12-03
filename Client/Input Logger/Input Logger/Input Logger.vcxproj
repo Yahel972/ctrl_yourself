@@ -140,9 +140,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="KeyLogger.h" />
+    <ClInclude Include="MouseLogger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KeyLogger.cpp" />
+    <ClCompile Include="MouseLogger.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
