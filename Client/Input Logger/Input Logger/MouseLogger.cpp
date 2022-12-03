@@ -52,7 +52,7 @@ void MouseLogger::recordMousePos(SOCKET sock)
 
 			std::cout << msg;
 			send(sock, msg.c_str(), msg.length(), 0);
-			Sleep(30);  // just for now, in order to reduce non-stop printing
+			Sleep(30);
 		}
 	}
 }
