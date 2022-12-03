@@ -14,10 +14,6 @@ void MouseLogger::recordMouseClicks()
 {
 	while (true)
 	{
-		if (GetAsyncKeyState(WM_LBUTTONDOWN))
-		{
-			std::cout << "<double-click>";
-		}
 		if (keyPressed(MK_LBUTTON))
 		{
 			std::cout << "<left-click>";
