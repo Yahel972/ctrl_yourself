@@ -139,11 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="KeyboardMessage.cpp" />
+    <ClCompile Include="Message.cpp" />
+    <ClCompile Include="MouseClickMessage.cpp" />
+    <ClCompile Include="MousePosMessage.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="WSAInitializer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="KeyboardMessage.h" />
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="MouseClickMessage.h" />
+    <ClInclude Include="MousePosMessage.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="WSAInitializer.h" />
   </ItemGroup>
