@@ -70,5 +70,14 @@ void Server::acceptClient()
 
 void Server::clientHandler(SOCKET clientSocket)
 {
-	
+	char buffer[512] = { 0 };
+
+	while (true)
+	{
+		int iRes = recv(clientSocket, buffer, 512, 0);
+		std::cout << buffer << std::endl;
+
+		std::fill_n(buffer, 512, 0);
+		Sleep(30);
+	}
 }
