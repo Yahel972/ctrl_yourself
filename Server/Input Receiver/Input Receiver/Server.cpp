@@ -78,6 +78,11 @@ Message* setMessageType(std::string msg)
 	{
 		return new MouseClickMessage(msg);
 	}
+	else if (msg.length() > 0)
+	{
+		// Keyboard msg
+		return new KeyboardMessage(msg);
+	}
 
 	return NULL;
 }
