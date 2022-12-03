@@ -10,25 +10,30 @@ int keyPressed(int key) {
 }
 
 // function listens to all mouse clicks & position changes. Will be used as a thread
-void MouseLogger::recordMouseClicks()
+void MouseLogger::recordMouseClicks(SOCKET sock)
 {
 	while (true)
 	{
+		std::string msg = "";
+
 		if (keyPressed(MK_LBUTTON))
 		{
-			std::cout << "<left-click>";
+			msg = "<left-click>";
 		}
 		else if (keyPressed(VK_RBUTTON))
 		{
-			std::cout << "<right-click>";
+			msg = "<right-click>";
 		}
+
+		std::cout << msg;
+		send(sock, msg.c_str(), msg.length(), 0);
 	}
 }
 
 // function returns if 2 POINTS are equal
 bool compareCoordinates(POINT a, POINT b) {	return (a.x == b.x && a.y == b.y); }
 
-void MouseLogger::recordMousePos()
+void MouseLogger::recordMousePos(SOCKET sock)
 {
 	POINT currPos;
 	POINT tempPos;
@@ -36,14 +41,18 @@ void MouseLogger::recordMousePos()
 	GetCursorPos(&currPos);
 	while (true)
 	{
+		std::string msg = "";
+
 		GetCursorPos(&tempPos);
 		if (!compareCoordinates(currPos, tempPos))
 		{
 			currPos = tempPos;
 
-			// TODO: send currPos to Server (2nd user)
-			std::cout << "<" << currPos.x << "x" << currPos.y << ">";
-			Sleep(2000);  // just for now, in order to reduce non-stop printing
+			msg = "<" + std::to_string(currPos.x) + "x" + std::to_string(currPos.y) + ">";
+
+			std::cout << msg;
+			send(sock, msg.c_str(), msg.length(), 0);
+			Sleep(30);  // just for now, in order to reduce non-stop printing
 		}
 	}
 }

