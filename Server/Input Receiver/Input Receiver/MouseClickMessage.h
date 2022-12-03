@@ -6,7 +6,7 @@
 #define SCROLL_WHEEL_CLICK 3
 #define SCROLL_WHEEL_MOVE 4
 
-class MouseClickMessage : Message
+class MouseClickMessage : public Message
 {
 public:
 	MouseClickMessage();

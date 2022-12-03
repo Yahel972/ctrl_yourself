@@ -1,7 +1,7 @@
 #pragma once
 #include "Message.h"
 
-class KeyboardMessage : Message
+class KeyboardMessage : public Message
 {
 public:
 	KeyboardMessage();

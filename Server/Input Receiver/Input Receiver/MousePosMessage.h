@@ -1,7 +1,7 @@
 #pragma once
 #include "Message.h"
 
-class MousePosMessage : Message
+class MousePosMessage : public Message
 {
 public:
 	MousePosMessage();
