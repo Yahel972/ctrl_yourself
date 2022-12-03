@@ -12,7 +12,7 @@ public:
 	KeyLogger();
 	~KeyLogger();
 
-	void RecordKeyboardClicks();
+	void recordKeyboard();
 
 private:
 

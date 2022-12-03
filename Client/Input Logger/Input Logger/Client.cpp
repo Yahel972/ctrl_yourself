@@ -1,9 +1,6 @@
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 
 #include "Client.h"
-#include <exception>
-#include <string>
-#include <iostream>
 
 
 Client::Client()
@@ -13,7 +10,6 @@ Client::Client()
 
     if (_clientSocket == INVALID_SOCKET)
         throw std::exception(__FUNCTION__ " - socket");
-
 }
 
 Client::~Client()

@@ -12,8 +12,7 @@ public:
 	MouseLogger();
 	~MouseLogger();
 
-	void RecordMouseClicks();
-	void RecordMousePos();
+	void recordMouse();
 
 private:
 
