@@ -68,18 +68,38 @@ void Server::acceptClient()
 }
 
 
+Message* setMessageType(std::string msg)
+{
+	if (std::regex_match(msg, std::regex("<[0-9]+x[0-9]+>")))
+	{
+		// slicing x&y coordinations:
+		int x = atoi(msg.substr(1, msg.find('x')).c_str());
+		int y = atoi(msg.substr(msg.find('x') + 1, msg.find('>')).c_str());
+
+		return new MousePosMessage(msg, x, y);;
+	}
+
+	return NULL;
+}
+
+
 void Server::clientHandler(SOCKET clientSocket)
 {
-	char buffer[512] = { 0 };
+	char buffer[BUFFER_SIZE] = { 0 };
 
 	while (true)
 	{
-		int iRes = recv(clientSocket, buffer, 512, 0);
+		recv(clientSocket, buffer, BUFFER_SIZE, 0);
 		std::string msg(buffer);
 
-		
+		std::cout << msg << std::endl;
 
-		std::fill_n(buffer, 512, 0);
+		Message* message = setMessageType(msg);
+
+		if (message != NULL)
+			message->update_server();  // updating the server (controlled pc)
+
+		std::fill_n(buffer, BUFFER_SIZE, 0);  // clearing buffer
 		Sleep(30);
 	}
 }

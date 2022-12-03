@@ -13,5 +13,6 @@ MousePosMessage::~MousePosMessage() {}
 
 void MousePosMessage::update_server()
 {
-	// TODO change cursor's position
+	SetCursorPos(this->_x, this->_y);
+	Sleep(30);
 }
