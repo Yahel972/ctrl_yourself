@@ -74,6 +74,10 @@ Message* setMessageType(std::string msg)
 	{
 		return new MousePosMessage(msg);  // the constructor will extract the coordinations
 	}
+	else if (msg == "<left-click>" || msg == "<right-click>" || msg == "<scroll-wheel-click>" || msg == "<scroll-wheel-up>" || msg == "<scroll-wheel-down>")
+	{
+		return new MouseClickMessage(msg);
+	}
 
 	return NULL;
 }
@@ -87,11 +91,10 @@ void Server::clientHandler(SOCKET clientSocket)
 	{
 		recv(clientSocket, buffer, BUFFER_SIZE, 0);
 		std::string msg(buffer);
-
 		std::cout << msg << std::endl;
 
+		// creating message and performing the appropriate response
 		Message* message = setMessageType(msg);
-
 		if (message != NULL)
 			message->update_server();  // updating the server (controlled pc)
 
