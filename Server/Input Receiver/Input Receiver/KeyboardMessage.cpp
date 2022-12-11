@@ -23,7 +23,7 @@ KeyboardMessage::KeyboardMessage(std::string content): Message(content)
 
 KeyboardMessage::~KeyboardMessage() {}
 
-void KeyboardMessage::update_server()
+void KeyboardMessage::updateServer()
 {
 	if (this->_key == "")  // checking for invalid message
 	{

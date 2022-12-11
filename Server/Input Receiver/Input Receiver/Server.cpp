@@ -98,7 +98,7 @@ void Server::clientHandler(SOCKET clientSocket)
 		// creating message and performing the appropriate response
 		Message* message = setMessageType(msg);
 		if (message != NULL)
-			message->update_server();  // updating the server (controlled pc)
+			message->updateServer();  // updating the server (controlled pc)
 
 		std::fill_n(buffer, BUFFER_SIZE, 0);  // clearing buffer
 		Sleep(30);

@@ -9,7 +9,7 @@ public:
 	MousePosMessage(std::string content, int x, int y);
 	~MousePosMessage();
 
-	void update_server() override;
+	void updateServer() override;
 
 	static float MOUSE_MOVE_FACTOR;
 private:

@@ -16,7 +16,7 @@ public:
 	MouseClickMessage(std::string content, int code);
 	~MouseClickMessage();
 
-	void update_server() override;
+	void updateServer() override;
 
 private:
 	int _code;

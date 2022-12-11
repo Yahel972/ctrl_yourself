@@ -15,7 +15,7 @@ MousePosMessage::MousePosMessage(std::string content, int x, int y): Message(con
 
 MousePosMessage::~MousePosMessage() {}
 
-void MousePosMessage::update_server()
+void MousePosMessage::updateServer()
 {
 	SetCursorPos(this->_x, this->_y);
 	Sleep(30);

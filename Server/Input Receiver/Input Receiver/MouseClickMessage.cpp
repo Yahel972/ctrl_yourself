@@ -23,7 +23,7 @@ MouseClickMessage::MouseClickMessage(std::string content, int code): Message(con
 
 MouseClickMessage::~MouseClickMessage() {}
 
-void MouseClickMessage::update_server()
+void MouseClickMessage::updateServer()
 {
 	INPUT Input = { 0 };
 	POINT p;

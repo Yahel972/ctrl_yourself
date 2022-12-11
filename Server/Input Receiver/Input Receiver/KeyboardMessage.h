@@ -10,7 +10,7 @@ public:
 	KeyboardMessage(std::string content);
 	~KeyboardMessage();
 
-	void update_server() override;
+	void updateServer() override;
 
 private:
 	std::string _key;
