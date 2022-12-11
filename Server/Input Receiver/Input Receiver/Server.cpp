@@ -78,9 +78,8 @@ Message* setMessageType(std::string msg)
 	{
 		return new MouseClickMessage(msg);
 	}
-	else if (msg.length() > 0)
+	else if (msg.length() > 0)  // Keyboard msg - not any other type exists
 	{
-		// Keyboard msg
 		return new KeyboardMessage(msg);
 	}
 
@@ -96,7 +95,9 @@ void Server::clientHandler(SOCKET clientSocket)
 	{
 		recv(clientSocket, buffer, BUFFER_SIZE, 0);
 		std::string msg(buffer);
-		std::cout << msg << std::endl;
+
+		if (msg.length() != 0)
+			std::cout << msg << std::endl;
 
 		// creating message and performing the appropriate response
 		Message* message = setMessageType(msg);
