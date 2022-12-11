@@ -16,7 +16,7 @@ int main()
 	{
 		WSAInitializer wsaInit;
 		Client c;
-		//c.connectToServer(SERVER_IP, SERVER_PORT);
+		c.connectToServer(SERVER_IP, SERVER_PORT);
 		c.startConversation();
 	}
 	catch (std::exception& e)
