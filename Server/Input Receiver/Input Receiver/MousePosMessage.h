@@ -11,8 +11,11 @@ public:
 
 	void update_server() override;
 
+	static float MOUSE_MOVE_FACTOR;
 private:
 	int _x;
 	int _y;
 	// cursor's coordinates
+
+	static float getMouseMoveFactor();
 };
