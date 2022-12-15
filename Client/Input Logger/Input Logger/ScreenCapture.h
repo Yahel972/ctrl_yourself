@@ -16,6 +16,7 @@ class ScreenCapture
 public:
 	ScreenCapture();
 	~ScreenCapture();
-private:
 	cv::Mat captureScreenMat(HWND hwnd);
+private:
+	BITMAPINFOHEADER createBitmapHeader(int width, int height);
 };
