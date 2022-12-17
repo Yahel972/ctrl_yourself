@@ -8,6 +8,10 @@
 
 class KeyLogger
 {
+private:
+	/*static DWORD dwTlsIndex;
+	static LPVOID lpvData;*/
+
 public:
 	KeyLogger();
 	~KeyLogger();
