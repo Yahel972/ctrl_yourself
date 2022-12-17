@@ -7,7 +7,7 @@
 #include <Windows.h>
 #include <iostream>
 #include <thread>
-#include "Client.h"
+#include "Server.h"
 #include <opencv2/highgui/highgui_c.h>
 #include <opencv2/core/core_c.h>
 
