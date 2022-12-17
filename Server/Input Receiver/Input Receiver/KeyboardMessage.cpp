@@ -35,6 +35,7 @@ void KeyboardMessage::updateServer()
 	{
 		// TODO: perform the correct action, use switch-case and check the key to distinguishe each seperate key with '-'
 		// send the same as the else section, but use the VK consts! https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
+		// WORD's vector - add each VK const wanted to be pressed. than loop through it and perform each VK's action
 	}
 	else  // non special character
 	{

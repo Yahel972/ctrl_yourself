@@ -143,6 +143,7 @@
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="MouseClickMessage.cpp" />
     <ClCompile Include="MousePosMessage.cpp" />
+    <ClCompile Include="ScreenCapture.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="WSAInitializer.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Message.h" />
     <ClInclude Include="MouseClickMessage.h" />
     <ClInclude Include="MousePosMessage.h" />
+    <ClInclude Include="ScreenCapture.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="WSAInitializer.h" />
   </ItemGroup>
