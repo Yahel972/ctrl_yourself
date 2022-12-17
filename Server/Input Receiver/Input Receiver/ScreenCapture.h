@@ -1,7 +1,7 @@
 #pragma once
 
 #define CV_IGNORE_DEBUG_BUILD_GUARD
-#include <opencv2/imgcodecs/imgcodecs_c.h>
+
 
 #include <WinSock2.h>
 #include <Windows.h>
