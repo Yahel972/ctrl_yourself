@@ -7,15 +7,17 @@
 #include <exception>
 #include <iostream>
 
+#define SERVER_PORT 6969
+#define SERVER_IP "127.0.0.1"
+
 int main()
 {
 	try
 	{
 		WSAInitializer wsaInit;
-		Client c1;
-		c1.connectToServer("127.0.0.1", 6969);
-		c1.startConversation();
-
+		Client c;
+		c.connectToServer(SERVER_IP, SERVER_PORT);
+		c.startConversation();
 	}
 	catch (std::exception& e)
 	{
