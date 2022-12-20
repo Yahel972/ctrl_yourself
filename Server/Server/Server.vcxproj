@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{f64a0ab6-1683-47e5-9a2e-971c8632110e}</ProjectGuid>
-    <RootNamespace>InputLogger</RootNamespace>
+    <ProjectGuid>{6c2b5726-ceb9-4389-968b-42c9b83bf479}</ProjectGuid>
+    <RootNamespace>Server</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,17 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Client.h" />
-    <ClInclude Include="KeyLogger.h" />
-    <ClInclude Include="MouseLogger.h" />
-    <ClInclude Include="WSAInitializer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Client.cpp" />
-    <ClCompile Include="KeyLogger.cpp" />
-    <ClCompile Include="MouseLogger.cpp" />
+    <ClCompile Include="KeyboardMessage.cpp" />
+    <ClCompile Include="Message.cpp" />
+    <ClCompile Include="MouseClickMessage.cpp" />
+    <ClCompile Include="MousePosMessage.cpp" />
+    <ClCompile Include="Server.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="WSAInitializer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="KeyboardMessage.h" />
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="MouseClickMessage.h" />
+    <ClInclude Include="MousePosMessage.h" />
+    <ClInclude Include="Server.h" />
+    <ClInclude Include="WSAInitializer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

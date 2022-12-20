@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Server.cpp">
+    <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WSAInitializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source.cpp">
+    <ClCompile Include="Server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Message.cpp">
@@ -30,21 +30,18 @@
     <ClCompile Include="KeyboardMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MousePosMessage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MouseClickMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ScreenCapture.cpp">
+    <ClCompile Include="MousePosMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Server.h">
+    <ClInclude Include="WSAInitializer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WSAInitializer.h">
+    <ClInclude Include="Server.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Message.h">
@@ -53,13 +50,10 @@
     <ClInclude Include="KeyboardMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MousePosMessage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MouseClickMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ScreenCapture.h">
+    <ClInclude Include="MousePosMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
