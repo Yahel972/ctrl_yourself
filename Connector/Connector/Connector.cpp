@@ -76,7 +76,6 @@ void Connector::startHandleRequest()
 		std::thread clientThread(&Connector::handleNewClient, this, client_socket); // thread for each client
 		clientThread.detach(); // no need to wait for client thread to end, it can run until the client logs out 
 	}
-
 }
 
 void Connector::handleNewClient(SOCKET socket)

@@ -18,12 +18,13 @@ class Server
 public:
 	Server();
 	~Server();
-	void serve(int port);
+
+	void connectToServer(std::string serverIP, int port);
+	void startConversation();
 
 	Message* setMessageType(std::string msg);
 
 private:
-
 	void acceptClient();
 	void clientHandler(SOCKET clientSocket);
 

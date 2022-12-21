@@ -23,30 +23,33 @@ Server::~Server()
 	catch (...) {}
 }
 
-void Server::serve(int port)
+void Server::connectToServer(std::string serverIP, int port)
 {
 	struct sockaddr_in sa = { 0 };
 
-	sa.sin_port = htons(port); // port that server will listen for
+	sa.sin_port = htons(port); // port that server will listen to
 	sa.sin_family = AF_INET;   // must be AF_INET
-	sa.sin_addr.s_addr = INADDR_ANY;    // when there are few ip's for the machine. We will use always "INADDR_ANY"
+	sa.sin_addr.s_addr = inet_addr(serverIP.c_str());    // the IP of the server
 
-	// Connects between the socket and the configuration (port and etc..)
-	if (bind(_serverSocket, (struct sockaddr*)&sa, sizeof(sa)) == SOCKET_ERROR)
-		throw std::exception(__FUNCTION__ " - bind");
+	// the process will not continue until the server accepts the client
+	int status = connect(this->_serverSocket, (struct sockaddr*)&sa, sizeof(sa));
 
-	// Start listening for incoming requests of clients
-	if (listen(_serverSocket, SOMAXCONN) == SOCKET_ERROR)
-		throw std::exception(__FUNCTION__ " - listen");
-	std::cout << "Listening on port " << port << std::endl;
+	if (status == INVALID_SOCKET)
+		throw std::exception("Cant connect to server");
+}
 
-	while (true)
-	{
-		// the main thread is only accepting clients 
-		// and add then to the list of handlers
-		std::cout << "Waiting for client connection request" << std::endl;
-		acceptClient();
-	}
+
+// function runs all of the loggers - as threads
+void Server::startConversation()
+{
+	//ScreenCapture* sc = new ScreenCapture();
+
+	std::vector<std::thread> inputsThreads;
+	//inputsThreads.push_back(std::thread(&ScreenCapture::recordScreen, sc, this->_clientSocket));
+	//add a thread that receives data
+
+	/*for (int i = 0; i < inputsThreads.size(); i++)
+		inputsThreads[i].join();*/
 }
 
 // function returns the matchin message type according to the content
