@@ -19,5 +19,9 @@ public:
 	void startConversation();
 
 private:
+	//void receiveData(SOCKET sock);  LATER - after screen share
+	void receiveId(SOCKET sock);
+
 	SOCKET _clientSocket;
+	int _id;
 };

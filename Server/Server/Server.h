@@ -26,7 +26,9 @@ public:
 	Message* setMessageType(std::string msg);
 
 private:
-	void receiveData(SOCKET clientSocket);
+	void receiveData(SOCKET sock);
+	void receiveId(SOCKET sock);
 
 	SOCKET _serverSocket;
+	int _id;
 };

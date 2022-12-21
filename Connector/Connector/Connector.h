@@ -25,4 +25,8 @@ private:
 	void handleNewClient(SOCKET socket);
 
 	SOCKET _serverSocket;
+	std::vector<SOCKET> _connections;
+
+	static int ID_COUNTER;
+	static void sendId(SOCKET sock);
 };

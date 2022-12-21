@@ -1,5 +1,7 @@
 #include "Connector.h"
 
+int Connector::ID_COUNTER = 0;
+
 Connector::Connector()
 {
 	// this server use TCP. that why SOCK_STREAM & IPPROTO_TCP
@@ -70,6 +72,9 @@ void Connector::startHandleRequest()
 		if (client_socket == INVALID_SOCKET)
 			throw std::exception(__FUNCTION__);
 
+		this->_connections.push_back(client_socket);
+		sendId(client_socket);
+
 		std::cout << "Client accepted. Server and client can speak" << std::endl;
 		//this->m_clients[client_socket] = this->m_handlerFactory.createLoginRequest();
 		// the function that handle the conversation with the client
@@ -124,4 +129,10 @@ void Connector::handleNewClient(SOCKET socket)
 		//}
 	}
 
+}
+
+void Connector::sendId(SOCKET sock)
+{
+	send(sock, (std::to_string(Connector::ID_COUNTER)).c_str(), 4, 0);
+	Connector::ID_COUNTER++;
 }

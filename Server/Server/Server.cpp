@@ -36,6 +36,8 @@ void Server::connectToServer(std::string serverIP, int port)
 
 	if (status == INVALID_SOCKET)
 		throw std::exception("Cant connect to server");
+
+	receiveId(this->_serverSocket);
 }
 
 
@@ -46,7 +48,7 @@ void Server::startConversation()
 
 	std::vector<std::thread> inputsThreads;
 	//inputsThreads.push_back(std::thread(&ScreenCapture::recordScreen, sc, this->_clientSocket));
-	inputsThreads.push_back(std::thread(&Server::receiveData, this->_serverSocket));
+	inputsThreads.push_back(std::thread(&Server::receiveData, this, this->_serverSocket));
 
 	for (int i = 0; i < inputsThreads.size(); i++)
 		inputsThreads[i].join();
@@ -72,13 +74,13 @@ Message* Server::setMessageType(std::string msg)
 }
 
 
-void Server::receiveData(SOCKET clientSocket)
+void Server::receiveData(SOCKET sock)
 {
 	char buffer[BUFFER_SIZE] = { 0 };
 
 	while (true)
 	{
-		recv(clientSocket, buffer, BUFFER_SIZE, 0);
+		recv(sock, buffer, BUFFER_SIZE, 0);
 		std::string msg(buffer);
 
 		if (msg.length() != 0)
@@ -92,4 +94,11 @@ void Server::receiveData(SOCKET clientSocket)
 		std::fill_n(buffer, BUFFER_SIZE, 0);  // clearing buffer
 		Sleep(30);
 	}
+}
+
+void Server::receiveId(SOCKET sock)
+{
+	char buffer[4] = { 0 };
+	recv(sock, buffer, 4, 0);
+	this->_id = atoi(buffer);
 }

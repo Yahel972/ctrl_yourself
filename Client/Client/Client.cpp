@@ -33,10 +33,12 @@ void Client::connectToServer(std::string serverIP, int port)
     sa.sin_addr.s_addr = inet_addr(serverIP.c_str());    // the IP of the server
 
     // the process will not continue until the server accepts the client
-    int status = connect(_clientSocket, (struct sockaddr*)&sa, sizeof(sa));
+    int status = connect(this->_clientSocket, (struct sockaddr*)&sa, sizeof(sa));
 
     if (status == INVALID_SOCKET)
         throw std::exception("Cant connect to server");
+
+    receiveId(this->_clientSocket);
 }
 
 
@@ -53,4 +55,11 @@ void Client::startConversation()
 
     for (int i = 0; i < inputsThreads.size(); i++)
         inputsThreads[i].join();
+}
+
+void Client::receiveId(SOCKET sock)
+{
+    char buffer[4] = { 0 };
+    recv(sock, buffer, 4, 0);
+    this->_id = atoi(buffer);
 }
