@@ -46,10 +46,10 @@ void Server::startConversation()
 
 	std::vector<std::thread> inputsThreads;
 	//inputsThreads.push_back(std::thread(&ScreenCapture::recordScreen, sc, this->_clientSocket));
-	//add a thread that receives data
+	inputsThreads.push_back(std::thread(&Server::receiveData, this->_serverSocket));
 
-	/*for (int i = 0; i < inputsThreads.size(); i++)
-		inputsThreads[i].join();*/
+	for (int i = 0; i < inputsThreads.size(); i++)
+		inputsThreads[i].join();
 }
 
 // function returns the matchin message type according to the content
@@ -72,21 +72,7 @@ Message* Server::setMessageType(std::string msg)
 }
 
 
-void Server::acceptClient()
-{
-	// this accepts the client and create a specific socket from server to this client
-	// the process will not continue until a client connects to the server
-	SOCKET client_socket = accept(_serverSocket, NULL, NULL);
-	if (client_socket == INVALID_SOCKET)
-		throw std::exception(__FUNCTION__);
-
-	std::cout << "Client accepted. Server and client can speak" << std::endl;
-	// the function that handle the conversation with the client
-	clientHandler(client_socket);
-}
-
-
-void Server::clientHandler(SOCKET clientSocket)
+void Server::receiveData(SOCKET clientSocket)
 {
 	char buffer[BUFFER_SIZE] = { 0 };
 

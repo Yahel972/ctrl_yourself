@@ -1,4 +1,5 @@
 #pragma once
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <WinSock2.h>
 #include <Windows.h>
 #include "Message.h"
@@ -25,8 +26,7 @@ public:
 	Message* setMessageType(std::string msg);
 
 private:
-	void acceptClient();
-	void clientHandler(SOCKET clientSocket);
+	void receiveData(SOCKET clientSocket);
 
 	SOCKET _serverSocket;
 };
