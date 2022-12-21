@@ -72,8 +72,7 @@ void Connector::startHandleRequest()
 		if (client_socket == INVALID_SOCKET)
 			throw std::exception(__FUNCTION__);
 
-		this->_connections.push_back(client_socket);
-		sendId(client_socket);
+		this->_connections[generateId(client_socket)] = client_socket;  // inserting to map
 
 		std::cout << "Client accepted. Server and client can speak" << std::endl;
 		//this->m_clients[client_socket] = this->m_handlerFactory.createLoginRequest();
@@ -83,56 +82,36 @@ void Connector::startHandleRequest()
 	}
 }
 
-void Connector::handleNewClient(SOCKET socket)
+void Connector::handleNewClient(SOCKET sock)
 {
-	// checking if the new RequestInfo is relevent 
-	// if the RequestInfo IS relevent, handle it
-	// receving data 
-	while (true) // keeping communication alive
+	char buffer[BUFFER_SIZE] = { 0 };
+
+	while (true)
 	{
-		// reciving message
-		char recivedData[MAX_SIZE] = { 0 };
-		recv(socket, recivedData, MAX_SIZE, 0);
+		recv(sock, buffer, BUFFER_SIZE, 0);
+		std::string msg(buffer);
 
-		// handeling the request
-		//if (this->m_clients[socket]->isRequestRelevant(requestInfo)) // checking if the given request is valid based on the current state of the user 
-		//{
-		//	RequestResult result = this->m_clients[socket]->handleRequest(requestInfo); // handleing requset
+		if (msg.length() != 0)
+		{
+			std::cout << msg << std::endl;
 
-		//	// switching (or, not switching) the current state of the user
-		//	if (result.newHandler != nullptr)
-		//	{
-		//		delete this->m_clients[socket];
-		//		this->m_clients[socket] = result.newHandler;
-		//	}
+			for (int i = 0; i < this->_connections.size(); i++)
+			{
+				if (this->_connections[i] != sock)  /// ??????
+				{
+					send(this->_connections[i], buffer, BUFFER_SIZE, 0);
+				}
+			}
+		}
 
-		//	// sending the response back to the client
-		//	std::stringstream responseStream;
-		//	for (int i = 0; i < result.response.size(); i++)
-		//	{
-		//		responseStream << result.response[i];
-		//	}
-		//	send(socket, responseStream.str().c_str(), responseStream.str().size(), 0);
-		//}
-		//else  // invalid request for the current state 
-		//{
-		//	// building and sending error message
-		//	ErrorResponse errorResponse;
-		//	errorResponse.message = "ERROR wrong code (" + std::to_string(requestInfo.id) + ") for current state";
-		//	std::vector<unsigned char> serializedResponse = JsonResponsePacketSerializer::serializeResponse(errorResponse);
-		//	std::stringstream responseStream;
-		//	for (int i = 0; i < serializedResponse.size(); i++)
-		//	{
-		//		responseStream << serializedResponse[i];
-		//	}
-		//	send(socket, responseStream.str().c_str(), responseStream.str().size(), 0);
-		//}
+		std::fill_n(buffer, BUFFER_SIZE, 0);  // clearing buffer
 	}
-
 }
 
-void Connector::sendId(SOCKET sock)
+int Connector::generateId(SOCKET sock)
 {
 	send(sock, (std::to_string(Connector::ID_COUNTER)).c_str(), 4, 0);
 	Connector::ID_COUNTER++;
+
+	return ID_COUNTER - 1;
 }

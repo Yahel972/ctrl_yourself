@@ -7,9 +7,11 @@
 #include <iostream>
 #include <vector>
 #include <thread>
+#include <map>
 
 #define MAX_SIZE 256
 #define PORT 6969
+#define BUFFER_SIZE 256
 
 class Connector
 {
@@ -22,11 +24,11 @@ public:
 	void startHandleRequest();
 
 private:
-	void handleNewClient(SOCKET socket);
+	void handleNewClient(SOCKET sock);
 
 	SOCKET _serverSocket;
-	std::vector<SOCKET> _connections;
+	std::map<int, SOCKET> _connections;
 
 	static int ID_COUNTER;
-	static void sendId(SOCKET sock);
+	static int generateId(SOCKET sock);
 };
