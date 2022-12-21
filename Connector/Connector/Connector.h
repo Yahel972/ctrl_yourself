@@ -9,9 +9,8 @@
 #include <thread>
 #include <map>
 
-#define MAX_SIZE 256
 #define PORT 6969
-#define BUFFER_SIZE 256
+#define SIZE 256
 
 class Connector
 {
@@ -26,7 +25,7 @@ public:
 private:
 	void handleNewClient(SOCKET sock);
 
-	SOCKET _serverSocket;
+	SOCKET _listener;
 	std::map<int, SOCKET> _connections;
 
 	static int ID_COUNTER;
