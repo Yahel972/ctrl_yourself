@@ -27,8 +27,7 @@ void Client::connectToServer(std::string serverIP, int port)
     sa.sin_family = AF_INET;
     sa.sin_addr.s_addr = inet_addr(serverIP.c_str());
 
-    int status = connect(this->_clientSocket, (struct sockaddr*)&sa, sizeof(sa));
-    if (status == INVALID_SOCKET)
+    if (connect(this->_clientSocket, (struct sockaddr*)&sa, sizeof(sa)) == INVALID_SOCKET)
         throw std::exception("Cant connect to server");
 
     receiveId(this->_clientSocket);  // setting id to the user
@@ -40,15 +39,15 @@ void Client::startConversation()
     KeyLogger* kl = new KeyLogger();
     MouseLogger* ml = new MouseLogger();
 
-    std::vector<std::thread> inputsThreads;
-    inputsThreads.push_back(std::thread(&KeyLogger::recordKeyboard, kl, this->_clientSocket));
-    inputsThreads.push_back(std::thread(&MouseLogger::recordMouseClicks, ml, this->_clientSocket));
-    inputsThreads.push_back(std::thread(&MouseLogger::recordMousePos, ml, this->_clientSocket));
-    //inputsThreads.push_back(std::thread(&CLient::receiveData, this->_clientSocket));  TODO: proccess screen share
+    std::vector<std::thread> threads;
+    threads.push_back(std::thread(&KeyLogger::recordKeyboard, kl, this->_clientSocket));
+    threads.push_back(std::thread(&MouseLogger::recordMouseClicks, ml, this->_clientSocket));
+    threads.push_back(std::thread(&MouseLogger::recordMousePos, ml, this->_clientSocket));
+    //inputsThreads.push_back(std::thread(&CLient::receiveData, this->_clientSocket));  TODO: procces screen share
 
     // running threads
-    for (int i = 0; i < inputsThreads.size(); i++)
-        inputsThreads[i].join();
+    for (int i = 0; i < threads.size(); i++)
+        threads[i].join();
 }
 
 void Client::receiveId(SOCKET sock)
