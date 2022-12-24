@@ -1,8 +1,8 @@
 #include "KeyboardMessage.h"
 
-KeyboardMessage::KeyboardMessage(): Message("") {}
+KeyboardMessage::KeyboardMessage() : Message("") {}
 
-KeyboardMessage::KeyboardMessage(std::string content): Message(content)
+KeyboardMessage::KeyboardMessage(std::string content) : Message(content)
 {
 	if (content.length() == 1)  // non special character (such as an 'A' keyboard click)
 	{

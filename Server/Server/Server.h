@@ -1,4 +1,5 @@
 #pragma once
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <WinSock2.h>
 #include <Windows.h>
 #include "Message.h"
@@ -18,14 +19,16 @@ class Server
 public:
 	Server();
 	~Server();
-	void serve(int port);
+
+	void connectToServer(std::string serverIP, int port);
+	void startConversation();
 
 	Message* setMessageType(std::string msg);
 
 private:
-
-	void acceptClient();
-	void clientHandler(SOCKET clientSocket);
+	void receiveData(SOCKET sock);
+	void receiveId(SOCKET sock);
 
 	SOCKET _serverSocket;
+	int _id;
 };

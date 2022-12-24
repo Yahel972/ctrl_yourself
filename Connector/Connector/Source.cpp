@@ -1,20 +1,20 @@
 #pragma comment (lib, "ws2_32.lib")
 
+#include <WinSock2.h>
+#include <Windows.h>
 #include "WSAInitializer.h"
-#include "Server.h"
-#include <iostream>
+#include "Connector.h"
 #include <exception>
-
-#define PORT 6969
+#include <iostream>
 
 int main()
 {
 	try
 	{
 		WSAInitializer wsaInit;
-		Server myServer;
+		Connector c;
 
-		myServer.serve(PORT);
+		c.run();
 	}
 	catch (std::exception& e)
 	{

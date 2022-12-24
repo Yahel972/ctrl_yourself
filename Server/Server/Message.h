@@ -11,7 +11,7 @@ public:
 	~Message();
 
 	virtual void updateServer() = 0;
-	
+
 private:
 	std::string _content;
 };
