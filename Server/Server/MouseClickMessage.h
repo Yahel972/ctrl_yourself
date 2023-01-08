@@ -23,9 +23,9 @@ private:
 	/*
 	1 - left click
 	2 - right click
-	3 - scroll wheel click
-	4 - scroll wheel up
-	5 - scroll wheel down
+	3 - scroll click
+	4 - scroll up
+	5 - scroll down
 	0 - invalid (-> destroy message)
 	*/
 };

@@ -9,11 +9,11 @@ MouseClickMessage::MouseClickMessage(std::string content) : Message(content)
 		this->_code = LEFT_CLICK;
 	else if (content == "<right-click>")
 		this->_code = RIGHT_CLICK;
-	else if (content == "<scroll-wheel-click>")
+	else if (content == "<scroll-click>")
 		this->_code = SCROLL_WHEEL_CLICK;
-	else if (content == "<scroll-wheel-up>")
+	else if (content == "<scroll-up>")
 		this->_code = SCROLL_WHEEL_UP;
-	else if (content == "<scroll-wheel-down>")
+	else if (content == "<scroll-down>")
 		this->_code = SCROLL_WHEEL_DOWN;
 	else
 		this->_code = INVALID_CODE;
@@ -25,7 +25,7 @@ MouseClickMessage::~MouseClickMessage() {}
 
 void MouseClickMessage::updateServer()
 {
-	INPUT Input = { 0 };
+	INPUT input = { 0 };
 	POINT p;
 	GetCursorPos(&p);
 
@@ -33,32 +33,41 @@ void MouseClickMessage::updateServer()
 	{
 	case LEFT_CLICK:
 		// left down 
-		Input.type = INPUT_MOUSE;
-		Input.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
-		::SendInput(1, &Input, sizeof(INPUT));
+		input.type = INPUT_MOUSE;
+		input.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
+		::SendInput(1, &input, sizeof(INPUT));
 
 		// left up
-		::ZeroMemory(&Input, sizeof(INPUT));
-		Input.type = INPUT_MOUSE;
-		Input.mi.dwFlags = MOUSEEVENTF_LEFTUP;
-		::SendInput(1, &Input, sizeof(INPUT));
+		::ZeroMemory(&input, sizeof(INPUT));
+		input.type = INPUT_MOUSE;
+		input.mi.dwFlags = MOUSEEVENTF_LEFTUP;
+		::SendInput(1, &input, sizeof(INPUT));
 		break;
 
 	case RIGHT_CLICK:
 		// Right down 
-		Input.type = INPUT_MOUSE;
-		Input.mi.dwFlags = MOUSEEVENTF_RIGHTDOWN;
-		::SendInput(1, &Input, sizeof(INPUT));
+		input.type = INPUT_MOUSE;
+		input.mi.dwFlags = MOUSEEVENTF_RIGHTDOWN;
+		::SendInput(1, &input, sizeof(INPUT));
 
 		// Right up
-		::ZeroMemory(&Input, sizeof(INPUT));
-		Input.type = INPUT_MOUSE;
-		Input.mi.dwFlags = MOUSEEVENTF_RIGHTUP;
-		::SendInput(1, &Input, sizeof(INPUT));
+		::ZeroMemory(&input, sizeof(INPUT));
+		input.type = INPUT_MOUSE;
+		input.mi.dwFlags = MOUSEEVENTF_RIGHTUP;
+		::SendInput(1, &input, sizeof(INPUT));
 		break;
 
 	case SCROLL_WHEEL_CLICK:
-		// TODO: fill this
+		// Right down 
+		input.type = INPUT_MOUSE;
+		input.mi.dwFlags = MOUSEEVENTF_MIDDLEDOWN;
+		::SendInput(1, &input, sizeof(INPUT));
+
+		// Right up
+		::ZeroMemory(&input, sizeof(INPUT));
+		input.type = INPUT_MOUSE;
+		input.mi.dwFlags = MOUSEEVENTF_MIDDLEUP;
+		::SendInput(1, &input, sizeof(INPUT));
 		break;
 
 	case SCROLL_WHEEL_UP:

