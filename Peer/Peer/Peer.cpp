@@ -62,27 +62,52 @@ void Peer::startConversation()
 
 void Peer::receiveData(SOCKET sock)
 {
-    // TODO: seperate server & client with the boolean parameter (this->type)
-
-
-    char buffer[BUFFER_SIZE] = { 0 };
-
-    while (true)
+    if (this->_type)
     {
-        recv(sock, buffer, BUFFER_SIZE, 0);
-        std::string msg(buffer);
-
-        if (msg.length() != 0)
-            std::cout << msg << std::endl;
-
-        // creating message and performing the appropriate response:
-        Message* message = setMessageType(msg);
-        if (message != NULL)
-            message->updateServer();
-
-        std::fill_n(buffer, BUFFER_SIZE, 0);  // clearing buffer
-        Sleep(30);
+        // TODO: fill the data recive for a controller pc
     }
+    else
+    {
+        char buffer[BUFFER_SIZE] = { 0 };
+
+        while (true)
+        {
+            recv(sock, buffer, BUFFER_SIZE, 0);
+            std::string msg(buffer);
+
+            if (msg.length() != 0)
+                std::cout << msg << std::endl;
+
+            // creating message and performing the appropriate response:
+            Message* message = setMessageType(msg);
+            if (message != NULL)
+                message->updateServer();
+
+            std::fill_n(buffer, BUFFER_SIZE, 0);  // clearing buffer
+            Sleep(30);
+        }
+    }
+}
+
+
+// function returns the matchin message type according to the content
+// TODO - improve that!
+Message* Peer::setMessageType(std::string msg)
+{
+    if (std::regex_match(msg, std::regex("<[0-9]+x[0-9]+>")))
+    {
+        return new MousePosMessage(msg);  // the constructor will extract the coordinations by itself
+    }
+    else if (msg == "<left-click>" || msg == "<right-click>" || msg == "<scroll-click>" || msg == "<scroll-up>" || msg == "<scroll-down>")
+    {
+        return new MouseClickMessage(msg);
+    }
+    else if (msg.length() > 0)  // Keyboard msg - not any other type exists
+    {
+        return new KeyboardMessage(msg);
+    }
+
+    return NULL;
 }
 
 
