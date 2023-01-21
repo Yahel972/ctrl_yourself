@@ -8,15 +8,15 @@
 #define SCROLL_WHEEL_DOWN 5
 #define INVALID_CODE 0
 
-class MouseClickMessage : public Message
+class MouseMessage : public Message
 {
 public:
-	MouseClickMessage();
-	MouseClickMessage(std::string content);
-	MouseClickMessage(std::string content, int code);
-	~MouseClickMessage();
+	MouseMessage();
+	MouseMessage(std::string content);
+	MouseMessage(std::string content, int code);
+	~MouseMessage();
 
-	void updateServer() override;
+	void updateScreen() override;
 
 private:
 	int _code;

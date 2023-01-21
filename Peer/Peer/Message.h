@@ -10,7 +10,7 @@ public:
 	Message(std::string content);
 	~Message();
 
-	virtual void updateServer() = 0;
+	virtual void updateScreen() = 0;
 
 private:
 	std::string _content;

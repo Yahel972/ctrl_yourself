@@ -9,13 +9,10 @@ public:
 	MousePosMessage(std::string content, int x, int y);
 	~MousePosMessage();
 
-	void updateServer() override;
+	void updateScreen() override;
 
-	static float MOUSE_MOVE_FACTOR;
 private:
 	int _x;
 	int _y;
 	// cursor's coordinates
-
-	static float getMouseMoveFactor();
 };

@@ -1,25 +1,26 @@
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include "Peer.h"
 
-
+// constructor - creating socket
 Peer::Peer()
 {
-    _socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    this->_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
-    if (_socket == INVALID_SOCKET)
+    if (this->_socket == INVALID_SOCKET)
         throw std::exception(__FUNCTION__ " - socket");
 }
 
+// destructor - closing socket
 Peer::~Peer()
 {
     try
     {
-        closesocket(_socket);
+        closesocket(this->_socket);
     }
     catch (...) {}
 }
 
-
+// function connects to the connector
 void Peer::connectToServer(std::string serverIP, int port)
 {
     struct sockaddr_in sa = { 0 };
@@ -27,32 +28,38 @@ void Peer::connectToServer(std::string serverIP, int port)
     sa.sin_family = AF_INET;
     sa.sin_addr.s_addr = inet_addr(serverIP.c_str());
 
+    // trying to connect to the connector:
     if (connect(this->_socket, (struct sockaddr*)&sa, sizeof(sa)) == INVALID_SOCKET)
         throw std::exception("Cant connect to the Connector");
 
-    std::cout << "Connected with id=" << receiveId(this->_socket) << std::endl;  // setting id to the user
+    std::cout << "Connected with id=" << receiveId(this->_socket) << std::endl;  // setting an id to the user
 }
 
-// function runs all of the loggers as threads
+// function runs all of the loggers & receivers as threads
 void Peer::startConversation()
 {
     std::vector<std::thread> threads;
-    threads.push_back(std::thread(&Peer::receiveData, this, this->_socket));  // no need to put this line in a statement, because both peers need to recive data and procces it (in different ways)
 
-    if (this->_type)  // controller PC
+    if (this->_type)  // controlling PC
     {
         KeyLogger* kl = new KeyLogger();
         MouseLogger* ml = new MouseLogger();
+        ScreenCapture* sc = new ScreenCapture();
 
+        // loggers:
         threads.push_back(std::thread(&KeyLogger::recordKeyboard, kl, this->_socket));
         threads.push_back(std::thread(&MouseLogger::recordMouseClicks, ml, this->_socket));
         threads.push_back(std::thread(&MouseLogger::recordScrollBar, ml, this->_socket));
         threads.push_back(std::thread(&MouseLogger::recordMousePos, ml, this->_socket));
-        //inputsThreads.push_back(std::thread(&Peer::receiveData, this->_clientSocket));  TODO: procces SCREEN SHARE
+
+        //threads.push_back(std::thread(&ScreenCapture::receiveCaptures, sc, this->_socket));  // reciever
     }
     else  // controlled PC
     {
-        //threads.push_back(std::thread(&ScreenCapture::recordScreen, sc, this->_socket));  TODO: put SCREEN SHARE in this function
+        ScreenCapture* sc = new ScreenCapture();
+        threads.push_back(std::thread(&ScreenCapture::recordScreen, sc, this->_socket));  // logger
+
+        threads.push_back(std::thread(&Peer::receiveRecords, this, this->_socket));  // receiver
     }
 
     // running all threads
@@ -60,38 +67,31 @@ void Peer::startConversation()
         threads[i].join();
 }
 
-void Peer::receiveData(SOCKET sock)
+// function receives keyboard & mouse loggers - and updates the screen according to them inputs
+void Peer::receiveRecords(SOCKET sock)
 {
-    if (this->_type)
+    char buffer[BUFFER_SIZE] = { 0 };
+
+    while (true)
     {
-        // TODO: fill the data recive for a controller pc
-    }
-    else
-    {
-        char buffer[BUFFER_SIZE] = { 0 };
+        recv(sock, buffer, BUFFER_SIZE, 0);
+        std::string msg(buffer);
 
-        while (true)
-        {
-            recv(sock, buffer, BUFFER_SIZE, 0);
-            std::string msg(buffer);
+        if (msg.length() != 0)
+            std::cout << msg << std::endl;
 
-            if (msg.length() != 0)
-                std::cout << msg << std::endl;
+        // creating message and performing the appropriate response:
+        Message* message = setMessageType(msg);
+        if (message != NULL)
+            message->updateScreen();
 
-            // creating message and performing the appropriate response:
-            Message* message = setMessageType(msg);
-            if (message != NULL)
-                message->updateServer();
-
-            std::fill_n(buffer, BUFFER_SIZE, 0);  // clearing buffer
-            Sleep(30);
-        }
+        std::fill_n(buffer, BUFFER_SIZE, 0);  // clearing buffer
+        Sleep(30);
     }
 }
 
-
-// function returns the matchin message type according to the content
-// TODO - improve that!
+// function returns the matching message type according to the content
+// TODO - improve that! - after adding PROTOCOL
 Message* Peer::setMessageType(std::string msg)
 {
     if (std::regex_match(msg, std::regex("<[0-9]+x[0-9]+>")))
@@ -100,7 +100,7 @@ Message* Peer::setMessageType(std::string msg)
     }
     else if (msg == "<left-click>" || msg == "<right-click>" || msg == "<scroll-click>" || msg == "<scroll-up>" || msg == "<scroll-down>")
     {
-        return new MouseClickMessage(msg);
+        return new MouseMessage(msg);
     }
     else if (msg.length() > 0)  // Keyboard msg - not any other type exists
     {
@@ -115,7 +115,7 @@ Message* Peer::setMessageType(std::string msg)
 void Peer::setType()
 {
     int choice = 0;
-    std::cout << "Enter 0 to be a controlled pc, or any other key to be a controller pc (TEMPORARY-WILL BE CHANGED AFTER ADDING GUI):\n";
+    std::cout << "Enter 0 to be a controlled pc, or any other key to be a controlling pc (TEMPORARY-WILL BE CHANGED AFTER ADDING GUI):\n";
     
     std::cin >> choice;
     this->_type = choice;  // will be true for a non-zero value, false for 0

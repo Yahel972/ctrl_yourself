@@ -1,8 +1,8 @@
-#include "MouseClickMessage.h"
+#include "MouseMessage.h"
 
-MouseClickMessage::MouseClickMessage() : Message(""), _code(INVALID_CODE) {}
+MouseMessage::MouseMessage() : Message(""), _code(INVALID_CODE) {}
 
-MouseClickMessage::MouseClickMessage(std::string content) : Message(content)
+MouseMessage::MouseMessage(std::string content) : Message(content)
 {
 	// setting message's code:
 	if (content == "<left-click>")
@@ -19,11 +19,11 @@ MouseClickMessage::MouseClickMessage(std::string content) : Message(content)
 		this->_code = INVALID_CODE;
 }
 
-MouseClickMessage::MouseClickMessage(std::string content, int code) : Message(content), _code(code) {}
+MouseMessage::MouseMessage(std::string content, int code) : Message(content), _code(code) {}
 
-MouseClickMessage::~MouseClickMessage() {}
+MouseMessage::~MouseMessage() {}
 
-void MouseClickMessage::updateServer()
+void MouseMessage::updateScreen()
 {
 	INPUT input = { 0 };
 

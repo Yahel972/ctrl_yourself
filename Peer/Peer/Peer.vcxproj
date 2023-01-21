@@ -147,8 +147,8 @@
     <ClCompile Include="KeyboardMessage.cpp" />
     <ClCompile Include="KeyLogger.cpp" />
     <ClCompile Include="Message.cpp" />
-    <ClCompile Include="MouseClickMessage.cpp" />
     <ClCompile Include="MouseLogger.cpp" />
+    <ClCompile Include="MouseMessage.cpp" />
     <ClCompile Include="MousePosMessage.cpp" />
     <ClCompile Include="Peer.cpp" />
     <ClCompile Include="ScreenCapture.cpp" />
@@ -159,8 +159,8 @@
     <ClInclude Include="KeyboardMessage.h" />
     <ClInclude Include="KeyLogger.h" />
     <ClInclude Include="Message.h" />
-    <ClInclude Include="MouseClickMessage.h" />
     <ClInclude Include="MouseLogger.h" />
+    <ClInclude Include="MouseMessage.h" />
     <ClInclude Include="MousePosMessage.h" />
     <ClInclude Include="Peer.h" />
     <ClInclude Include="ScreenCapture.h" />

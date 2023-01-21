@@ -36,13 +36,13 @@
     <ClCompile Include="KeyboardMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MouseClickMessage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MousePosMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ScreenCapture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,13 +65,13 @@
     <ClInclude Include="KeyboardMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MouseClickMessage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MousePosMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ScreenCapture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
