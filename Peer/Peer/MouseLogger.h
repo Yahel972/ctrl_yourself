@@ -4,7 +4,7 @@
 #include <Windows.h>
 #include <iostream>
 #include <thread>
-#include "Client.h"
+#include "Peer.h"
 #include <WinUser.h>
 
 class MouseLogger

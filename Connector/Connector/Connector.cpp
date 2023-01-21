@@ -68,9 +68,9 @@ void Connector::startHandleRequest()
 		if (conversationSocket == INVALID_SOCKET)
 			throw std::exception(__FUNCTION__);
 
-		this->_connections[generateId(conversationSocket)] = conversationSocket;  // inserting to map - <id,socket>
-
-		std::cout << "Client accepted. Server and client can speak" << std::endl;
+		int id = generateId(conversationSocket);
+		this->_connections[id] = conversationSocket;  // inserting to map - <id,socket>
+		std::cout << "Client accepted (id = " << id << "). Server and client can speak" << std::endl;
 		
 		// thread for each client:
 		std::thread clientThread(&Connector::handleNewClient, this, conversationSocket);
