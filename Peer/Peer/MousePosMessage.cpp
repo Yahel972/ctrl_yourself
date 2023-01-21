@@ -16,5 +16,5 @@ MousePosMessage::~MousePosMessage() {}
 void MousePosMessage::updateScreen()
 {
 	SetCursorPos(this->_x, this->_y);
-	Sleep(30);
+	Sleep(10);
 }

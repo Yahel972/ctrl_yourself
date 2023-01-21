@@ -14,9 +14,10 @@ class ScreenCapture
 public:
 	ScreenCapture();
 	void recordScreen(SOCKET sock);
+
 private:
 	BITMAPINFOHEADER createBitmapHeader(int width, int height);
 	cv::Mat captureScreenMat(HWND hwnd);
 	std::string getSize(int size);
-	int count_digit(int number);
+	static int count_digit(int number);
 };

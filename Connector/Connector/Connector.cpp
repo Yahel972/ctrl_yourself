@@ -32,6 +32,7 @@ void Connector::run()
 
 }
 
+// function initializes a socket
 void Connector::bindAndListen()
 {
 	std::cout << "Starting..." << std::endl;
@@ -57,29 +58,34 @@ void Connector::bindAndListen()
 	startHandleRequest();
 }
 
+// function waits for a user to connect
+// then gives him an id and calls a handler for him
 void Connector::startHandleRequest()
 {
 	while (true)
 	{
-		// the main thread is only accepting clients 
-		// and add then to the list of handlers
+		// waiting for connection
 		std::cout << "Waiting for connection request" << std::endl;
 		SOCKET conversationSocket = accept(this->_listener, NULL, NULL);
 		if (conversationSocket == INVALID_SOCKET)
 			throw std::exception(__FUNCTION__);
 
+		// user connected - generating id:
 		int id = generateId(conversationSocket);
 		this->_connections[id] = conversationSocket;  // inserting to map - <id,socket>
 		std::cout << "Client accepted (id=" << id << "). Server and client can speak" << std::endl;
 		
-		// thread for each client:
+		// creating a handler thread for the user:
 		std::thread clientThread(&Connector::handleNewClient, this, conversationSocket);
 		clientThread.detach();
 	}
 }
 
+// function handles a new client
 void Connector::handleNewClient(SOCKET sock)
 {
+	// after adding GUI, this function will transfer messages only between the 2 peers having a takeover call
+
 	char buffer[SIZE] = { 0 };
 
 	while (true)
@@ -91,7 +97,7 @@ void Connector::handleNewClient(SOCKET sock)
 		{
 			std::cout << msg << std::endl;
 
-			// CURRENTLY - sending to all different users. will be changed after adding GUI
+			// CURRENTLY - sending to all of the users. will be changed after adding GUI
 			for (int i = 0; i < this->_connections.size(); i++)
 			{
 				if (this->_connections[i] != sock)  // to make sure not sending to ourselves
@@ -103,6 +109,7 @@ void Connector::handleNewClient(SOCKET sock)
 	}
 }
 
+// function generates an id for a new user
 int Connector::generateId(SOCKET sock)
 {
 	send(sock, (std::to_string(Connector::ID_COUNTER)).c_str(), 4, 0);

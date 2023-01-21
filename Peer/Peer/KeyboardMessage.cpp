@@ -7,7 +7,7 @@ KeyboardMessage::KeyboardMessage(std::string content) : Message(content)
 	if (content.length() == 1)  // non special character (such as an 'A' keyboard click)
 	{
 		this->_key = content;
-		this->_isSpecial = false;  // non-special character
+		this->_isSpecial = false;
 	}
 	else  // special character (such as <f3> key)
 	{
@@ -17,7 +17,7 @@ KeyboardMessage::KeyboardMessage(std::string content) : Message(content)
 		tempStr.erase(std::remove(tempStr.begin(), tempStr.end(), '>'), tempStr.end());
 
 		this->_key = tempStr;
-		this->_isSpecial = true;  // special character
+		this->_isSpecial = true;
 	}
 }
 
@@ -27,7 +27,7 @@ void KeyboardMessage::updateScreen()
 {
 	if (this->_key == "")  // checking for invalid message
 	{
-		delete this;
+		delete this;  // is needed?
 		return;
 	}
 

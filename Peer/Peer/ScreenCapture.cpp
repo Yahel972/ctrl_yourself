@@ -2,6 +2,8 @@
 
 ScreenCapture::ScreenCapture() {}
 
+// function will be used as a thread
+// sending screenshots to the controlled PC
 void ScreenCapture::recordScreen(SOCKET sock)
 {
     // capture image
@@ -10,26 +12,27 @@ void ScreenCapture::recordScreen(SOCKET sock)
     {
         cv::Mat src = captureScreenMat(hwnd);
 
-        // save img
+        // saving img
         std::vector<uchar> buffer;
         cv::imencode(".png", src, buffer);
         cv::imwrite("Screenshot.png", src);
         std::string buftostr(buffer.begin(), buffer.end());
         std::string test = this->getSize(buffer.size()) + buftostr;
-        send(sock, test.c_str(), test.size(), 0);
-        Sleep(100);
-    }
 
+        send(sock, test.c_str(), test.size(), 0);
+        Sleep(100);  // to dean - why 100?
+    }
 }
 
+// function creates a bitmap header
 BITMAPINFOHEADER ScreenCapture::createBitmapHeader(int width, int height)
 {
     BITMAPINFOHEADER bi;
 
-    // create a bitmap
+    // creating a bitmap
     bi.biSize = sizeof(BITMAPINFOHEADER);
     bi.biWidth = width;
-    bi.biHeight = -height;  //this is the line that makes it draw upside down or not
+    bi.biHeight = -height;
     bi.biPlanes = 1;
     bi.biBitCount = 32;
     bi.biCompression = BI_RGB;
@@ -42,6 +45,7 @@ BITMAPINFOHEADER ScreenCapture::createBitmapHeader(int width, int height)
     return bi;
 }
 
+// function __________ @Dean
 cv::Mat ScreenCapture::captureScreenMat(HWND hwnd)
 {
     cv::Mat src;
@@ -81,7 +85,7 @@ cv::Mat ScreenCapture::captureScreenMat(HWND hwnd)
 
 std::string ScreenCapture::getSize(int size)
 {
-    int digits = count_digit(size);
+    int digits = ScreenCapture::count_digit(size);
     switch (digits)
     {
     case 6:
@@ -103,6 +107,7 @@ std::string ScreenCapture::getSize(int size)
     return "000000";
 }
 
+// helper function - finds the amount of digits in a given number
 int ScreenCapture::count_digit(int number) {
     int count = 0;
     while (number != 0) {

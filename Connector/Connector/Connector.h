@@ -26,8 +26,9 @@ private:
 	void handleNewClient(SOCKET sock);
 
 	SOCKET _listener;
-	std::map<int, SOCKET> _connections;
+	std::map<int, SOCKET> _connections;  // saves all of the connections (sockets) with all peers
 
+	// in order to distribute ids:
 	static int ID_COUNTER;
 	static int generateId(SOCKET sock);
 };

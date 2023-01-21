@@ -12,7 +12,7 @@ public:
 	void updateScreen() override;
 
 private:
+	// cursor's coordinates:
 	int _x;
 	int _y;
-	// cursor's coordinates
 };

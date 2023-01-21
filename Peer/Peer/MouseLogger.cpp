@@ -8,7 +8,7 @@ MouseLogger::MouseLogger() {}
 MouseLogger::~MouseLogger() {}
 
 // helper function - returns if a specific key has been pressed
-int keyPressed(int key) {
+int MouseLogger::keyPressed(int key) {
 	return (GetAsyncKeyState(key) & 0x8000 != 0);
 }
 
@@ -19,15 +19,15 @@ void MouseLogger::recordMouseClicks(SOCKET sock)
 	{
 		std::string msg = "";
 
-		if (keyPressed(VK_LBUTTON))
+		if (MouseLogger::keyPressed(VK_LBUTTON))
 		{
 			msg = "<left-click>";
 		}
-		else if (keyPressed(VK_RBUTTON))
+		else if (MouseLogger::keyPressed(VK_RBUTTON))
 		{
 			msg = "<right-click>";
 		}
-		else if (keyPressed(VK_MBUTTON))
+		else if (MouseLogger::keyPressed(VK_MBUTTON))
 		{
 			msg = "<scroll-click>";
 		}
@@ -37,7 +37,7 @@ void MouseLogger::recordMouseClicks(SOCKET sock)
 	}
 }
 
-
+// callback function to get scroll wheel actions - up/down
 LRESULT CALLBACK MouseLogger::startListen(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	std::string scroll_event = "";
@@ -64,6 +64,8 @@ LRESULT CALLBACK MouseLogger::startListen(int nCode, WPARAM wParam, LPARAM lPara
 	return CallNextHookEx(_globalMouseHook, nCode, wParam, lParam);
 }
 
+// function will be used as a thread
+// calls the callback function
 void MouseLogger::recordScrollBar(SOCKET sock)
 {
 	_mouseSock = sock;
@@ -78,8 +80,8 @@ void MouseLogger::recordScrollBar(SOCKET sock)
 }
 
 
-// function returns if 2 POINTS are equal
-bool compareCoordinates(POINT a, POINT b) { return (a.x == b.x && a.y == b.y); }
+// helper function - returns if 2 POINTS are equal
+bool MouseLogger::comparePoints(POINT a, POINT b) { return (a.x == b.x && a.y == b.y); }
 
 void MouseLogger::recordMousePos(SOCKET sock)
 {
@@ -91,8 +93,9 @@ void MouseLogger::recordMousePos(SOCKET sock)
 	{
 		std::string msg = "";
 
+		// if noticing a cursor placement change:
 		GetCursorPos(&tempPos);
-		if (!compareCoordinates(currPos, tempPos))
+		if (!MouseLogger::comparePoints(currPos, tempPos))
 		{
 			currPos = tempPos;
 
@@ -100,7 +103,7 @@ void MouseLogger::recordMousePos(SOCKET sock)
 
 			std::cout << msg;
 			send(sock, msg.c_str(), msg.length(), 0);
-			Sleep(30);
+			Sleep(10);
 		}
 	}
 }

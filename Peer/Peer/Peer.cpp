@@ -1,7 +1,6 @@
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include "Peer.h"
 
-// constructor - creating socket
 Peer::Peer()
 {
     this->_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -10,7 +9,6 @@ Peer::Peer()
         throw std::exception(__FUNCTION__ " - socket");
 }
 
-// destructor - closing socket
 Peer::~Peer()
 {
     try
@@ -20,7 +18,6 @@ Peer::~Peer()
     catch (...) {}
 }
 
-// function connects to the connector
 void Peer::connectToServer(std::string serverIP, int port)
 {
     struct sockaddr_in sa = { 0 };
@@ -86,7 +83,7 @@ void Peer::receiveRecords(SOCKET sock)
             message->updateScreen();
 
         std::fill_n(buffer, BUFFER_SIZE, 0);  // clearing buffer
-        Sleep(30);
+        Sleep(10);
     }
 }
 
@@ -111,7 +108,7 @@ Message* Peer::setMessageType(std::string msg)
 }
 
 
-// temporary function - after adding GUI we will update that to not requesting an input (will be set according to the GUI's buttons
+// temporary function - after adding GUI we will update that to not requesting an input (will be set according to the GUI's buttons and the state of the call)
 void Peer::setType()
 {
     int choice = 0;
@@ -121,7 +118,7 @@ void Peer::setType()
     this->_type = choice;  // will be true for a non-zero value, false for 0
 }
 
-
+// function receives an id from the connector
 int Peer::receiveId(SOCKET sock)
 {
     char buffer[4] = { 0 };
