@@ -26,8 +26,6 @@ MouseClickMessage::~MouseClickMessage() {}
 void MouseClickMessage::updateServer()
 {
 	INPUT input = { 0 };
-	POINT p;
-	GetCursorPos(&p);
 
 	switch (this->_code)
 	{
@@ -35,53 +33,53 @@ void MouseClickMessage::updateServer()
 		// left down 
 		input.type = INPUT_MOUSE;
 		input.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
-		::SendInput(1, &input, sizeof(INPUT));
+		SendInput(1, &input, sizeof(INPUT));
 
 		// left up
-		::ZeroMemory(&input, sizeof(INPUT));
+		ZeroMemory(&input, sizeof(INPUT));
 		input.type = INPUT_MOUSE;
 		input.mi.dwFlags = MOUSEEVENTF_LEFTUP;
-		::SendInput(1, &input, sizeof(INPUT));
+		SendInput(1, &input, sizeof(INPUT));
 		break;
 
 	case RIGHT_CLICK:
 		// Right down 
 		input.type = INPUT_MOUSE;
 		input.mi.dwFlags = MOUSEEVENTF_RIGHTDOWN;
-		::SendInput(1, &input, sizeof(INPUT));
+		SendInput(1, &input, sizeof(INPUT));
 
 		// Right up
-		::ZeroMemory(&input, sizeof(INPUT));
+		ZeroMemory(&input, sizeof(INPUT));
 		input.type = INPUT_MOUSE;
 		input.mi.dwFlags = MOUSEEVENTF_RIGHTUP;
-		::SendInput(1, &input, sizeof(INPUT));
+		SendInput(1, &input, sizeof(INPUT));
 		break;
 
 	case SCROLL_WHEEL_CLICK:
-		// Right down 
+		// Middle down 
 		input.type = INPUT_MOUSE;
 		input.mi.dwFlags = MOUSEEVENTF_MIDDLEDOWN;
-		::SendInput(1, &input, sizeof(INPUT));
+		SendInput(1, &input, sizeof(INPUT));
 
-		// Right up
-		::ZeroMemory(&input, sizeof(INPUT));
+		// Middle up
+		ZeroMemory(&input, sizeof(INPUT));
 		input.type = INPUT_MOUSE;
 		input.mi.dwFlags = MOUSEEVENTF_MIDDLEUP;
-		::SendInput(1, &input, sizeof(INPUT));
+		SendInput(1, &input, sizeof(INPUT));
 		break;
 
 	case SCROLL_WHEEL_UP:
 		input.type = INPUT_MOUSE;
 		input.mi.dwFlags = MOUSEEVENTF_WHEEL;
 		input.mi.mouseData = WHEEL_DELTA;
-		::SendInput(1, &input, sizeof(INPUT));
+		SendInput(1, &input, sizeof(INPUT));
 		break;
 
 	case SCROLL_WHEEL_DOWN:
 		input.type = INPUT_MOUSE;
 		input.mi.dwFlags = MOUSEEVENTF_WHEEL;
 		input.mi.mouseData = -WHEEL_DELTA;
-		::SendInput(1, &input, sizeof(INPUT));
+		SendInput(1, &input, sizeof(INPUT));
 		break;
 
 	case INVALID_CODE:
