@@ -95,7 +95,9 @@ void Connector::handleNewClient(SOCKET sock)
 
 		if (msg.length() != 0)
 		{
-			std::cout << msg << std::endl;
+			//std::cout << msg << std::endl;
+			// TODO: check if not an image/Mat before printing
+			// can be done after adding protocol
 
 			// CURRENTLY - sending to all of the users. will be changed after adding GUI
 			for (int i = 0; i < this->_connections.size(); i++)
