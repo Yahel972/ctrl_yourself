@@ -71,11 +71,17 @@ void MouseClickMessage::updateServer()
 		break;
 
 	case SCROLL_WHEEL_UP:
-		// TODO: fill this
+		input.type = INPUT_MOUSE;
+		input.mi.dwFlags = MOUSEEVENTF_WHEEL;
+		input.mi.mouseData = WHEEL_DELTA;
+		::SendInput(1, &input, sizeof(INPUT));
 		break;
 
 	case SCROLL_WHEEL_DOWN:
-		// TODO: fill this
+		input.type = INPUT_MOUSE;
+		input.mi.dwFlags = MOUSEEVENTF_WHEEL;
+		input.mi.mouseData = -WHEEL_DELTA;
+		::SendInput(1, &input, sizeof(INPUT));
 		break;
 
 	case INVALID_CODE:
