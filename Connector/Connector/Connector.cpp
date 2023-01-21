@@ -1,6 +1,6 @@
 #include "Connector.h"
 
-int Connector::ID_COUNTER = 0;
+int Connector::ID_COUNTER = 1;
 
 Connector::Connector()
 {
