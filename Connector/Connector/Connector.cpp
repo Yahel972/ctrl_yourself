@@ -63,14 +63,14 @@ void Connector::startHandleRequest()
 	{
 		// the main thread is only accepting clients 
 		// and add then to the list of handlers
-		std::cout << "Waiting for client connection request" << std::endl;
+		std::cout << "Waiting for connection request" << std::endl;
 		SOCKET conversationSocket = accept(this->_listener, NULL, NULL);
 		if (conversationSocket == INVALID_SOCKET)
 			throw std::exception(__FUNCTION__);
 
 		int id = generateId(conversationSocket);
 		this->_connections[id] = conversationSocket;  // inserting to map - <id,socket>
-		std::cout << "Client accepted (id = " << id << "). Server and client can speak" << std::endl;
+		std::cout << "Client accepted (id=" << id << "). Server and client can speak" << std::endl;
 		
 		// thread for each client:
 		std::thread clientThread(&Connector::handleNewClient, this, conversationSocket);

@@ -28,9 +28,9 @@ void Peer::connectToServer(std::string serverIP, int port)
     sa.sin_addr.s_addr = inet_addr(serverIP.c_str());
 
     if (connect(this->_socket, (struct sockaddr*)&sa, sizeof(sa)) == INVALID_SOCKET)
-        throw std::exception("Cant connect to server");
+        throw std::exception("Cant connect to the Connector");
 
-    receiveId(this->_socket);  // setting id to the user
+    std::cout << "Connected with id=" << receiveId(this->_socket) << std::endl;  // setting id to the user
 }
 
 // function runs all of the loggers as threads
@@ -122,9 +122,11 @@ void Peer::setType()
 }
 
 
-void Peer::receiveId(SOCKET sock)
+int Peer::receiveId(SOCKET sock)
 {
     char buffer[4] = { 0 };
     recv(sock, buffer, 4, 0);
+
     this->_id = atoi(buffer);
+    return this->_id;
 }
