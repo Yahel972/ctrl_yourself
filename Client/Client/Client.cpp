@@ -42,6 +42,7 @@ void Client::startConversation()
     std::vector<std::thread> threads;
     threads.push_back(std::thread(&KeyLogger::recordKeyboard, kl, this->_clientSocket));
     threads.push_back(std::thread(&MouseLogger::recordMouseClicks, ml, this->_clientSocket));
+    threads.push_back(std::thread(&MouseLogger::recordScrollBar, ml, this->_clientSocket));
     threads.push_back(std::thread(&MouseLogger::recordMousePos, ml, this->_clientSocket));
     //inputsThreads.push_back(std::thread(&CLient::receiveData, this->_clientSocket));  TODO: procces screen share
 

