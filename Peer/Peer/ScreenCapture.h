@@ -14,7 +14,7 @@ class ScreenCapture
 public:
 	ScreenCapture();
 	void recordScreen(SOCKET sock);
-
+	void receiveCaptures(SOCKET sock);
 private:
 	BITMAPINFOHEADER createBitmapHeader(int width, int height);
 	cv::Mat captureScreenMat(HWND hwnd);

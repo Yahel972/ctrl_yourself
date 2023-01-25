@@ -49,7 +49,7 @@ void Peer::startConversation()
         threads.push_back(std::thread(&MouseLogger::recordScrollBar, ml, this->_socket));
         threads.push_back(std::thread(&MouseLogger::recordMousePos, ml, this->_socket));
 
-        //threads.push_back(std::thread(&ScreenCapture::receiveCaptures, sc, this->_socket));  // reciever
+        threads.push_back(std::thread(&ScreenCapture::receiveCaptures, sc, this->_socket));  // reciever
     }
     else  // controlled PC
     {

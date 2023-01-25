@@ -24,6 +24,36 @@ void ScreenCapture::recordScreen(SOCKET sock)
     }
 }
 
+void ScreenCapture::receiveCaptures(SOCKET sock)
+{
+    char buffer[965535] = { 0 };
+    while (true)
+    {
+        recv(sock, buffer, 965535, 0);
+        std::string sizeAsString = std::to_string(buffer[0] - '0') + std::to_string(buffer[1] - '0') + std::to_string(buffer[2] - '0') + std::to_string(buffer[3] - '0') + std::to_string(buffer[4] - '0') + std::to_string(buffer[5] - '0');
+        //std::cout << sizeAsString << std::endl;
+        int size = std::stoi(sizeAsString);
+        std::string msg(buffer);
+        std::vector<uchar> image_data;
+        for (int i = 6; i < size + 6; i++)
+        {
+            image_data.push_back(buffer[i]);
+        }
+
+        cv::Mat image = cv::imdecode(image_data, cv::IMREAD_COLOR);
+
+        // Check if the decoding was successful
+        if (image.empty())
+        {
+            std::cerr << "Failed to decode image" << std::endl;
+        }
+
+        cv::waitKey(1);
+
+        cv::imshow("Received Image", image);
+    }
+}
+
 // function creates a bitmap header
 BITMAPINFOHEADER ScreenCapture::createBitmapHeader(int width, int height)
 {
