@@ -44,10 +44,10 @@ void Peer::startConversation()
         ScreenCapture* sc = new ScreenCapture();
 
         // loggers:
-        threads.push_back(std::thread(&KeyLogger::recordKeyboard, kl, this->_socket));
-        threads.push_back(std::thread(&MouseLogger::recordMouseClicks, ml, this->_socket));
-        threads.push_back(std::thread(&MouseLogger::recordScrollBar, ml, this->_socket));
-        threads.push_back(std::thread(&MouseLogger::recordMousePos, ml, this->_socket));
+        //threads.push_back(std::thread(&KeyLogger::recordKeyboard, kl, this->_socket));
+        //threads.push_back(std::thread(&MouseLogger::recordMouseClicks, ml, this->_socket));
+        //threads.push_back(std::thread(&MouseLogger::recordScrollBar, ml, this->_socket));
+        //threads.push_back(std::thread(&MouseLogger::recordMousePos, ml, this->_socket));
 
         threads.push_back(std::thread(&ScreenCapture::receiveCaptures, sc, this->_socket));  // reciever
     }
@@ -56,7 +56,7 @@ void Peer::startConversation()
         ScreenCapture* sc = new ScreenCapture();
         threads.push_back(std::thread(&ScreenCapture::recordScreen, sc, this->_socket));  // logger
 
-        threads.push_back(std::thread(&Peer::receiveRecords, this, this->_socket));  // receiver
+        //threads.push_back(std::thread(&Peer::receiveRecords, this, this->_socket));  // receiver
     }
 
     // running all threads

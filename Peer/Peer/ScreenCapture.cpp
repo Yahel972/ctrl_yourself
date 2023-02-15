@@ -8,34 +8,71 @@ void ScreenCapture::recordScreen(SOCKET sock)
 {
     // capture image
     HWND hwnd = GetDesktopWindow();
-    while (true)
-    {
+    //while (true)
+    //{ 
         cv::Mat src = captureScreenMat(hwnd);
-
-        // saving img
         std::vector<uchar> buffer;
-        cv::imencode(".png", src, buffer);
-        cv::imwrite("Screenshot.png", src);
-        std::string buftostr(buffer.begin(), buffer.end());
-        std::string test = this->getSize(buffer.size()) + buftostr;
 
-        send(sock, test.c_str(), test.size(), 0);
-        Sleep(100);  // to dean - why 100?
-    }
+        cv::imencode(".png", src, buffer);
+        //char* naktar = (char*)malloc(sizeof(char) * buffer.size());
+        char naktar[965535] = { 0 };
+        std::string size = getSize(buffer.size());
+        std::cout << "len: " << size << std::endl;
+        for (int i = 0; i < 6; i++)
+        {
+            naktar[i] = size[i];
+        }
+        for (int i = 0; i < buffer.size(); i++)
+        {
+            naktar[i + 6] = buffer[i];
+        }
+
+
+        cv::waitKey(1); // to dean - why 100?
+        std::vector<uchar> restek;
+        for (int i = 6; i < stoi(size) + 6; i++)
+        {
+            restek.push_back(naktar[i]);
+        }
+        
+        cv::Mat image = cv::imdecode(restek, cv::IMREAD_COLOR);
+
+        if (image.empty())
+        {
+            std::cerr << "Failed to decode image" << std::endl;
+        }
+        else
+        {
+            cv::imshow("Received Image", image);
+            cv::waitKey(1);
+        }
+        cv::imshow("Received Image", image);
+
+        send(sock, naktar, buffer.size(), 0);
+    //}
 }
 
 void ScreenCapture::receiveCaptures(SOCKET sock)
 {
     char buffer[965535] = { 0 };
-    while (true)
-    {
-        recv(sock, buffer, 965535, 0);
-        std::string sizeAsString = std::to_string(buffer[0] - '0') + std::to_string(buffer[1] - '0') + std::to_string(buffer[2] - '0') + std::to_string(buffer[3] - '0') + std::to_string(buffer[4] - '0') + std::to_string(buffer[5] - '0');
-        //std::cout << sizeAsString << std::endl;
-        int size = std::stoi(sizeAsString);
-        std::string msg(buffer);
+    char size[6] = { 0 };
+    //while (true)
+    //{
+        int bytes;
+        recv(sock, size, 6, 0);
+        int imgSize = stoi(std::to_string(size[0] - '0') + std::to_string(size[1] - '0') + std::to_string(size[2] - '0') + std::to_string(size[3] - '0') + std::to_string(size[4] - '0') + std::to_string(size[5] - '0'));
+        for (int i = 0; i < imgSize; i += bytes) {
+            if ((bytes = recv(sock, buffer + i, imgSize - i, 0)) == -1) {
+                std::cout << "recv failed" << std::endl;
+                exit(1);
+            }
+            else {
+                std::cout << "benbenben" << std::endl;
+            }   
+        }
+
         std::vector<uchar> image_data;
-        for (int i = 6; i < size + 6; i++)
+        for (int i = 6; i < imgSize + 6; i++)
         {
             image_data.push_back(buffer[i]);
         }
@@ -47,11 +84,13 @@ void ScreenCapture::receiveCaptures(SOCKET sock)
         {
             std::cerr << "Failed to decode image" << std::endl;
         }
+        else
+        {
+            cv::imshow("Received Image", image);
+            Sleep(10000);
+        }
 
-        cv::waitKey(1);
-
-        cv::imshow("Received Image", image);
-    }
+    //}
 }
 
 // function creates a bitmap header
@@ -88,8 +127,8 @@ cv::Mat ScreenCapture::captureScreenMat(HWND hwnd)
     // define scale, height and width
     int screenx = GetSystemMetrics(SM_XVIRTUALSCREEN);
     int screeny = GetSystemMetrics(SM_YVIRTUALSCREEN);
-    int width = 1024;//GetSystemMetrics(SM_CXVIRTUALSCREEN);
-    int height = 1024;//GetSystemMetrics(SM_CYVIRTUALSCREEN);
+    int width = GetSystemMetrics(SM_CXVIRTUALSCREEN);
+    int height = GetSystemMetrics(SM_CYVIRTUALSCREEN);
 
     // create mat object
     src.create(height, width, CV_8UC4);
