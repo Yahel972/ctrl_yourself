@@ -122,7 +122,7 @@ public:
 
     void retranslateUi(QWidget *Login)
     {
-        Login->setWindowTitle(QCoreApplication::translate("LoginPage", "Login Page", nullptr));
+        Login->setWindowTitle(QCoreApplication::translate("LoginPage", "Login", nullptr));
         titleLabel->setText(QCoreApplication::translate("LoginPage", "Login", nullptr));
         usernameLineEdit->setStyleSheet(QCoreApplication::translate("LoginPage", "QLineEdit {\n"
 "border: 2px solid #ccc;\n"
