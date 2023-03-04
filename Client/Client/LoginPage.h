@@ -1,11 +1,14 @@
+#pragma once
 #ifndef LOGINPAGE_H
 #define LOGINPAGE_H
 
+#include "ui_LoginPage.h"
 #include <QWidget>
+#include <QString>
+#include <QMessageBox>
+#include <QStackedWidget>
 
-QT_BEGIN_NAMESPACE
 namespace Ui { class LoginPage; }
-QT_END_NAMESPACE
 
 class LoginPage : public QWidget
 {
@@ -15,12 +18,16 @@ public:
     LoginPage(QWidget *parent = nullptr);
     ~LoginPage();
 
+    void set_central_stackedWidget(QStackedWidget* stackedWidget);
+
 private slots:
-    void on_loginButton_clicked();
-    void on_registerButton_clicked();
+    void on_login_button_clicked();
+    void on_register_button_clicked();
 
 private:
     Ui::LoginPage *ui;
+
+    bool authenticate(QString username, QString password);
 };
 
 #endif // LOGINPAGE_H
