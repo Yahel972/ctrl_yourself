@@ -1,10 +1,11 @@
 #include "Global.h"
 #include "LoginPage.h"
 #include "RegisterPage.h"
+#include "MainPage.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
-{
+{    
     QApplication app(argc, argv);
 
     QWidget *centralWidget = new QWidget;
@@ -12,13 +13,13 @@ int main(int argc, char *argv[])
 
     Global::getStackedWidget()->addWidget(new LoginPage);
     Global::getStackedWidget()->addWidget(new RegisterPage);
+    Global::getStackedWidget()->addWidget(new MainPage);
 
     layout->addWidget(Global::getStackedWidget());
-
     Global::getStackedWidget()->setCurrentWidget(Global::getStackedWidget()->widget(0));
     Global::getStackedWidget()->currentWidget()->show();
 
-    centralWidget->resize(727, 499);
+    centralWidget->resize(800, 500);
     centralWidget->show();
     return app.exec();
 }

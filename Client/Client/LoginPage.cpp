@@ -36,6 +36,7 @@ void LoginPage::on_login_button_clicked()
     if (authenticate(username, password)) {
         // TODO: log-in
         QMessageBox::question(this, "Welcome", "Logged in Successfully!", QMessageBox::Ok);
+        open_main_window();
     } else {
         QMessageBox::question(this, "Error", "Invalid username / password given", QMessageBox::Cancel);
         // Show an error message to the user
@@ -53,4 +54,9 @@ bool LoginPage::authenticate(QString username, QString password)
 void LoginPage::on_register_button_clicked()
 {
     Global::getStackedWidget()->setCurrentWidget(Global::getStackedWidget()->widget(1));
+}
+
+void LoginPage::open_main_window()
+{
+    Global::getStackedWidget()->setCurrentWidget(Global::getStackedWidget()->widget(2));
 }

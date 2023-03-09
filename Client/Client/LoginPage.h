@@ -19,6 +19,7 @@ public:
     ~LoginPage();
 
     void set_central_stackedWidget(QStackedWidget* stackedWidget);
+    void open_main_window();
 
 private slots:
     void on_login_button_clicked();

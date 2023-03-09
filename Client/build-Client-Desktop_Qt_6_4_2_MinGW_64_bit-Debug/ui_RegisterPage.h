@@ -44,7 +44,7 @@ public:
     {
         if (RegisterPage->objectName().isEmpty())
             RegisterPage->setObjectName("RegisterPage");
-        RegisterPage->resize(727, 499);
+        RegisterPage->resize(800, 500);
         verticalLayout = new QVBoxLayout(RegisterPage);
         verticalLayout->setObjectName("verticalLayout");
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);

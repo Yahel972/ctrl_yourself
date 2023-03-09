@@ -43,7 +43,7 @@ public:
     {
         if (Login->objectName().isEmpty())
             Login->setObjectName("Login");
-        Login->resize(727, 499);
+        Login->resize(800, 500);
         verticalLayout = new QVBoxLayout(Login);
         verticalLayout->setObjectName("verticalLayout");
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
