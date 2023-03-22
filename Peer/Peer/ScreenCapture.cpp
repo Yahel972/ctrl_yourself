@@ -8,89 +8,65 @@ void ScreenCapture::recordScreen(SOCKET sock)
 {
     // capture image
     HWND hwnd = GetDesktopWindow();
-    //while (true)
-    //{ 
-        cv::Mat src = captureScreenMat(hwnd);
-        std::vector<uchar> buffer;
+    int screenWidth = SCREEN_SIZE_TEMP; //GetSystemMetrics(SM_CXSCREEN);
+    int screenHeight = SCREEN_SIZE_TEMP; //GetSystemMetrics(SM_CYSCREEN);
+    while (true)
+    {
+            
 
-        cv::imencode(".png", src, buffer);
-        //char* naktar = (char*)malloc(sizeof(char) * buffer.size());
-        char naktar[965535] = { 0 };
-        std::string size = getSize(buffer.size());
-        std::cout << "len: " << size << std::endl;
-        for (int i = 0; i < 6; i++)
-        {
-            naktar[i] = size[i];
-        }
-        for (int i = 0; i < buffer.size(); i++)
-        {
-            naktar[i + 6] = buffer[i];
-        }
+        // Create a device context for the screen
+        HDC hdcScreen = CreateDC(TEXT("DISPLAY"), NULL, NULL, NULL);  
+        HDC hdcMem = CreateCompatibleDC(hdcScreen);
 
+        HBITMAP hbmScreen = CreateCompatibleBitmap(hdcScreen, screenWidth, screenHeight); // Current bitmap
+        HBITMAP hbmOld = (HBITMAP)SelectObject(hdcMem, hbmScreen); // taking old bitmap
 
-        cv::waitKey(1); // to dean - why 100?
-        std::vector<uchar> restek;
-        for (int i = 6; i < stoi(size) + 6; i++)
-        {
-            restek.push_back(naktar[i]);
-        }
+        // Copy the contents of the screen to the new bitmap
+        BitBlt(hdcMem, 0, 0, screenWidth, screenHeight, hdcScreen, 0, 0, SRCCOPY);
+
+        BITMAPINFOHEADER bi = createBitmapHeader(screenWidth, screenHeight);
+
+        int size = screenWidth * screenHeight * 4;
+        char* pixels = new char[size];
+        GetDIBits(hdcScreen, hbmScreen, 0, screenHeight, pixels, (BITMAPINFO*)&bi, DIB_RGB_COLORS);
+
         
-        cv::Mat image = cv::imdecode(restek, cv::IMREAD_COLOR);
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
-        if (image.empty())
-        {
-            std::cerr << "Failed to decode image" << std::endl;
-        }
-        else
-        {
-            cv::imshow("Received Image", image);
-            cv::waitKey(1);
-        }
-        cv::imshow("Received Image", image);
+        // Compress the captured frame
 
-        send(sock, naktar, buffer.size(), 0);
-    //}
-}
+
+        // Send the compressed frame to the server
+
+        // Wait for a short period of time before capturing the next frame
+        send(sock, pixels, size, 0);
+
+        //delete[] pixels;
+
+
+        // Clean up
+        SelectObject(hdcMem, hbmOld);
+        DeleteObject(hbmScreen);
+        DeleteDC(hdcMem);
+        DeleteDC(hdcScreen);
+
+        }
+    }
 
 void ScreenCapture::receiveCaptures(SOCKET sock)
 {
-    char buffer[965535] = { 0 };
-    char size[6] = { 0 };
-    //while (true)
-    //{
-        int bytes;
-        recv(sock, size, 6, 0);
-        int imgSize = stoi(std::to_string(size[0] - '0') + std::to_string(size[1] - '0') + std::to_string(size[2] - '0') + std::to_string(size[3] - '0') + std::to_string(size[4] - '0') + std::to_string(size[5] - '0'));
-        for (int i = 0; i < imgSize; i += bytes) {
-            if ((bytes = recv(sock, buffer + i, imgSize - i, 0)) == -1) {
-                std::cout << "recv failed" << std::endl;
-                exit(1);
-            }
-            else {
-                std::cout << "benbenben" << std::endl;
-            }   
-        }
+    const int size = SCREEN_SIZE_TEMP * SCREEN_SIZE_TEMP * 4;
+    //char buffer[size] = { 0 };
+    char* buffer = new char[size];
+    while (true)
+    {
+        recv(sock, buffer, size, 0);
 
-        std::vector<uchar> image_data;
-        for (int i = 6; i < imgSize + 6; i++)
-        {
-            image_data.push_back(buffer[i]);
-        }
+        cv::Mat image(256, 256, CV_8UC4, buffer);
 
-        cv::Mat image = cv::imdecode(image_data, cv::IMREAD_COLOR);
-
-        // Check if the decoding was successful
-        if (image.empty())
-        {
-            std::cerr << "Failed to decode image" << std::endl;
-        }
-        else
-        {
-            cv::imshow("Received Image", image);
-            Sleep(10000);
-        }
-
-    //}
+        cv::imshow("Screenshot", image);
+        cv::waitKey(30);
+    }
 }
 
 // function creates a bitmap header
