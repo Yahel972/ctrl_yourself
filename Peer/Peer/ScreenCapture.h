@@ -8,6 +8,8 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
 
+#define SCREEN_SIZE_TEMP 512
+
 class ScreenCapture
 {
 public:
