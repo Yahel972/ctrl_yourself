@@ -47,8 +47,9 @@ namespace Client {
 			this->topic = (gcnew System::Windows::Forms::Label());
 			this->panel->SuspendLayout();
 			this->SuspendLayout();
-			
-			// panel:
+			// 
+			// panel
+			// 
 			resources->ApplyResources(this->panel, L"panel");
 			this->panel->BackColor = System::Drawing::Color::Transparent;
 			this->panel->Controls->Add(this->register_label);
@@ -59,38 +60,45 @@ namespace Client {
 			this->panel->Controls->Add(this->username_textbox);
 			this->panel->Controls->Add(this->topic);
 			this->panel->Name = L"panel";
-
-			// register_label:
+			// 
+			// register_label
+			// 
 			resources->ApplyResources(this->register_label, L"register_label");
 			this->register_label->ForeColor = System::Drawing::Color::White;
 			this->register_label->Name = L"register_label";
-			
-			// password_textbox:
+			// 
+			// password_textbox
+			// 
 			resources->ApplyResources(this->password_textbox, L"password_textbox");
-			this->password_textbox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->password_textbox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->password_textbox->ForeColor = System::Drawing::Color::MintCream;
 			this->password_textbox->Icon = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"password_textbox.Icon")));
 			this->password_textbox->Name = L"password_textbox";
 			this->password_textbox->text = L"";
-			 
-			// register_link:
+			// 
+			// register_link
+			// 
 			resources->ApplyResources(this->register_link, L"register_link");
 			this->register_link->LinkColor = System::Drawing::Color::Blue;
 			this->register_link->Name = L"register_link";
 			this->register_link->TabStop = true;
-			
-			// forgotPassword_link:
+			// 
+			// forgotPassword_link
+			// 
 			resources->ApplyResources(this->forgotPassword_link, L"forgotPassword_link");
 			this->forgotPassword_link->LinkColor = System::Drawing::Color::Blue;
 			this->forgotPassword_link->Name = L"forgotPassword_link";
 			this->forgotPassword_link->TabStop = true;
-			
-			// login_button:
+			// 
+			// login_button
+			// 
 			resources->ApplyResources(this->login_button, L"login_button");
 			this->login_button->ActiveBorderThickness = 1;
 			this->login_button->ActiveCornerRadius = 20;
 			this->login_button->ActiveFillColor = System::Drawing::Color::White;
-			this->login_button->ActiveForecolor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->login_button->ActiveForecolor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->login_button->ActiveLineColor = System::Drawing::Color::White;
 			this->login_button->BackColor = System::Drawing::Color::Transparent;
 			this->login_button->ButtonText = L"Log in";
@@ -98,32 +106,38 @@ namespace Client {
 			this->login_button->ForeColor = System::Drawing::Color::MintCream;
 			this->login_button->IdleBorderThickness = 1;
 			this->login_button->IdleCornerRadius = 20;
-			this->login_button->IdleFillColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->login_button->IdleFillColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->login_button->IdleForecolor = System::Drawing::Color::White;
 			this->login_button->IdleLineColor = System::Drawing::Color::White;
 			this->login_button->Name = L"login_button";
 			this->login_button->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			this->login_button->Click += gcnew System::EventHandler(this, &LoginForm::login_button_Click);
-			
-			// username_textbox:
+			// 
+			// username_textbox
+			// 
 			resources->ApplyResources(this->username_textbox, L"username_textbox");
-			this->username_textbox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->username_textbox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->username_textbox->ForeColor = System::Drawing::Color::MintCream;
 			this->username_textbox->Icon = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"username_textbox.Icon")));
 			this->username_textbox->Name = L"username_textbox";
 			this->username_textbox->text = L"";
-			
-			// topic:
+			// 
+			// topic
+			// 
 			resources->ApplyResources(this->topic, L"topic");
 			this->topic->ForeColor = System::Drawing::Color::White;
 			this->topic->Name = L"topic";
-
-			// LoginForm:
+			// 
+			// LoginForm
+			// 
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ControlBox = false;
 			this->Controls->Add(this->panel);
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+			this->MaximizeBox = false;
+			this->MinimizeBox = false;
 			this->Name = L"LoginForm";
 			this->panel->ResumeLayout(false);
 			this->panel->PerformLayout();
