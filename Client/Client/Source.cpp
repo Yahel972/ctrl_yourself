@@ -2,13 +2,13 @@
 
 using namespace System;
 using namespace System::Windows::Forms;
+using namespace Client;
 
-int main()
+void main(array<String^>^ args)
 {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 
-	Client::LoginForm form;
+	LoginForm form;
 	Application::Run(% form);
-	return 0;
 }

@@ -12,14 +12,10 @@ namespace Client {
 	public ref class LoginForm : public System::Windows::Forms::Form
 	{
 	public:
-		LoginForm(void)
-		{
-			InitializeComponent();
-		}
+		LoginForm() { InitializeComponent(); }
 
 	protected:
-		~LoginForm()
-		{
+		~LoginForm() {
 			if (components)
 				delete components;
 		}
@@ -68,7 +64,6 @@ namespace Client {
 			resources->ApplyResources(this->register_label, L"register_label");
 			this->register_label->ForeColor = System::Drawing::Color::White;
 			this->register_label->Name = L"register_label";
-			this->register_label->Click += gcnew System::EventHandler(this, &LoginForm::label2_Click);
 			
 			// password_textbox:
 			resources->ApplyResources(this->password_textbox, L"password_textbox");
@@ -108,6 +103,7 @@ namespace Client {
 			this->login_button->IdleLineColor = System::Drawing::Color::White;
 			this->login_button->Name = L"login_button";
 			this->login_button->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->login_button->Click += gcnew System::EventHandler(this, &LoginForm::login_button_Click);
 			
 			// username_textbox:
 			resources->ApplyResources(this->username_textbox, L"username_textbox");
@@ -135,7 +131,28 @@ namespace Client {
 
 		}
 #pragma endregion
-private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
-}
+	private: 
+		System::Void login_button_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			String^ username = this->username_textbox->text;
+			String^ password = this->password_textbox->text;
+
+			if (username == "" || password == "")
+			{
+				// TODO: post error msg
+				return;
+			}
+
+			// TODO: send login request to the connector
+			// then receive answer and reply as matched
+			if (true)
+			{
+				// logged in successfully
+			}
+			else
+			{
+				// TODO: post error msg (username & password doesnt match)
+			}
+		}
 };
 }
