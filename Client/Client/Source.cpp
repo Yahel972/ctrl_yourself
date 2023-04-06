@@ -1,10 +1,12 @@
-﻿#include "LoginForm.h"
+﻿#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+
+#include "LoginForm.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
 using namespace Client;
 
-void main(array<String^>^ args)
+void main()
 {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);

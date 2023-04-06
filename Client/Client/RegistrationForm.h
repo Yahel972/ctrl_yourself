@@ -1,5 +1,7 @@
 #pragma once
 
+#include "LoginForm.h"
+
 namespace Client {
 
 	using namespace System;
@@ -36,14 +38,29 @@ namespace Client {
 		}
 	private: System::Windows::Forms::Panel^ panel;
 	protected:
-	private: System::Windows::Forms::Label^ register_label;
-	private: Bunifu::Framework::UI::BunifuTextbox^ password_textbox;
-	private: System::Windows::Forms::LinkLabel^ register_link;
+	private: Bunifu::Framework::UI::BunifuTextbox^ email_textbox;
+	private: System::Windows::Forms::Label^ login_label;
 
-	private: Bunifu::Framework::UI::BunifuThinButton2^ login_button;
+	private: Bunifu::Framework::UI::BunifuTextbox^ password_textbox;
+	private: System::Windows::Forms::LinkLabel^ login_link;
+	private: Bunifu::Framework::UI::BunifuThinButton2^ registration_button;
+
+
 	private: Bunifu::Framework::UI::BunifuTextbox^ username_textbox;
 	private: System::Windows::Forms::Label^ topic;
-	private: Bunifu::Framework::UI::BunifuTextbox^ email_textbox;
+	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Label^ label3;
+
+	protected:
+
+
+
+
+
+
+
+
 
 
 	private:
@@ -61,11 +78,14 @@ namespace Client {
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(RegistrationForm::typeid));
 			this->panel = (gcnew System::Windows::Forms::Panel());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->email_textbox = (gcnew Bunifu::Framework::UI::BunifuTextbox());
-			this->register_label = (gcnew System::Windows::Forms::Label());
+			this->login_label = (gcnew System::Windows::Forms::Label());
 			this->password_textbox = (gcnew Bunifu::Framework::UI::BunifuTextbox());
-			this->register_link = (gcnew System::Windows::Forms::LinkLabel());
-			this->login_button = (gcnew Bunifu::Framework::UI::BunifuThinButton2());
+			this->login_link = (gcnew System::Windows::Forms::LinkLabel());
+			this->registration_button = (gcnew Bunifu::Framework::UI::BunifuThinButton2());
 			this->username_textbox = (gcnew Bunifu::Framework::UI::BunifuTextbox());
 			this->topic = (gcnew System::Windows::Forms::Label());
 			this->panel->SuspendLayout();
@@ -73,78 +93,100 @@ namespace Client {
 			// 
 			// panel
 			// 
-			resources->ApplyResources(this->panel, L"panel");
 			this->panel->BackColor = System::Drawing::Color::Transparent;
+			resources->ApplyResources(this->panel, L"panel");
+			this->panel->Controls->Add(this->label3);
+			this->panel->Controls->Add(this->label2);
+			this->panel->Controls->Add(this->label1);
 			this->panel->Controls->Add(this->email_textbox);
-			this->panel->Controls->Add(this->register_label);
+			this->panel->Controls->Add(this->login_label);
 			this->panel->Controls->Add(this->password_textbox);
-			this->panel->Controls->Add(this->register_link);
-			this->panel->Controls->Add(this->login_button);
+			this->panel->Controls->Add(this->login_link);
+			this->panel->Controls->Add(this->registration_button);
 			this->panel->Controls->Add(this->username_textbox);
 			this->panel->Controls->Add(this->topic);
 			this->panel->Name = L"panel";
 			// 
+			// label3
+			// 
+			resources->ApplyResources(this->label3, L"label3");
+			this->label3->ForeColor = System::Drawing::Color::White;
+			this->label3->Name = L"label3";
+			// 
+			// label2
+			// 
+			resources->ApplyResources(this->label2, L"label2");
+			this->label2->ForeColor = System::Drawing::Color::White;
+			this->label2->Name = L"label2";
+			// 
+			// label1
+			// 
+			resources->ApplyResources(this->label1, L"label1");
+			this->label1->ForeColor = System::Drawing::Color::White;
+			this->label1->Name = L"label1";
+			// 
 			// email_textbox
 			// 
-			resources->ApplyResources(this->email_textbox, L"email_textbox");
 			this->email_textbox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			resources->ApplyResources(this->email_textbox, L"email_textbox");
 			this->email_textbox->ForeColor = System::Drawing::Color::MintCream;
 			this->email_textbox->Icon = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"email_textbox.Icon")));
 			this->email_textbox->Name = L"email_textbox";
 			this->email_textbox->text = L"";
 			// 
-			// register_label
+			// login_label
 			// 
-			resources->ApplyResources(this->register_label, L"register_label");
-			this->register_label->ForeColor = System::Drawing::Color::White;
-			this->register_label->Name = L"register_label";
-			this->register_label->Click += gcnew System::EventHandler(this, &RegistrationForm::register_label_Click);
+			resources->ApplyResources(this->login_label, L"login_label");
+			this->login_label->ForeColor = System::Drawing::Color::White;
+			this->login_label->Name = L"login_label";
 			// 
 			// password_textbox
 			// 
-			resources->ApplyResources(this->password_textbox, L"password_textbox");
 			this->password_textbox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			resources->ApplyResources(this->password_textbox, L"password_textbox");
 			this->password_textbox->ForeColor = System::Drawing::Color::MintCream;
 			this->password_textbox->Icon = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"password_textbox.Icon")));
 			this->password_textbox->Name = L"password_textbox";
 			this->password_textbox->text = L"";
 			// 
-			// register_link
+			// login_link
 			// 
-			resources->ApplyResources(this->register_link, L"register_link");
-			this->register_link->LinkColor = System::Drawing::Color::Blue;
-			this->register_link->Name = L"register_link";
-			this->register_link->TabStop = true;
+			resources->ApplyResources(this->login_link, L"login_link");
+			this->login_link->LinkColor = System::Drawing::Color::Blue;
+			this->login_link->Name = L"login_link";
+			this->login_link->TabStop = true;
+			this->login_link->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &RegistrationForm::login_link_clicked);
 			// 
-			// login_button
+			// registration_button
 			// 
-			resources->ApplyResources(this->login_button, L"login_button");
-			this->login_button->ActiveBorderThickness = 1;
-			this->login_button->ActiveCornerRadius = 20;
-			this->login_button->ActiveFillColor = System::Drawing::Color::White;
-			this->login_button->ActiveForecolor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			this->registration_button->ActiveBorderThickness = 1;
+			this->registration_button->ActiveCornerRadius = 20;
+			this->registration_button->ActiveFillColor = System::Drawing::Color::White;
+			this->registration_button->ActiveForecolor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->login_button->ActiveLineColor = System::Drawing::Color::White;
-			this->login_button->BackColor = System::Drawing::Color::Transparent;
-			this->login_button->ButtonText = L"Register";
-			this->login_button->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->login_button->ForeColor = System::Drawing::Color::MintCream;
-			this->login_button->IdleBorderThickness = 1;
-			this->login_button->IdleCornerRadius = 20;
-			this->login_button->IdleFillColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->login_button->IdleForecolor = System::Drawing::Color::White;
-			this->login_button->IdleLineColor = System::Drawing::Color::White;
-			this->login_button->Name = L"login_button";
-			this->login_button->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->registration_button->ActiveLineColor = System::Drawing::Color::White;
+			this->registration_button->BackColor = System::Drawing::Color::Transparent;
+			resources->ApplyResources(this->registration_button, L"registration_button");
+			this->registration_button->ButtonText = L"Register";
+			this->registration_button->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->registration_button->ForeColor = System::Drawing::Color::MintCream;
+			this->registration_button->IdleBorderThickness = 1;
+			this->registration_button->IdleCornerRadius = 20;
+			this->registration_button->IdleFillColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->registration_button->IdleForecolor = System::Drawing::Color::White;
+			this->registration_button->IdleLineColor = System::Drawing::Color::White;
+			this->registration_button->Name = L"registration_button";
+			this->registration_button->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->registration_button->Click += gcnew System::EventHandler(this, &RegistrationForm::registration_button_Click);
 			// 
 			// username_textbox
 			// 
-			resources->ApplyResources(this->username_textbox, L"username_textbox");
 			this->username_textbox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			resources->ApplyResources(this->username_textbox, L"username_textbox");
 			this->username_textbox->ForeColor = System::Drawing::Color::MintCream;
 			this->username_textbox->Icon = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"username_textbox.Icon")));
 			this->username_textbox->Name = L"username_textbox";
@@ -171,8 +213,16 @@ namespace Client {
 
 		}
 #pragma endregion
-	private: System::Void register_label_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
+	private: 
+		System::Void login_link_clicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e)
+		{
+			
+		}
 
+		System::Void registration_button_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			// TODO: check if username exist & insert to DB
+			// if succeeded - force return to login form
+		}
 };
 }
