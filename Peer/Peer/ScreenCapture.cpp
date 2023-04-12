@@ -8,14 +8,13 @@ void ScreenCapture::recordScreen(SOCKET sock)
 {
     // capture image
     HWND hwnd = GetDesktopWindow();
-    int screenWidth = SCREEN_SIZE_TEMP; //GetSystemMetrics(SM_CXSCREEN);
-    int screenHeight = SCREEN_SIZE_TEMP; //GetSystemMetrics(SM_CYSCREEN);
+    int screenWidth = SCREEN_SIZE_TEMP;//GetSystemMetrics(SM_CXSCREEN);
+    int screenHeight = SCREEN_SIZE_TEMP;// GetSystemMetrics(SM_CYSCREEN);
+
     while (true)
     {
-            
-
         // Create a device context for the screen
-        HDC hdcScreen = CreateDC(TEXT("DISPLAY"), NULL, NULL, NULL);  
+        HDC hdcScreen = GetDC(NULL);
         HDC hdcMem = CreateCompatibleDC(hdcScreen);
 
         HBITMAP hbmScreen = CreateCompatibleBitmap(hdcScreen, screenWidth, screenHeight); // Current bitmap
@@ -30,18 +29,11 @@ void ScreenCapture::recordScreen(SOCKET sock)
         char* pixels = new char[size];
         GetDIBits(hdcScreen, hbmScreen, 0, screenHeight, pixels, (BITMAPINFO*)&bi, DIB_RGB_COLORS);
 
-        
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
-
-        // Compress the captured frame
-
-
-        // Send the compressed frame to the server
 
         // Wait for a short period of time before capturing the next frame
+        
         send(sock, pixels, size, 0);
-
-        //delete[] pixels;
+        delete[] pixels;
 
 
         // Clean up
@@ -49,24 +41,49 @@ void ScreenCapture::recordScreen(SOCKET sock)
         DeleteObject(hbmScreen);
         DeleteDC(hdcMem);
         DeleteDC(hdcScreen);
-
-        }
     }
+}
 
 void ScreenCapture::receiveCaptures(SOCKET sock)
 {
-    const int size = SCREEN_SIZE_TEMP * SCREEN_SIZE_TEMP * 4;
+    int screenWidth = SCREEN_SIZE_TEMP;// GetSystemMetrics(SM_CXSCREEN);
+    int screenHeight = SCREEN_SIZE_TEMP;//GetSystemMetrics(SM_CYSCREEN);
+    const int size = screenWidth * screenHeight * 4;
     //char buffer[size] = { 0 };
-    char* buffer = new char[size];
+    //cv::namedWindow("Screen", cv::WINDOW_AUTOSIZE);
+    cv::namedWindow("Screen", cv::WINDOW_AUTOSIZE);
     while (true)
     {
-        recv(sock, buffer, size, 0);
-
-        cv::Mat image(256, 256, CV_8UC4, buffer);
-
-        cv::imshow("Screenshot", image);
-        cv::waitKey(30);
+        char* buffer = new char[size];
+        int totalReceived = 0; // total bytes received so far
+        while (totalReceived < size) {
+            int bytesReceived = recv(sock, buffer + totalReceived, size - totalReceived, 0);
+            if (bytesReceived == SOCKET_ERROR) {
+                // handle error
+                std::cout << "error" << std::endl;
+                break;
+            }
+            if (bytesReceived == 0) {
+                std::cout << "connection closed" << std::endl;
+                break;
+            }
+            totalReceived += bytesReceived;
+        }
+        if (totalReceived == size) {
+            // message received successfully
+            // process the message in the buffer
+            cv::Mat image(screenHeight, screenWidth, CV_8UC4, buffer);
+            cv::imshow("Screen", image);
+            cv::waitKey(5);
+            delete[] buffer;
+        }
+        else {
+            std::cout << "III" << std::endl;
+            // message not received or incomplete
+        }
+        //cv::destroyAllWindows();
     }
+            //
 }
 
 // function creates a bitmap header

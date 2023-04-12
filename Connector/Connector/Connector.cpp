@@ -86,7 +86,7 @@ void Connector::handleNewClient(SOCKET sock)
 {
 	// after adding GUI, this function will transfer messages only between the 2 peers having a takeover call
 
-	char buffer[SIZE] = { 0 };
+	char* buffer = new char[SIZE];
 
 	while (true)
 	{

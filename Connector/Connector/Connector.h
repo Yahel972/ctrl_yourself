@@ -10,7 +10,7 @@
 #include <map>
 
 #define PORT 6969
-#define SIZE 256
+#define SIZE 512 * 512 * 4
 
 class Connector
 {
