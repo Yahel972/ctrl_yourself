@@ -86,15 +86,20 @@ void Connector::handleNewClient(SOCKET sock)
 {
 	// after adding GUI, this function will transfer messages only between the 2 peers having a takeover call
 
-	char* buffer = new char[SIZE];
 
 	while (true)
 	{
+		char* buffer = new char[SIZE];
+		for (int i = 0; i < SIZE; i++)
+		{
+			buffer[i] = 0;
+		}
 		recv(sock, buffer, SIZE, 0);
 		std::string msg(buffer);
 
 		if (msg.length() != 0)
 		{
+			std::cout << msg;
 			//std::cout << msg << std::endl;
 			// TODO: check if not an image/Mat before printing
 			// can be done after adding protocol
@@ -106,8 +111,7 @@ void Connector::handleNewClient(SOCKET sock)
 					send(this->_connections[i], buffer, SIZE, 0);
 			}
 		}
-
-		std::fill_n(buffer, SIZE, 0);  // clearing buffer
+		delete[] buffer;
 	}
 }
 

@@ -1,5 +1,7 @@
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include "Peer.h"
+#include "WSAInitializer.h"
+#include "PeerServer.h"
 
 Peer::Peer()
 {
@@ -39,24 +41,25 @@ void Peer::startConversation()
 
     if (this->_type)  // controlling PC
     {
-        KeyLogger* kl = new KeyLogger();
-        MouseLogger* ml = new MouseLogger();
-        ScreenCapture* sc = new ScreenCapture();
+        // init server
+        try
+        {
+            WSAInitializer wsaInit;
+            PeerServer p;
 
-        // loggers:
-        //threads.push_back(std::thread(&KeyLogger::recordKeyboard, kl, this->_socket));
-        //threads.push_back(std::thread(&MouseLogger::recordMouseClicks, ml, this->_socket));
-        //threads.push_back(std::thread(&MouseLogger::recordScrollBar, ml, this->_socket));
-        //threads.push_back(std::thread(&MouseLogger::recordMousePos, ml, this->_socket));
-
-        threads.push_back(std::thread(&ScreenCapture::receiveCaptures, sc, this->_socket));  // reciever
+            p.run();
+        }
+        catch (std::exception& e)
+        {
+            std::cout << "Error occured: " << e.what() << std::endl;
+        }
     }
     else  // controlled PC
     {
-        ScreenCapture* sc = new ScreenCapture();
-        threads.push_back(std::thread(&ScreenCapture::recordScreen, sc, this->_socket));  // logger
+        Peer peer2peer;
+        peer2peer.connectToServer("127.0.0.1", 5471);
+        peer2peer.sendMessages();
 
-        //threads.push_back(std::thread(&Peer::receiveRecords, this, this->_socket));  // receiver
     }
 
     // running all threads
@@ -105,6 +108,21 @@ Message* Peer::setMessageType(std::string msg)
     }
 
     return NULL;
+}
+
+void Peer::sendMessages()
+{
+    std::vector<std::thread> threads;
+
+    ScreenCapture* sc = new ScreenCapture();
+    threads.push_back(std::thread(&ScreenCapture::recordScreen, sc, this->_socket));  // logger
+
+    threads.push_back(std::thread(&Peer::receiveRecords, this, this->_socket));  // receiver
+
+    for (int i = 0; i < threads.size(); i++)
+    {
+        threads[i].join();
+    }
 }
 
 

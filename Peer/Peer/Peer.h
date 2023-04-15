@@ -31,6 +31,7 @@ private:
 	void receiveRecords(SOCKET sock);
 	int receiveId(SOCKET sock);
 	Message* setMessageType(std::string msg);
+	void sendMessages();
 
 	SOCKET _socket;
 	int _id;

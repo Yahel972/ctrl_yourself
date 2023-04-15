@@ -8,8 +8,8 @@ void ScreenCapture::recordScreen(SOCKET sock)
 {
     // capture image
     HWND hwnd = GetDesktopWindow();
-    int screenWidth = SCREEN_SIZE_TEMP;//GetSystemMetrics(SM_CXSCREEN);
-    int screenHeight = SCREEN_SIZE_TEMP;// GetSystemMetrics(SM_CYSCREEN);
+    int screenWidth = GetSystemMetrics(SM_CXSCREEN);
+    int screenHeight = GetSystemMetrics(SM_CYSCREEN);
 
     while (true)
     {
@@ -29,12 +29,23 @@ void ScreenCapture::recordScreen(SOCKET sock)
         char* pixels = new char[size];
         GetDIBits(hdcScreen, hbmScreen, 0, screenHeight, pixels, (BITMAPINFO*)&bi, DIB_RGB_COLORS);
 
+        cv::Mat image(screenHeight, screenWidth, CV_8UC4, pixels);
+
+        // Resize the image to 512x512
+        cv::Mat resizedImage;
+        cv::resize(image, resizedImage, cv::Size(SCREEN_SIZE_TEMP, SCREEN_SIZE_TEMP));
+
+        // Convert the resized image back to raw pixel data
+        size = SCREEN_SIZE_TEMP * SCREEN_SIZE_TEMP * 4;
+        char* resizedPixels = new char[size];
+        memcpy(resizedPixels, resizedImage.data, size);
+
 
         // Wait for a short period of time before capturing the next frame
         
-        send(sock, pixels, size, 0);
+        send(sock, resizedPixels, size, 0);
         delete[] pixels;
-
+        delete[] resizedPixels;
 
         // Clean up
         SelectObject(hdcMem, hbmOld);
@@ -46,8 +57,8 @@ void ScreenCapture::recordScreen(SOCKET sock)
 
 void ScreenCapture::receiveCaptures(SOCKET sock)
 {
-    int screenWidth = SCREEN_SIZE_TEMP;// GetSystemMetrics(SM_CXSCREEN);
-    int screenHeight = SCREEN_SIZE_TEMP;//GetSystemMetrics(SM_CYSCREEN);
+    int screenWidth = SCREEN_SIZE_TEMP;//GetSystemMetrics(SM_CXSCREEN);
+    int screenHeight = SCREEN_SIZE_TEMP; // GetSystemMetrics(SM_CYSCREEN);
     const int size = screenWidth * screenHeight * 4;
     //char buffer[size] = { 0 };
     //cv::namedWindow("Screen", cv::WINDOW_AUTOSIZE);
@@ -72,14 +83,10 @@ void ScreenCapture::receiveCaptures(SOCKET sock)
         if (totalReceived == size) {
             // message received successfully
             // process the message in the buffer
-            cv::Mat image(screenHeight, screenWidth, CV_8UC4, buffer);
+            cv::Mat image(SCREEN_SIZE_TEMP, SCREEN_SIZE_TEMP, CV_8UC4, buffer);
             cv::imshow("Screen", image);
             cv::waitKey(5);
             delete[] buffer;
-        }
-        else {
-            std::cout << "III" << std::endl;
-            // message not received or incomplete
         }
         //cv::destroyAllWindows();
     }
@@ -143,38 +150,4 @@ cv::Mat ScreenCapture::captureScreenMat(HWND hwnd)
     ReleaseDC(hwnd, hwindowDC);
 
     return src;
-}
-
-std::string ScreenCapture::getSize(int size)
-{
-    int digits = ScreenCapture::count_digit(size);
-    switch (digits)
-    {
-    case 6:
-        return std::to_string(size);
-    case 5:
-        return std::to_string(size) + "0";
-    case 4:
-        return std::to_string(size) + "00";
-    case 3:
-        return std::to_string(size) + "000";
-    case 2:
-        return std::to_string(size) + "0000";
-    case 1:
-        return std::to_string(size) + "00000";
-    default:
-        std::cout << "something is wrong..." << std::endl;
-        break;
-    }
-    return "000000";
-}
-
-// helper function - finds the amount of digits in a given number
-int ScreenCapture::count_digit(int number) {
-    int count = 0;
-    while (number != 0) {
-        number = number / 10;
-        count++;
-    }
-    return count;
 }
