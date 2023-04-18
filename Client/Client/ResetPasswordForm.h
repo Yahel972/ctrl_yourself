@@ -47,7 +47,8 @@ namespace Client {
 	private: Bunifu::Framework::UI::BunifuTextbox^ username_textbox;
 	private: System::Windows::Forms::Label^ topic;
 	private: System::Windows::Forms::Label^ register_label;
-	private: System::Windows::Forms::LinkLabel^ register_link;
+	private: System::Windows::Forms::LinkLabel^ login_link;
+
 
 	private:
 		/// <summary>
@@ -64,6 +65,8 @@ namespace Client {
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(ResetPasswordForm::typeid));
 			this->panel = (gcnew System::Windows::Forms::Panel());
+			this->register_label = (gcnew System::Windows::Forms::Label());
+			this->login_link = (gcnew System::Windows::Forms::LinkLabel());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->password_textbox = (gcnew Bunifu::Framework::UI::BunifuTextbox());
@@ -71,8 +74,6 @@ namespace Client {
 			this->login_button = (gcnew Bunifu::Framework::UI::BunifuThinButton2());
 			this->username_textbox = (gcnew Bunifu::Framework::UI::BunifuTextbox());
 			this->topic = (gcnew System::Windows::Forms::Label());
-			this->register_label = (gcnew System::Windows::Forms::Label());
-			this->register_link = (gcnew System::Windows::Forms::LinkLabel());
 			this->panel->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -82,7 +83,7 @@ namespace Client {
 			this->panel->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"panel.BackgroundImage")));
 			this->panel->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->panel->Controls->Add(this->register_label);
-			this->panel->Controls->Add(this->register_link);
+			this->panel->Controls->Add(this->login_link);
 			this->panel->Controls->Add(this->label2);
 			this->panel->Controls->Add(this->label1);
 			this->panel->Controls->Add(this->password_textbox);
@@ -94,6 +95,33 @@ namespace Client {
 			this->panel->Name = L"panel";
 			this->panel->Size = System::Drawing::Size(300, 450);
 			this->panel->TabIndex = 2;
+			// 
+			// register_label
+			// 
+			this->register_label->AutoSize = true;
+			this->register_label->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12));
+			this->register_label->ForeColor = System::Drawing::Color::White;
+			this->register_label->ImeMode = System::Windows::Forms::ImeMode::NoControl;
+			this->register_label->Location = System::Drawing::Point(31, 381);
+			this->register_label->Margin = System::Windows::Forms::Padding(0);
+			this->register_label->Name = L"register_label";
+			this->register_label->Size = System::Drawing::Size(196, 23);
+			this->register_label->TabIndex = 12;
+			this->register_label->Text = L"Already have an account\?";
+			// 
+			// login_link
+			// 
+			this->login_link->AutoSize = true;
+			this->login_link->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12));
+			this->login_link->ImeMode = System::Windows::Forms::ImeMode::NoControl;
+			this->login_link->LinkColor = System::Drawing::Color::Blue;
+			this->login_link->Location = System::Drawing::Point(222, 381);
+			this->login_link->Name = L"login_link";
+			this->login_link->Size = System::Drawing::Size(48, 23);
+			this->login_link->TabIndex = 11;
+			this->login_link->TabStop = true;
+			this->login_link->Text = L"Login";
+			this->login_link->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &ResetPasswordForm::login_link_LinkClicked);
 			// 
 			// label2
 			// 
@@ -202,32 +230,6 @@ namespace Client {
 			this->topic->TabIndex = 0;
 			this->topic->Text = L"Reset Password";
 			// 
-			// register_label
-			// 
-			this->register_label->AutoSize = true;
-			this->register_label->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12));
-			this->register_label->ForeColor = System::Drawing::Color::White;
-			this->register_label->ImeMode = System::Windows::Forms::ImeMode::NoControl;
-			this->register_label->Location = System::Drawing::Point(31, 381);
-			this->register_label->Margin = System::Windows::Forms::Padding(0);
-			this->register_label->Name = L"register_label";
-			this->register_label->Size = System::Drawing::Size(196, 23);
-			this->register_label->TabIndex = 12;
-			this->register_label->Text = L"Already have an account\?";
-			// 
-			// register_link
-			// 
-			this->register_link->AutoSize = true;
-			this->register_link->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12));
-			this->register_link->ImeMode = System::Windows::Forms::ImeMode::NoControl;
-			this->register_link->LinkColor = System::Drawing::Color::Blue;
-			this->register_link->Location = System::Drawing::Point(222, 381);
-			this->register_link->Name = L"register_link";
-			this->register_link->Size = System::Drawing::Size(48, 23);
-			this->register_link->TabIndex = 11;
-			this->register_link->TabStop = true;
-			this->register_link->Text = L"Login";
-			// 
 			// ResetPasswordForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -248,5 +250,10 @@ namespace Client {
 
 		}
 #pragma endregion
-	};
+private:
+	System::Void login_link_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) 
+	{
+		
+	}
+};
 }

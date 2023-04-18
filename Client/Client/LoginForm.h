@@ -189,12 +189,16 @@ namespace Client {
 
 		System::Void forgotPassword_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) 
 		{
-			
+			ForgotPasswordForm^ fpf = gcnew ForgotPasswordForm();
+			fpf->Show();
+			this->Hide();
 		}
 	
 		System::Void register_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) 
 		{
-		
+			RegistrationForm^ rf = gcnew RegistrationForm();
+			this->Hide();
+			rf->Show();
 		}
 };
 }
