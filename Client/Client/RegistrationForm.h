@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LoginForm.h"
+#include "Global.h"
 
 namespace Client {
 
@@ -216,7 +217,7 @@ namespace Client {
 	private: 
 		System::Void login_link_clicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e)
 		{
-			
+
 		}
 
 		System::Void registration_button_Click(System::Object^ sender, System::EventArgs^ e) 

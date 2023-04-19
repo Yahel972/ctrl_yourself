@@ -2,6 +2,7 @@
 
 #include "ForgotPasswordForm.h"
 #include "RegistrationForm.h"
+#include "Global.h"
 
 namespace Client {
 
@@ -199,6 +200,7 @@ namespace Client {
 			RegistrationForm^ rf = gcnew RegistrationForm();
 			this->Hide();
 			rf->Show();
+			
 		}
 };
 }
