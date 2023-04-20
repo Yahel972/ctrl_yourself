@@ -10,6 +10,7 @@ using namespace Client;
 
 void main()
 {
+	//Global g;
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 

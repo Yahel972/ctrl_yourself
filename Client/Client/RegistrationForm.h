@@ -12,69 +12,33 @@ namespace Client {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Summary for RegistrationForm
-	/// </summary>
 	public ref class RegistrationForm : public System::Windows::Forms::Form
 	{
 	public:
-		RegistrationForm(void)
-		{
-			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
-		}
+		RegistrationForm(void) { InitializeComponent(); }
 
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		~RegistrationForm()
-		{
-			if (components)
-			{
-				delete components;
-			}
-		}
-	private: System::Windows::Forms::Panel^ panel;
-	protected:
-	private: Bunifu::Framework::UI::BunifuTextbox^ email_textbox;
-	private: System::Windows::Forms::Label^ login_label;
-
-	private: Bunifu::Framework::UI::BunifuTextbox^ password_textbox;
-	private: System::Windows::Forms::LinkLabel^ login_link;
-	private: Bunifu::Framework::UI::BunifuThinButton2^ registration_button;
-
-
-	private: Bunifu::Framework::UI::BunifuTextbox^ username_textbox;
-	private: System::Windows::Forms::Label^ topic;
-	private: System::Windows::Forms::Label^ label2;
-	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::Label^ label3;
-
-	protected:
-
-
-
-
-
-
-
-
-
+		~RegistrationForm();
 
 	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::Windows::Forms::Panel^ panel;
+		Bunifu::Framework::UI::BunifuTextbox^ email_textbox;
+		System::Windows::Forms::Label^ login_label;
+		Bunifu::Framework::UI::BunifuTextbox^ password_textbox;
+		System::Windows::Forms::LinkLabel^ login_link;
+		Bunifu::Framework::UI::BunifuThinButton2^ registration_button;
+		Bunifu::Framework::UI::BunifuTextbox^ username_textbox;
+		System::Windows::Forms::Label^ topic;
+		System::Windows::Forms::Label^ label2;
+		System::Windows::Forms::Label^ label1;
+		System::Windows::Forms::Label^ label3;
+		System::ComponentModel::Container^ components;
+
+		System::Void registration_button_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void login_link_clicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
+
 
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(RegistrationForm::typeid));
@@ -211,19 +175,7 @@ namespace Client {
 			this->panel->ResumeLayout(false);
 			this->panel->PerformLayout();
 			this->ResumeLayout(false);
-
 		}
 #pragma endregion
-	private: 
-		System::Void login_link_clicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e)
-		{
-
-		}
-
-		System::Void registration_button_Click(System::Object^ sender, System::EventArgs^ e) 
-		{
-			// TODO: check if username exist & insert to DB
-			// if succeeded - force return to login form
-		}
 };
 }

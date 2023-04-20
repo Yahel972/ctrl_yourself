@@ -1,3 +1,14 @@
+#pragma once
+
+namespace Client
+{
+	class Global
+	{
+	public:
+		static int dir;
+	};
+}
+
 //#pragma once
 //
 //#include "User.h"

@@ -4,8 +4,8 @@
 #include "RegistrationForm.h"
 #include "Global.h"
 
-namespace Client {
-
+namespace Client
+{
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -16,24 +16,26 @@ namespace Client {
 	public ref class LoginForm : public System::Windows::Forms::Form
 	{
 	public:
-		LoginForm() { InitializeComponent(); }
+		LoginForm();
 
 	protected:
-		~LoginForm() {
-			if (components)
-				delete components;
-		}
-	private: System::Windows::Forms::Panel^ panel;
-	private: System::Windows::Forms::Label^ register_label;
-	private: Bunifu::Framework::UI::BunifuTextbox^ password_textbox;
-	private: System::Windows::Forms::LinkLabel^ register_link;
-	private: System::Windows::Forms::LinkLabel^ forgotPassword_link;
-	private: Bunifu::Framework::UI::BunifuThinButton2^ login_button;
-	private: Bunifu::Framework::UI::BunifuTextbox^ username_textbox;
-	private: System::Windows::Forms::Label^ topic;
-	private: System::Windows::Forms::Label^ label2;
-	private: System::Windows::Forms::Label^ label1;
-	private: System::ComponentModel::Container^ components;
+		~LoginForm();
+
+	private:
+		System::Windows::Forms::Panel^ panel;
+		System::Windows::Forms::Label^ register_label;
+		Bunifu::Framework::UI::BunifuTextbox^ password_textbox;
+		System::Windows::Forms::LinkLabel^ register_link;
+		System::Windows::Forms::LinkLabel^ forgotPassword_link;
+		Bunifu::Framework::UI::BunifuThinButton2^ login_button;
+		Bunifu::Framework::UI::BunifuTextbox^ username_textbox;
+		System::Windows::Forms::Label^ topic;
+		System::Windows::Forms::Label^ label2;
+		System::Windows::Forms::Label^ label1;
+		System::ComponentModel::Container^ components;
+
+		System::Void register_linkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
+		System::Void forgotPassword_link_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
 
 #pragma region Windows Form Designer generated code
 		void InitializeComponent(void)
@@ -101,7 +103,7 @@ namespace Client {
 			this->register_link->LinkColor = System::Drawing::Color::Blue;
 			this->register_link->Name = L"register_link";
 			this->register_link->TabStop = true;
-			this->register_link->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &LoginForm::register_LinkClicked);
+			this->register_link->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &LoginForm::register_linkClicked);
 			// 
 			// forgotPassword_link
 			// 
@@ -109,7 +111,7 @@ namespace Client {
 			this->forgotPassword_link->LinkColor = System::Drawing::Color::Blue;
 			this->forgotPassword_link->Name = L"forgotPassword_link";
 			this->forgotPassword_link->TabStop = true;
-			this->forgotPassword_link->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &LoginForm::forgotPassword_LinkClicked);
+			this->forgotPassword_link->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &LoginForm::forgotPassword_link_LinkClicked);
 			// 
 			// login_button
 			// 
@@ -161,46 +163,7 @@ namespace Client {
 			this->panel->ResumeLayout(false);
 			this->panel->PerformLayout();
 			this->ResumeLayout(false);
-
 		}
 #pragma endregion
-	private: 
-		System::Void login_button_Click(System::Object^ sender, System::EventArgs^ e) 
-		{
-			String^ username = this->username_textbox->text;
-			String^ password = this->password_textbox->text;
-
-			if (username == "" || password == "")
-			{
-				// TODO: post error msg
-				return;
-			}
-
-			// TODO: send login request to the connector
-			// then receive answer and reply as matched
-			if (true)
-			{
-				// logged in successfully
-			}
-			else
-			{
-				// TODO: post error msg (username & password doesnt match)
-			}
-		}
-
-		System::Void forgotPassword_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) 
-		{
-			ForgotPasswordForm^ fpf = gcnew ForgotPasswordForm();
-			fpf->Show();
-			this->Hide();
-		}
-	
-		System::Void register_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) 
-		{
-			RegistrationForm^ rf = gcnew RegistrationForm();
-			this->Hide();
-			rf->Show();
-			
-		}
 };
 }

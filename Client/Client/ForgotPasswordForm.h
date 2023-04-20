@@ -1,5 +1,6 @@
 #pragma once
 
+#include "LoginForm.h"
 #include "ResetPasswordForm.h"
 
 namespace Client {
@@ -11,61 +12,32 @@ namespace Client {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Summary for ForgotPasswordForm
-	/// </summary>
 	public ref class ForgotPasswordForm : public System::Windows::Forms::Form
 	{
-		public:
-			ForgotPasswordForm(void)
-			{
-				InitializeComponent();
-				//
-				//TODO: Add the constructor code here
-				//
-			}
+	public:
+		ForgotPasswordForm(void) { InitializeComponent(); }
 
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		~ForgotPasswordForm()
-		{
-			if (components)
-			{
-				delete components;
-			}
-		}
-	private: System::Windows::Forms::Panel^ panel;
-	private: System::Windows::Forms::Label^ code_label;
-	protected:
+		~ForgotPasswordForm();
 
-	private: System::Windows::Forms::Label^ label1;
-	private: Bunifu::Framework::UI::BunifuTextbox^ code_textbox;
+	private: 
+		System::Windows::Forms::Panel^ panel;
+		System::Windows::Forms::Label^ code_label;
+		System::Windows::Forms::Label^ label1;
+		Bunifu::Framework::UI::BunifuTextbox^ code_textbox;
+		System::Windows::Forms::LinkLabel^ forgotPassword_link;
+		Bunifu::Framework::UI::BunifuThinButton2^ button;
+		Bunifu::Framework::UI::BunifuTextbox^ username_textbox;
+		System::Windows::Forms::Label^ topic;
+		System::Windows::Forms::Label^ label3;
+		System::Windows::Forms::LinkLabel^ login_link;
+		System::Windows::Forms::Label^ status_label;
+		System::ComponentModel::Container^ components;
 
-
-
-	private: System::Windows::Forms::LinkLabel^ forgotPassword_link;
-	private: Bunifu::Framework::UI::BunifuThinButton2^ button;
-
-	private: Bunifu::Framework::UI::BunifuTextbox^ username_textbox;
-	private: System::Windows::Forms::Label^ topic;
-	private: System::Windows::Forms::Label^ label3;
-	private: System::Windows::Forms::LinkLabel^ login_link;
-
-	private: System::Windows::Forms::Label^ status_label;
-	
-	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::Void button_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void login_link_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
 
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(ForgotPasswordForm::typeid));
@@ -142,6 +114,7 @@ namespace Client {
 			this->login_link->TabIndex = 11;
 			this->login_link->TabStop = true;
 			this->login_link->Text = L"Login";
+			this->login_link->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &ForgotPasswordForm::login_link_LinkClicked);
 			// 
 			// code_label
 			// 
@@ -271,43 +244,7 @@ namespace Client {
 			this->panel->ResumeLayout(false);
 			this->panel->PerformLayout();
 			this->ResumeLayout(false);
-
 		}
 #pragma endregion
-	private: System::Void button_Click(System::Object^ sender, System::EventArgs^ e)
-	{
-		if (this->button->ButtonText == "Send Code")
-		{
-			// TODO: Send an email to the user - generate a code and send it to him
-
-			// after all good (email sent):
-			String^ email = "a@gmail.com"; // TODO: extract the email
-
-			this->code_label->Visible = true;
-			this->code_textbox->Visible = true;
-			this->status_label->Visible = true;
-			this->status_label->Text = "sent to: " + email;
-
-			this->button->ButtonText = "Validate Code";
-		}
-		else
-		{
-			// TODO: validate the code given
-			// NEEDED ANOTHER DATABASE
-
-			// if code matches open a reset password form and PARSE THE USER!
-			if (true)  // change the statement
-			{
-				/*User u("", "");
-				ResetPasswordForm rpf(u);
-				this->Close();
-				rpf.Show();*/
-			}
-			else
-			{
-				// messageBox
-			}
-		}
-	}
 };
 }
