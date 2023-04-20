@@ -1,5 +1,6 @@
 #pragma once
 
+#include "LoginForm.h"
 #include "User.h"
 
 namespace Client {

@@ -14,8 +14,7 @@ System::Void Client::RegistrationForm::registration_button_Click(System::Object^
 
 System::Void Client::RegistrationForm::login_link_clicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e)
 {
-	LoginForm^ jgjg = gcnew LoginForm();
-	jgjg->Show();
+	LoginForm^ lf = gcnew LoginForm();
+	lf->Show();
 	this->Hide();
-    return System::Void();
 }

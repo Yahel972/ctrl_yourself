@@ -12,12 +12,12 @@ System::Void Client::LoginForm::register_linkClicked(System::Object^ sender, Sys
 {
 	RegistrationForm^ rf = gcnew RegistrationForm();
 	rf->Show();
-	this->Close();
+	this->Hide();
 }
 
 System::Void Client::LoginForm::forgotPassword_link_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e)
 {
 	ForgotPasswordForm^ fpf = gcnew ForgotPasswordForm();
 	fpf->Show();
-	this->Close();
+	this->Hide();
 }

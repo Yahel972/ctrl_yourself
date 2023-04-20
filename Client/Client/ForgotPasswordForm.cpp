@@ -44,7 +44,7 @@ System::Void Client::ForgotPasswordForm::button_Click(System::Object^ sender, Sy
 
 System::Void Client::ForgotPasswordForm::login_link_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e)
 {
-	LoginForm^ f = gcnew LoginForm();
-	f->Show();
+	LoginForm^ lf = gcnew LoginForm();
+	lf->Show();
 	this->Hide();
 }
