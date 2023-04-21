@@ -5,8 +5,10 @@
 class User
 {
 public:
-	User(std::string username, std::string password, std::string email="");
+	User(int id, std::string username, std::string password, std::string email="");
+	User(const User& other);
 
+	int getID() const;
 	std::string getUsername() const;
 	std::string getPassword() const;
 	std::string getEmail() const;
@@ -14,6 +16,7 @@ public:
 	// TODO: add helper functions for the class
 
 private:
+	int _id;
 	std::string _username;
 	std::string _password;
 	std::string _email;

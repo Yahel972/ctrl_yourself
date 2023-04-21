@@ -2,7 +2,9 @@
 
 #include "ForgotPasswordForm.h"
 #include "RegistrationForm.h"
-#include "Global.h"
+#include "Windows.h"
+#include "MainForm.h"
+#include <msclr/marshal_cppstd.h>
 
 namespace Client
 {
@@ -36,6 +38,7 @@ namespace Client
 
 		System::Void register_linkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
 		System::Void forgotPassword_link_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
+		System::Void login_button_Click(System::Object^ sender, System::EventArgs^ e);
 
 #pragma region Windows Form Designer generated code
 		void InitializeComponent(void)
@@ -134,6 +137,7 @@ namespace Client
 			this->login_button->IdleLineColor = System::Drawing::Color::White;
 			this->login_button->Name = L"login_button";
 			this->login_button->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->login_button->Click += gcnew System::EventHandler(this, &LoginForm::login_button_Click);
 			// 
 			// username_textbox
 			// 
@@ -163,6 +167,7 @@ namespace Client
 			this->panel->ResumeLayout(false);
 			this->panel->PerformLayout();
 			this->ResumeLayout(false);
+
 		}
 #pragma endregion
 };

@@ -24,10 +24,13 @@
     <ClCompile Include="Connector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SqliteDataBase.cpp">
+    <ClCompile Include="sqlite3.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sqlite3.c">
+    <ClCompile Include="SqliteUsersDataBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SqliteFriendsDataBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,10 +41,13 @@
     <ClInclude Include="Connector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SqliteDataBase.h">
+    <ClInclude Include="sqlite3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sqlite3.h">
+    <ClInclude Include="SqliteUsersDataBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SqliteFriendsDataBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

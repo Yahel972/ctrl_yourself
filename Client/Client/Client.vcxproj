@@ -127,7 +127,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ForgotPasswordForm.cpp" />
-    <ClCompile Include="Global.cpp" />
     <ClCompile Include="LoginForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="RegistrationForm.cpp" />
@@ -139,7 +138,6 @@
     <ClInclude Include="ForgotPasswordForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="Global.h" />
     <ClInclude Include="LoginForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>

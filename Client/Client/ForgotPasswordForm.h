@@ -2,6 +2,7 @@
 
 #include "LoginForm.h"
 #include "ResetPasswordForm.h"
+#include <string>
 
 namespace Client {
 
@@ -15,7 +16,7 @@ namespace Client {
 	public ref class ForgotPasswordForm : public System::Windows::Forms::Form
 	{
 	public:
-		ForgotPasswordForm(void) { InitializeComponent(); }
+		ForgotPasswordForm();
 
 	protected:
 		~ForgotPasswordForm();
@@ -33,9 +34,13 @@ namespace Client {
 		System::Windows::Forms::LinkLabel^ login_link;
 		System::Windows::Forms::Label^ status_label;
 		System::ComponentModel::Container^ components;
+		int* _code;
 
 		System::Void button_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void login_link_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
+
+		static void sendCode(std::string email);
+		static bool isNumber(String^ s);
 
 #pragma region Windows Form Designer generated code
 		void InitializeComponent(void)
@@ -239,11 +244,12 @@ namespace Client {
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
 			this->Name = L"ForgotPasswordForm";
-			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterParent;
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Forgot Password";
 			this->panel->ResumeLayout(false);
 			this->panel->PerformLayout();
 			this->ResumeLayout(false);
+
 		}
 #pragma endregion
 };

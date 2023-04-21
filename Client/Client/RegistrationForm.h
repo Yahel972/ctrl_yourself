@@ -1,7 +1,7 @@
 #pragma once
 
 #include "LoginForm.h"
-#include "Global.h"
+#include <regex>
 
 namespace Client {
 
@@ -15,7 +15,7 @@ namespace Client {
 	public ref class RegistrationForm : public System::Windows::Forms::Form
 	{
 	public:
-		RegistrationForm(void) { InitializeComponent(); }
+		RegistrationForm();
 
 	protected:
 		~RegistrationForm();
@@ -34,9 +34,9 @@ namespace Client {
 		System::Windows::Forms::Label^ label3;
 		System::ComponentModel::Container^ components;
 
-		System::Void registration_button_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void login_link_clicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
-
+		System::Void registration_button_Click(System::Object^ sender, System::EventArgs^ e);
+		static bool isEmail(const std::string& s);
 
 #pragma region Windows Form Designer generated code
 		void InitializeComponent(void)

@@ -15,9 +15,7 @@ namespace Client {
 	public ref class ResetPasswordForm : public System::Windows::Forms::Form
 	{
 	public:
-		ResetPasswordForm(User u) { InitializeComponent(); }
-		// Form must get a User to work on (sets a new password to it)
-		// MUST CHECK THAT THE USER IS VALID BEFORE CHANGING IT"S PASSWORD!
+		ResetPasswordForm(std::string username);
 
 	protected:
 		~ResetPasswordForm();
@@ -34,6 +32,7 @@ namespace Client {
 		System::Windows::Forms::Label^ register_label;
 		System::Windows::Forms::LinkLabel^ login_link;
 		System::ComponentModel::Container^ components;
+		std::string* _username;  // the username to reset it's password
 
 		System::Void login_link_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
 	
@@ -220,10 +219,12 @@ namespace Client {
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
 			this->Name = L"ResetPasswordForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Reset Password";
 			this->panel->ResumeLayout(false);
 			this->panel->PerformLayout();
 			this->ResumeLayout(false);
+
 		}
 #pragma endregion
 };

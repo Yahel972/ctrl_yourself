@@ -5,7 +5,6 @@
 #include "WSAInitializer.h"
 #include "Connector.h"
 #include <exception>
-#include "SqliteDataBase.h"
 
 int main()
 {

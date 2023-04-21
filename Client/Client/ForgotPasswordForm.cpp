@@ -1,44 +1,71 @@
 #include "ForgotPasswordForm.h"
 
+Client::ForgotPasswordForm::ForgotPasswordForm(): _code(new int(0)) { InitializeComponent(); }
+
 Client::ForgotPasswordForm::~ForgotPasswordForm()
 {
 	if (components)
 		delete components;
+	delete this->_code;
+}
+
+void Client::ForgotPasswordForm::sendCode(std::string email)
+{
+	// TODO: generate 4 digit code
+
+	// TODO: send the code via-email
+
+	// TODO: set the class's code to the code generated (in order to compare)
+	return;
+}
+
+bool Client::ForgotPasswordForm::isNumber(String^ s)
+{
+	std::regex digits_regex("\\d+"); // regex to match one or more digits
+	std::string str_std = msclr::interop::marshal_as<std::string>(s); // convert String^ to std::string
+	return std::regex_match(str_std, digits_regex);
 }
 
 System::Void Client::ForgotPasswordForm::button_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	if (this->button->ButtonText == "Send Code")
 	{
-		// TODO: Send an email to the user - generate a code and send it to him
+		// TODO: check in the db if the username given exists
+		// DEAN
+		if (false)
+		{
+			MessageBox::Show("Username doesn't exist", "Invalid Username", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
 
-		// after all good (email sent):
 		String^ email = "a@gmail.com"; // TODO: extract the email
+		sendCode(msclr::interop::marshal_as<std::string>(email));
 
 		this->code_label->Visible = true;
 		this->code_textbox->Visible = true;
 		this->status_label->Visible = true;
+		this->username_textbox->Enabled = false;
 		this->status_label->Text = "sent to: " + email;
-
 		this->button->ButtonText = "Validate Code";
 	}
-	else
+	else  // == "Validate Code"
 	{
-		// TODO: validate the code given
-		// NEEDED ANOTHER DATABASE
+		if (!isNumber(this->code_textbox->text))
+		{
+			MessageBox::Show("Invalid code given", "Invalid Code", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
 
-		// if code matches open a reset password form and PARSE THE USER!
-		if (true)  // change the statement
+		if (!(*this->_code == std::stoi(msclr::interop::marshal_as<std::string>(this->code_textbox->text))))
 		{
-			/*User u("", "");
-			ResetPasswordForm rpf(u);
-			this->Close();
-			rpf.Show();*/
+			MessageBox::Show("Incorrect code given", "Incorrect Code", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
 		}
-		else
-		{
-			// messageBox
-		}
+
+		// code is valid! openning ResetPasswordForm:
+		ResetPasswordForm^ rpf = gcnew ResetPasswordForm(msclr::interop::marshal_as<std::string>(this->username_textbox->text));
+		rpf->Show();
+		this->Hide();
 	}
 }
 

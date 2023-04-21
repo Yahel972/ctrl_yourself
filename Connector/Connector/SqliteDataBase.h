@@ -11,11 +11,14 @@ class SqliteDataBase
 public:
 	SqliteDataBase();
 
-	bool open(); // for creating the database
+	bool open();
 	bool doesUserExist(std::string user);
 	bool doesPasswordMatch(std::string username, std::string passwordToMatch);
 	void addNewUser(std::string name, std::string password, std::string email);
 	std::vector<std::string> getUsers();
+
+	// TODO: implement these functions:
+	int getID(std::string username);  // get the username's id (use db)
 
 private:
 	sqlite3* _db;
