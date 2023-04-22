@@ -9,16 +9,6 @@ Client::ForgotPasswordForm::~ForgotPasswordForm()
 	delete this->_code;
 }
 
-void Client::ForgotPasswordForm::sendCode(std::string email)
-{
-	// TODO: generate 4 digit code
-
-	// TODO: send the code via-email
-
-	// TODO: set the class's code to the code generated (in order to compare)
-	return;
-}
-
 bool Client::ForgotPasswordForm::isNumber(String^ s)
 {
 	std::regex digits_regex("\\d+"); // regex to match one or more digits
@@ -30,6 +20,12 @@ System::Void Client::ForgotPasswordForm::button_Click(System::Object^ sender, Sy
 {
 	if (this->button->ButtonText == "Send Code")
 	{
+		if (this->username_textbox->text == "")
+		{
+			MessageBox::Show("Please fill all fields", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+
 		// TODO: check in the db if the username given exists
 		// DEAN
 		if (false)
@@ -38,14 +34,15 @@ System::Void Client::ForgotPasswordForm::button_Click(System::Object^ sender, Sy
 			return;
 		}
 
-		String^ email = "a@gmail.com"; // TODO: extract the email
-		sendCode(msclr::interop::marshal_as<std::string>(email));
+		String^ email = "yahelbareket@gmail.com"; // TODO: extract the email
+		*this->_code = CodeSender::sendCode(msclr::interop::marshal_as<std::string>(email), msclr::interop::marshal_as<std::string>(username_textbox->text));
 
 		this->code_label->Visible = true;
 		this->code_textbox->Visible = true;
 		this->status_label->Visible = true;
 		this->username_textbox->Enabled = false;
 		this->status_label->Text = "sent to: " + email;
+		this->status_label->Location = Point((int)((300 - this->status_label->Size.Width) / 2), this->status_label->Location.Y);
 		this->button->ButtonText = "Validate Code";
 	}
 	else  // == "Validate Code"
@@ -62,7 +59,7 @@ System::Void Client::ForgotPasswordForm::button_Click(System::Object^ sender, Sy
 			return;
 		}
 
-		// code is valid! openning ResetPasswordForm:
+		// code is valid - openning ResetPasswordForm:
 		ResetPasswordForm^ rpf = gcnew ResetPasswordForm(msclr::interop::marshal_as<std::string>(this->username_textbox->text));
 		rpf->Show();
 		this->Hide();

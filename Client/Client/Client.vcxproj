@@ -81,7 +81,7 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies />
+      <AdditionalDependencies>Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>main</EntryPointSymbol>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -110,7 +110,7 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies />
+      <AdditionalDependencies>Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>main</EntryPointSymbol>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -126,6 +126,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CodeSender.cpp" />
     <ClCompile Include="ForgotPasswordForm.cpp" />
     <ClCompile Include="LoginForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
@@ -135,6 +136,7 @@
     <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CodeSender.h" />
     <ClInclude Include="ForgotPasswordForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>

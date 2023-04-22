@@ -3,6 +3,7 @@
 #include "LoginForm.h"
 #include "ResetPasswordForm.h"
 #include <string>
+#include "CodeSender.h"
 
 namespace Client {
 
@@ -38,8 +39,6 @@ namespace Client {
 
 		System::Void button_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void login_link_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
-
-		static void sendCode(std::string email);
 		static bool isNumber(String^ s);
 
 #pragma region Windows Form Designer generated code

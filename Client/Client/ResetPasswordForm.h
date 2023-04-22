@@ -24,16 +24,17 @@ namespace Client {
 		System::Windows::Forms::Panel^ panel;
 		System::Windows::Forms::Label^ label2;
 		System::Windows::Forms::Label^ label1;
-		Bunifu::Framework::UI::BunifuTextbox^ password_textbox;
+		Bunifu::Framework::UI::BunifuTextbox^ confirmPassword_textbox;
 		System::Windows::Forms::LinkLabel^ forgotPassword_link;
 		Bunifu::Framework::UI::BunifuThinButton2^ login_button;
-		Bunifu::Framework::UI::BunifuTextbox^ username_textbox;
+		Bunifu::Framework::UI::BunifuTextbox^ password_textbox;
 		System::Windows::Forms::Label^ topic;
 		System::Windows::Forms::Label^ register_label;
 		System::Windows::Forms::LinkLabel^ login_link;
 		System::ComponentModel::Container^ components;
 		std::string* _username;  // the username to reset it's password
 
+		System::Void login_button_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void login_link_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
 	
 #pragma region Windows Form Designer generated code
@@ -45,10 +46,10 @@ namespace Client {
 			this->login_link = (gcnew System::Windows::Forms::LinkLabel());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->password_textbox = (gcnew Bunifu::Framework::UI::BunifuTextbox());
+			this->confirmPassword_textbox = (gcnew Bunifu::Framework::UI::BunifuTextbox());
 			this->forgotPassword_link = (gcnew System::Windows::Forms::LinkLabel());
 			this->login_button = (gcnew Bunifu::Framework::UI::BunifuThinButton2());
-			this->username_textbox = (gcnew Bunifu::Framework::UI::BunifuTextbox());
+			this->password_textbox = (gcnew Bunifu::Framework::UI::BunifuTextbox());
 			this->topic = (gcnew System::Windows::Forms::Label());
 			this->panel->SuspendLayout();
 			this->SuspendLayout();
@@ -62,10 +63,10 @@ namespace Client {
 			this->panel->Controls->Add(this->login_link);
 			this->panel->Controls->Add(this->label2);
 			this->panel->Controls->Add(this->label1);
-			this->panel->Controls->Add(this->password_textbox);
+			this->panel->Controls->Add(this->confirmPassword_textbox);
 			this->panel->Controls->Add(this->forgotPassword_link);
 			this->panel->Controls->Add(this->login_button);
-			this->panel->Controls->Add(this->username_textbox);
+			this->panel->Controls->Add(this->password_textbox);
 			this->panel->Controls->Add(this->topic);
 			this->panel->Location = System::Drawing::Point(296, 35);
 			this->panel->Name = L"panel";
@@ -123,21 +124,21 @@ namespace Client {
 			this->label1->TabIndex = 9;
 			this->label1->Text = L"new password";
 			// 
-			// password_textbox
+			// confirmPassword_textbox
 			// 
-			this->password_textbox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->password_textbox->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"password_textbox.BackgroundImage")));
-			this->password_textbox->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->password_textbox->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 8.25F));
-			this->password_textbox->ForeColor = System::Drawing::Color::MintCream;
-			this->password_textbox->Icon = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"password_textbox.Icon")));
-			this->password_textbox->Location = System::Drawing::Point(25, 225);
-			this->password_textbox->Margin = System::Windows::Forms::Padding(0);
-			this->password_textbox->Name = L"password_textbox";
-			this->password_textbox->Size = System::Drawing::Size(250, 50);
-			this->password_textbox->TabIndex = 7;
-			this->password_textbox->text = L"";
+			this->confirmPassword_textbox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->confirmPassword_textbox->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"confirmPassword_textbox.BackgroundImage")));
+			this->confirmPassword_textbox->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->confirmPassword_textbox->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 8.25F));
+			this->confirmPassword_textbox->ForeColor = System::Drawing::Color::MintCream;
+			this->confirmPassword_textbox->Icon = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"confirmPassword_textbox.Icon")));
+			this->confirmPassword_textbox->Location = System::Drawing::Point(25, 225);
+			this->confirmPassword_textbox->Margin = System::Windows::Forms::Padding(0);
+			this->confirmPassword_textbox->Name = L"confirmPassword_textbox";
+			this->confirmPassword_textbox->Size = System::Drawing::Size(250, 50);
+			this->confirmPassword_textbox->TabIndex = 7;
+			this->confirmPassword_textbox->text = L"";
 			// 
 			// forgotPassword_link
 			// 
@@ -176,22 +177,23 @@ namespace Client {
 			this->login_button->Size = System::Drawing::Size(180, 49);
 			this->login_button->TabIndex = 3;
 			this->login_button->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->login_button->Click += gcnew System::EventHandler(this, &ResetPasswordForm::login_button_Click);
 			// 
-			// username_textbox
+			// password_textbox
 			// 
-			this->username_textbox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			this->password_textbox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->username_textbox->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"username_textbox.BackgroundImage")));
-			this->username_textbox->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->username_textbox->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 8.25F));
-			this->username_textbox->ForeColor = System::Drawing::Color::MintCream;
-			this->username_textbox->Icon = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"username_textbox.Icon")));
-			this->username_textbox->Location = System::Drawing::Point(25, 135);
-			this->username_textbox->Margin = System::Windows::Forms::Padding(0);
-			this->username_textbox->Name = L"username_textbox";
-			this->username_textbox->Size = System::Drawing::Size(250, 50);
-			this->username_textbox->TabIndex = 1;
-			this->username_textbox->text = L"";
+			this->password_textbox->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"password_textbox.BackgroundImage")));
+			this->password_textbox->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->password_textbox->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 8.25F));
+			this->password_textbox->ForeColor = System::Drawing::Color::MintCream;
+			this->password_textbox->Icon = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"password_textbox.Icon")));
+			this->password_textbox->Location = System::Drawing::Point(25, 135);
+			this->password_textbox->Margin = System::Windows::Forms::Padding(0);
+			this->password_textbox->Name = L"password_textbox";
+			this->password_textbox->Size = System::Drawing::Size(250, 50);
+			this->password_textbox->TabIndex = 1;
+			this->password_textbox->text = L"";
 			// 
 			// topic
 			// 
