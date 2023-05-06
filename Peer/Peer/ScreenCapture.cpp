@@ -35,7 +35,7 @@ void ScreenCapture::recordScreen(SOCKET sock, std::string width, std::string hei
         cv::resize(image, resizedImage, cv::Size(stoi(width), stoi(height)));
 
         // Convert the resized image back to raw pixel data
-        size = stoi(width) * stoi(height)* 4;
+        size = stoi(width) * stoi(height) * 4;
         char* resizedPixels = new char[size];
         memcpy(resizedPixels, resizedImage.data, size);
 
@@ -59,8 +59,6 @@ void ScreenCapture::receiveCaptures(SOCKET sock, std::string width, std::string 
     int screenWidth = stoi(width);//GetSystemMetrics(SM_CXSCREEN);
     int screenHeight = stoi(height); // GetSystemMetrics(SM_CYSCREEN);
     const int size = screenWidth * screenHeight * 4;
-    //char buffer[size] = { 0 };
-    //cv::namedWindow("Screen", cv::WINDOW_AUTOSIZE);
     cv::namedWindow("Screen", cv::WINDOW_AUTOSIZE);
     while (true)
     {
@@ -85,8 +83,8 @@ void ScreenCapture::receiveCaptures(SOCKET sock, std::string width, std::string 
             cv::Mat image(screenHeight, screenWidth, CV_8UC4, buffer);
             cv::imshow("Screen", image);
             cv::waitKey(5);
-            delete[] buffer;
         }
+        delete[] buffer;
         //cv::destroyAllWindows();
     }
             //
