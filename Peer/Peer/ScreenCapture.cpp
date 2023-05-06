@@ -35,7 +35,7 @@ void ScreenCapture::recordScreen(SOCKET sock, std::string width, std::string hei
         cv::resize(image, resizedImage, cv::Size(stoi(width), stoi(height)));
 
         // Convert the resized image back to raw pixel data
-        size = screenWidth * screenHeight * 4;
+        size = stoi(width) * stoi(height)* 4;
         char* resizedPixels = new char[size];
         memcpy(resizedPixels, resizedImage.data, size);
 
