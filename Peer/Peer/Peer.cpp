@@ -41,6 +41,7 @@ void Peer::startConversation()
 
     if (this->_type)  // controlling PC
     {
+        sendPeerDetails(this->_socket);
         // init server
         try
         {
@@ -57,7 +58,7 @@ void Peer::startConversation()
     else  // controlled PC
     {
         Peer peer2peer;
-        peer2peer.connectToServer("127.0.0.1", 5471);
+        peer2peer.connectToServer("192.168.68.104", 5471);
         peer2peer.sendMessages();
 
     }
@@ -88,6 +89,29 @@ void Peer::receiveRecords(SOCKET sock)
         std::fill_n(buffer, BUFFER_SIZE, 0);  // clearing buffer
         Sleep(10);
     }
+}
+
+void Peer::sendPeerDetails(SOCKET sock)
+{
+    std::string screenWidth = std::to_string(GetSystemMetrics(SM_CXSCREEN));
+    std::string screenHeight = std::to_string(GetSystemMetrics(SM_CYSCREEN));
+    std::string id = std::to_string(this->_id);
+    std::string ip = getMyIp();
+    std::string msg = "1&" + id + "&" + ip + "&" + screenWidth + "&" + screenHeight;
+    std::cout << msg << std::endl;
+    send(sock, msg.c_str(), msg.size(), 0);
+}
+
+void Peer::receivePeedDetails(SOCKET sock, int peerId)
+{
+    char details[DETAILS_SIZE] = { 0 };
+    std::string id = std::to_string(this->_id);
+    std::string msg = "2&" + id + "&" + std::to_string(peerId);
+    send(sock, msg.c_str(), msg.size(), 0);
+
+    recv(sock, details, DETAILS_SIZE, 0);
+    std::string detailsAsStr(details);
+
 }
 
 // function returns the matching message type according to the content
@@ -123,6 +147,23 @@ void Peer::sendMessages()
     {
         threads[i].join();
     }
+}
+
+std::string Peer::getMyIp()
+{
+    WSADATA wsaData;
+    int iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+
+    char hostName[256];
+    iResult = gethostname(hostName, sizeof(hostName));
+
+    struct hostent* hostInfo = gethostbyname(hostName);
+
+    char* ipAddress = inet_ntoa(*(struct in_addr*)hostInfo->h_addr_list[0]);
+    std::cout << "IP address of " << hostName << ": " << ipAddress << std::endl;
+
+    WSACleanup();
+    return std::string(ipAddress);
 }
 
 

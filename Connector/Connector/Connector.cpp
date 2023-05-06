@@ -85,33 +85,72 @@ void Connector::startHandleRequest()
 void Connector::handleNewClient(SOCKET sock)
 {
 	// after adding GUI, this function will transfer messages only between the 2 peers having a takeover call
-
-
 	while (true)
 	{
-		char* buffer = new char[SIZE];
-		for (int i = 0; i < SIZE; i++)
+		char msg[SIZE] = { 0 };
+		recv(sock, msg, SIZE, 0);
+		if (msg[0] == '1')
 		{
-			buffer[i] = 0;
-		}
-		recv(sock, buffer, SIZE, 0);
-		std::string msg(buffer);
-
-		if (msg.length() != 0)
-		{
-			std::cout << msg;
-			//std::cout << msg << std::endl;
-			// TODO: check if not an image/Mat before printing
-			// can be done after adding protocol
-
-			// CURRENTLY - sending to all of the users. will be changed after adding GUI
-			for (int i = 0; i < this->_connections.size(); i++)
+			int i = 3;
+			std::string id = "";
+			for (i = 3; msg[i] != '&'; i++)
 			{
-				if (this->_connections[i] != sock)  // to make sure not sending to ourselves
-					send(this->_connections[i], buffer, SIZE, 0);
+				id += msg[i];
 			}
+			i++;
+			std::string ip = "";
+			for (i; msg[i] != '&'; i++)
+			{
+				ip += msg[i];
+			}
+			i++;
+			std::string width = "";
+			for (i; msg[i] != '&'; i++)
+			{
+				width += msg[i];
+			}
+			i++;
+			std::string height = "";
+			for (i; i < std::string(msg).size(); i++)
+			{
+				height += msg[i];
+			}
+			i++;
+			PeerDetails details("", width, height);
+			this->_details[std::stoi(id)] = details;
 		}
-		delete[] buffer;
+		if (msg[0] == '2')
+		{
+			int i = 3;
+			std::string id = "";
+			for (i = 3; msg[i] != '&'; i++)
+			{
+				id += msg[i];
+			}
+			i++;
+			std::string peerId = "";
+			for (i; i < std::string(msg).size(); i++)
+			{
+				peerId += msg[i];
+			}
+			PeerDetails myDetails = this->_details[stoi(id)];
+			PeerDetails peerDetails = this->_details[stoi(peerId)];
+			
+			std::string ip = peerDetails.getIp();
+			std::string width, height;
+			if (myDetails.getHeight() > peerDetails.getWidth())
+			{
+				width = peerDetails.getWidth();
+				height = peerDetails.getHeight();
+			}
+			else
+			{
+				width = myDetails.getWidth();
+				height = myDetails.getHeight();
+			}
+			std::string newDetails = ip + "&" + width + "&" + height;
+			send(this->_connections[std::stoi(id)], newDetails.c_str(), newDetails.size(), 0);
+		}
 	}
 }
 

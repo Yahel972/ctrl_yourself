@@ -33,10 +33,10 @@ void ScreenCapture::recordScreen(SOCKET sock)
 
         // Resize the image to 512x512
         cv::Mat resizedImage;
-        cv::resize(image, resizedImage, cv::Size(SCREEN_SIZE_TEMP, SCREEN_SIZE_TEMP));
+        cv::resize(image, resizedImage, cv::Size(screenWidth, screenHeight));
 
         // Convert the resized image back to raw pixel data
-        size = SCREEN_SIZE_TEMP * SCREEN_SIZE_TEMP * 4;
+        size = screenWidth * screenHeight * 4;
         char* resizedPixels = new char[size];
         memcpy(resizedPixels, resizedImage.data, size);
 

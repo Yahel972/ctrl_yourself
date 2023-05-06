@@ -16,6 +16,7 @@
 #include <regex>
 
 #define BUFFER_SIZE 256
+#define DETAILS_SIZE 64
 
 class Peer
 {
@@ -29,11 +30,18 @@ public:
 
 private:
 	void receiveRecords(SOCKET sock);
+	void sendPeerDetails(SOCKET sock);
+	void receivePeedDetails(SOCKET sock, int peerId);
 	int receiveId(SOCKET sock);
 	Message* setMessageType(std::string msg);
 	void sendMessages();
+	std::string getMyIp();
 
 	SOCKET _socket;
 	int _id;
 	bool _type;  // true - controller, false - being controlled
+
+	int _peerStreamResWidth;
+	int _peerStreamResHeight;
+		
 };

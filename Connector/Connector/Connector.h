@@ -8,9 +8,11 @@
 #include <vector>
 #include <thread>
 #include <map>
+#include "PeerDetails.h"
+#include "PeerDetails.h"
 
 #define PORT 6969
-#define SIZE 256
+#define SIZE 64
 
 class Connector
 {
@@ -27,7 +29,7 @@ private:
 
 	SOCKET _listener;
 	std::map<int, SOCKET> _connections;  // saves all of the connections (sockets) with all peers
-
+	std::map<int, PeerDetails> _details;  // saves all of the connections (sockets) with all peers
 	// in order to distribute ids:
 	static int ID_COUNTER;
 	static int generateId(SOCKET sock);

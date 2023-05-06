@@ -6,7 +6,7 @@
 #include <exception>
 
 #define SERVER_PORT 6969
-#define SERVER_IP "127.0.0.1"
+#define SERVER_IP "127.0.0.1" //SHOULD CHANGE BASED ON IF THE PC IS CONTROLLING/CONTROLLED
 
 int main()
 {

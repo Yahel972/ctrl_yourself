@@ -22,6 +22,4 @@ public:
 private:
 	BITMAPINFOHEADER createBitmapHeader(int width, int height);
 	cv::Mat captureScreenMat(HWND hwnd);
-	std::string getSize(int size);
-	static int count_digit(int number);
 };
