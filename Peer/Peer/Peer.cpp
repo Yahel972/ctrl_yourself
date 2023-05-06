@@ -42,6 +42,10 @@ void Peer::startConversation()
     if (this->_type)  // controlling PC
     {
         sendPeerDetails(this->_socket);
+        int peerId = 0;
+        std::cout << "enter the id of the user: " << std::endl;
+        std::cin >> peerId;
+        receivePeedDetails(this->_socket, peerId);
         // init server
         try
         {
@@ -111,6 +115,8 @@ void Peer::receivePeedDetails(SOCKET sock, int peerId)
 
     recv(sock, details, DETAILS_SIZE, 0);
     std::string detailsAsStr(details);
+
+
 
 }
 

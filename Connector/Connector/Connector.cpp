@@ -91,9 +91,9 @@ void Connector::handleNewClient(SOCKET sock)
 		recv(sock, msg, SIZE, 0);
 		if (msg[0] == '1')
 		{
-			int i = 3;
+			int i = 2;
 			std::string id = "";
-			for (i = 3; msg[i] != '&'; i++)
+			for (i; msg[i] != '&'; i++)
 			{
 				id += msg[i];
 			}
@@ -116,14 +116,14 @@ void Connector::handleNewClient(SOCKET sock)
 				height += msg[i];
 			}
 			i++;
-			PeerDetails details("", width, height);
+			PeerDetails details(ip, width, height);
 			this->_details[std::stoi(id)] = details;
 		}
 		if (msg[0] == '2')
 		{
-			int i = 3;
+			int i = 2;
 			std::string id = "";
-			for (i = 3; msg[i] != '&'; i++)
+			for (i; msg[i] != '&'; i++)
 			{
 				id += msg[i];
 			}

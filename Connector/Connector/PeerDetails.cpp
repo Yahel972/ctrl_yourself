@@ -1,5 +1,9 @@
 #include "PeerDetails.h"
 
+PeerDetails::PeerDetails()
+{
+}
+
 PeerDetails::PeerDetails(std::string ip, std::string width, std::string height)
 {
 	this->_ip = ip;

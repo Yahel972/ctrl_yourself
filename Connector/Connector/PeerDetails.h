@@ -4,6 +4,7 @@
 class PeerDetails
 {
 public:
+	PeerDetails();
 	PeerDetails(std::string ip, std::string width, std::string height);
 	std::string getIp();
 	std::string getWidth();
