@@ -14,6 +14,10 @@
 #include "MousePosMessage.h"
 #include "KeyboardMessage.h"
 #include <regex>
+#include <iphlpapi.h>
+
+#include <winsock2.h>
+
 
 #define BUFFER_SIZE 256
 #define DETAILS_SIZE 64

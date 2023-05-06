@@ -56,8 +56,8 @@ void ScreenCapture::recordScreen(SOCKET sock, std::string width, std::string hei
 
 void ScreenCapture::receiveCaptures(SOCKET sock, std::string width, std::string height)
 {
-    int screenWidth = SCREEN_SIZE_TEMP;//GetSystemMetrics(SM_CXSCREEN);
-    int screenHeight = SCREEN_SIZE_TEMP; // GetSystemMetrics(SM_CYSCREEN);
+    int screenWidth = stoi(width);//GetSystemMetrics(SM_CXSCREEN);
+    int screenHeight = stoi(height); // GetSystemMetrics(SM_CYSCREEN);
     const int size = screenWidth * screenHeight * 4;
     //char buffer[size] = { 0 };
     //cv::namedWindow("Screen", cv::WINDOW_AUTOSIZE);
@@ -82,7 +82,7 @@ void ScreenCapture::receiveCaptures(SOCKET sock, std::string width, std::string 
         if (totalReceived == size) {
             // message received successfully
             // process the message in the buffer
-            cv::Mat image(SCREEN_SIZE_TEMP, SCREEN_SIZE_TEMP, CV_8UC4, buffer);
+            cv::Mat image(screenHeight, screenWidth, CV_8UC4, buffer);
             cv::imshow("Screen", image);
             cv::waitKey(5);
             delete[] buffer;
