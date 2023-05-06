@@ -71,7 +71,7 @@ void Peer::startConversation()
             WSAInitializer wsaInit;
             PeerServer p;
 
-            p.run();
+            p.run(width, height);
         }
         catch (std::exception& e)
         {
@@ -87,8 +87,6 @@ void Peer::startConversation()
     }
 
     // running all threads
-    for (int i = 0; i < threads.size(); i++)
-        threads[i].join();
 }
 
 // function receives keyboard & mouse loggers - and updates the screen according to them inputs

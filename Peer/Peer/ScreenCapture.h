@@ -17,7 +17,7 @@ class ScreenCapture
 public:
 	ScreenCapture();
 	void recordScreen(SOCKET sock, std::string width, std::string height);
-	void receiveCaptures(SOCKET sock);
+	void receiveCaptures(SOCKET sock, std::string width, std::string height);
 
 private:
 	BITMAPINFOHEADER createBitmapHeader(int width, int height);

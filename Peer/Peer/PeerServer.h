@@ -19,11 +19,11 @@ public:
 	PeerServer();
 	~PeerServer();
 
-	void run();
-	void bindAndListen();
+	void run(std::string width, std::string height);
+	void bindAndListen(std::string width, std::string height);
 
 private:
-	void handleConversation(SOCKET sock);
+	void handleConversation(SOCKET sock, std::string width, std::string height);
 
 	SOCKET _listener;
 };

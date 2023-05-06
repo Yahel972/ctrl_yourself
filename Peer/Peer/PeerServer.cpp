@@ -17,9 +17,9 @@ PeerServer::~PeerServer()
 	catch (...) {}
 }
 
-void PeerServer::run()
+void PeerServer::run(std::string width, std::string height)
 {
-	std::thread t(&PeerServer::bindAndListen, this);  // creating server
+	std::thread t(&PeerServer::bindAndListen, this, width, height);  // creating server
 	t.detach();
 
 	std::string userInput = "";
@@ -29,7 +29,7 @@ void PeerServer::run()
 	}
 }
 
-void PeerServer::bindAndListen()
+void PeerServer::bindAndListen(std::string width, std::string height)
 {
 	std::cout << "Starting Session..." << std::endl;
 	this->_listener = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP); // new Socket
@@ -55,12 +55,12 @@ void PeerServer::bindAndListen()
 	if (conversationSocket == INVALID_SOCKET)
 		throw std::exception(__FUNCTION__);
 
-	std::thread clientThread(&PeerServer::handleConversation, this, conversationSocket);
+	std::thread clientThread(&PeerServer::handleConversation, this, conversationSocket, width, height);
 	clientThread.detach();
 
 }
 
-void PeerServer::handleConversation(SOCKET sock)
+void PeerServer::handleConversation(SOCKET sock, std::string width, std::string height)
 {
 	std::vector<std::thread> threads;
 
@@ -74,7 +74,7 @@ void PeerServer::handleConversation(SOCKET sock)
 	threads.push_back(std::thread(&MouseLogger::recordScrollBar, ml, sock));
 	threads.push_back(std::thread(&MouseLogger::recordMousePos, ml, sock));
 
-	threads.push_back(std::thread(&ScreenCapture::receiveCaptures, sc, sock));  // reciever
+	threads.push_back(std::thread(&ScreenCapture::receiveCaptures, sc, sock, width, height));  // reciever
 
 	for (int i = 0; i < threads.size(); i++)
 		threads[i].join();
