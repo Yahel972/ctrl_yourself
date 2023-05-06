@@ -32,20 +32,39 @@ void Peer::connectToServer(std::string serverIP, int port)
         throw std::exception("Cant connect to the Connector");
 
     std::cout << "Connected with id=" << receiveId(this->_socket) << std::endl;  // setting an id to the user
+    this->sendPeerDetails(this->_socket);
 }
 
 // function runs all of the loggers & receivers as threads
 void Peer::startConversation()
 {
-    std::vector<std::thread> threads;
+    int peerId = 0;
+    std::cout << "enter the id of the user: " << std::endl;
+    std::cin >> peerId;
+    std::string details = receivePeedDetails(this->_socket, peerId);
+
+    std::string ip, width, height;
+    int i = 0;
+    for (i; details[i] != '&'; i++)
+    {
+        ip += details[i];
+    }
+    i++;
+    for (i; details[i] != '&'; i++)
+    {
+        width += details[i];
+    }
+    i++;
+    for (i; i < details.size(); i++)
+    {
+        height += details[i];
+    }
+
+
 
     if (this->_type)  // controlling PC
     {
-        sendPeerDetails(this->_socket);
-        int peerId = 0;
-        std::cout << "enter the id of the user: " << std::endl;
-        std::cin >> peerId;
-        receivePeedDetails(this->_socket, peerId);
+
         // init server
         try
         {
@@ -62,8 +81,8 @@ void Peer::startConversation()
     else  // controlled PC
     {
         Peer peer2peer;
-        peer2peer.connectToServer("192.168.68.104", 5471);
-        peer2peer.sendMessages();
+        peer2peer.connectToServer(ip, 5471);
+        peer2peer.sendMessages(width, height);
 
     }
 
@@ -102,11 +121,10 @@ void Peer::sendPeerDetails(SOCKET sock)
     std::string id = std::to_string(this->_id);
     std::string ip = getMyIp();
     std::string msg = "1&" + id + "&" + ip + "&" + screenWidth + "&" + screenHeight;
-    std::cout << msg << std::endl;
     send(sock, msg.c_str(), msg.size(), 0);
 }
 
-void Peer::receivePeedDetails(SOCKET sock, int peerId)
+std::string Peer::receivePeedDetails(SOCKET sock, int peerId)
 {
     char details[DETAILS_SIZE] = { 0 };
     std::string id = std::to_string(this->_id);
@@ -114,10 +132,7 @@ void Peer::receivePeedDetails(SOCKET sock, int peerId)
     send(sock, msg.c_str(), msg.size(), 0);
 
     recv(sock, details, DETAILS_SIZE, 0);
-    std::string detailsAsStr(details);
-
-
-
+    return std::string(details);
 }
 
 // function returns the matching message type according to the content
@@ -140,12 +155,12 @@ Message* Peer::setMessageType(std::string msg)
     return NULL;
 }
 
-void Peer::sendMessages()
+void Peer::sendMessages(std::string width, std::string height)
 {
     std::vector<std::thread> threads;
 
     ScreenCapture* sc = new ScreenCapture();
-    threads.push_back(std::thread(&ScreenCapture::recordScreen, sc, this->_socket));  // logger
+    threads.push_back(std::thread(&ScreenCapture::recordScreen, sc, this->_socket, width, height));  // logger
 
     threads.push_back(std::thread(&Peer::receiveRecords, this, this->_socket));  // receiver
 

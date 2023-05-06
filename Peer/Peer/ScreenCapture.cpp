@@ -4,7 +4,7 @@ ScreenCapture::ScreenCapture() {}
 
 // function will be used as a thread
 // sending screenshots to the controlled PC
-void ScreenCapture::recordScreen(SOCKET sock)
+void ScreenCapture::recordScreen(SOCKET sock, std::string width, std::string height)
 {
     // capture image
     HWND hwnd = GetDesktopWindow();
@@ -31,9 +31,8 @@ void ScreenCapture::recordScreen(SOCKET sock)
 
         cv::Mat image(screenHeight, screenWidth, CV_8UC4, pixels);
 
-        // Resize the image to 512x512
         cv::Mat resizedImage;
-        cv::resize(image, resizedImage, cv::Size(screenWidth, screenHeight));
+        cv::resize(image, resizedImage, cv::Size(stoi(width), stoi(height)));
 
         // Convert the resized image back to raw pixel data
         size = screenWidth * screenHeight * 4;
@@ -55,7 +54,7 @@ void ScreenCapture::recordScreen(SOCKET sock)
     }
 }
 
-void ScreenCapture::receiveCaptures(SOCKET sock)
+void ScreenCapture::receiveCaptures(SOCKET sock, std::string width, std::string height)
 {
     int screenWidth = SCREEN_SIZE_TEMP;//GetSystemMetrics(SM_CXSCREEN);
     int screenHeight = SCREEN_SIZE_TEMP; // GetSystemMetrics(SM_CYSCREEN);

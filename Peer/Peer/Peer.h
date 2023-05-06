@@ -31,10 +31,10 @@ public:
 private:
 	void receiveRecords(SOCKET sock);
 	void sendPeerDetails(SOCKET sock);
-	void receivePeedDetails(SOCKET sock, int peerId);
+	std::string receivePeedDetails(SOCKET sock, int peerId);
 	int receiveId(SOCKET sock);
 	Message* setMessageType(std::string msg);
-	void sendMessages();
+	void sendMessages(std::string width, std::string height);
 	std::string getMyIp();
 
 	SOCKET _socket;

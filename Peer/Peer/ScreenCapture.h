@@ -16,7 +16,7 @@ class ScreenCapture
 {
 public:
 	ScreenCapture();
-	void recordScreen(SOCKET sock);
+	void recordScreen(SOCKET sock, std::string width, std::string height);
 	void receiveCaptures(SOCKET sock);
 
 private:
