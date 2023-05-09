@@ -61,7 +61,6 @@ void Peer::startConversation()
     }
 
 
-
     if (this->_type)  // controlling PC
     {
 
@@ -80,6 +79,7 @@ void Peer::startConversation()
     }
     else  // controlled PC
     {
+        ip = "127.0.0.1";
         Peer peer2peer;
         peer2peer.connectToServer(ip, 5471);
         peer2peer.sendMessages(width, height);

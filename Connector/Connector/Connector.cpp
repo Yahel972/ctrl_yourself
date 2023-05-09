@@ -137,17 +137,9 @@ void Connector::handleNewClient(SOCKET sock)
 			PeerDetails peerDetails = this->_details[stoi(peerId)];
 			
 			std::string ip = peerDetails.getIp();
-			std::string width, height;
-			if (myDetails.getHeight() > peerDetails.getWidth())
-			{
-				width = peerDetails.getWidth();
-				height = peerDetails.getHeight();
-			}
-			else
-			{
-				width = myDetails.getWidth();
-				height = myDetails.getHeight();
-			}
+			std::string width,height;
+			width = std::to_string(min(stoi(peerDetails.getWidth()) , stoi(myDetails.getWidth())));
+			height = std::to_string(min(stoi(peerDetails.getHeight()) , stoi(myDetails.getHeight())));
 			std::string newDetails = ip + "&" + width + "&" + height;
 			send(this->_connections[std::stoi(id)], newDetails.c_str(), newDetails.size(), 0);
 		}

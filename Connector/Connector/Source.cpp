@@ -7,7 +7,7 @@
 #include <exception>
 #include <iostream>
 
-int main()
+int main()	
 {
 
 	try

@@ -31,20 +31,21 @@ void ScreenCapture::recordScreen(SOCKET sock, std::string width, std::string hei
 
         cv::Mat image(screenHeight, screenWidth, CV_8UC4, pixels);
 
-        cv::Mat resizedImage;
-        cv::resize(image, resizedImage, cv::Size(stoi(width), stoi(height)));
+        // Resize the image to 512x512
+        //cv::Mat resizedImage;
+        //cv::resize(image, resizedImage, cv::Size(stoi(width), stoi(height)));
 
-        // Convert the resized image back to raw pixel data
-        size = stoi(width) * stoi(height) * 4;
-        char* resizedPixels = new char[size];
-        memcpy(resizedPixels, resizedImage.data, size);
+        //// Convert the resized image back to raw pixel data
+        //size = stoi(width) * stoi(height) * 4;
+        //char* resizedPixels = new char[size];
+        //memcpy(resizedPixels, resizedImage.data, size);
 
 
         // Wait for a short period of time before capturing the next frame
-        
-        send(sock, resizedPixels, size, 0);
+
+        send(sock, pixels, size, 0);
         delete[] pixels;
-        delete[] resizedPixels;
+        //delete[] resizedPixels;
 
         // Clean up
         SelectObject(hdcMem, hbmOld);
@@ -56,12 +57,10 @@ void ScreenCapture::recordScreen(SOCKET sock, std::string width, std::string hei
 
 void ScreenCapture::receiveCaptures(SOCKET sock, std::string width, std::string height)
 {
-    int screenWidth = stoi(width);//GetSystemMetrics(SM_CXSCREEN);
-    int screenHeight = stoi(height); // GetSystemMetrics(SM_CYSCREEN);
-    const int size = screenWidth * screenHeight * 4;
     cv::namedWindow("Screen", cv::WINDOW_AUTOSIZE);
     while (true)
     {
+        const int size = stoi(width) * stoi(height) * 4;
         char* buffer = new char[size];
         int totalReceived = 0; // total bytes received so far
         while (totalReceived < size) {
@@ -80,15 +79,16 @@ void ScreenCapture::receiveCaptures(SOCKET sock, std::string width, std::string 
         if (totalReceived == size) {
             // message received successfully
             // process the message in the buffer
-            cv::Mat image(screenHeight, screenWidth, CV_8UC4, buffer);
+            cv::Mat image(stoi(height), stoi(width), CV_8UC4, buffer);
             cv::imshow("Screen", image);
             cv::waitKey(5);
         }
-        delete[] buffer;
         //cv::destroyAllWindows();
+        delete[] buffer;
     }
-            //
+    //
 }
+
 
 // function creates a bitmap header
 BITMAPINFOHEADER ScreenCapture::createBitmapHeader(int width, int height)

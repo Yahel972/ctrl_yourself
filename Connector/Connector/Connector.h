@@ -8,7 +8,8 @@
 #include <vector>
 #include <thread>
 #include <map>
-#include "PeerDetails.h"
+#include <algorithm>
+
 #include "PeerDetails.h"
 
 #define PORT 6969
