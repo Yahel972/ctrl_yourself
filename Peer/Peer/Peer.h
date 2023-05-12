@@ -20,6 +20,7 @@
 
 
 #define BUFFER_SIZE 256
+#define DETAILS_SIZE 256
 
 class Peer
 {

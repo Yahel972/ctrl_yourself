@@ -29,7 +29,7 @@ void Peer::connectToServer(std::string serverIP, int port)
 
     // trying to connect to the connector:
     if (connect(this->_socket, (struct sockaddr*)&sa, sizeof(sa)) == INVALID_SOCKET)
-        throw std::exception("Can't connect to the other Peer");
+        throw std::exception("Cant connect to the Connector");
 
     std::cout << "Connected with id=" << receiveId(this->_socket) << std::endl;  // setting an id to the user
     this->sendPeerDetails(this->_socket);
@@ -43,10 +43,9 @@ void Peer::startConversation()
     std::cin >> peerId;
     std::string details = receivePeedDetails(this->_socket, peerId);
 
-    //std::string ip, width, height;
-    std::istringstream iss(details);
     std::string value;
 
+    std::istringstream iss(details);
     std::getline(iss, value, '&');
     std::string everyIP = value;
 
@@ -56,7 +55,7 @@ void Peer::startConversation()
     std::getline(iss, value, '&');
     std::string height = value;
 
-    std::vector<std::string> ipList = this->seperateBySign(everyIP,"|");
+    std::vector<std::string> ipList = this->seperateBySign(everyIP, "|");
 
 
     if (this->_type)  // controlling PC
@@ -94,6 +93,7 @@ void Peer::startConversation()
         std::cout << "ERROR" << std::endl;
 
     }
+
 
     // running all threads
 }
@@ -133,12 +133,12 @@ void Peer::sendPeerDetails(SOCKET sock)
 
 std::string Peer::receivePeedDetails(SOCKET sock, int peerId)
 {
-    char details[BUFFER_SIZE] = { 0 };
+    char details[DETAILS_SIZE] = { 0 };
     std::string id = std::to_string(this->_id);
     std::string msg = "2&" + id + "&" + std::to_string(peerId);
     send(sock, msg.c_str(), msg.size(), 0);
 
-    recv(sock, details, BUFFER_SIZE, 0);
+    recv(sock, details, DETAILS_SIZE, 0);
     return std::string(details);
 }
 
@@ -188,22 +188,31 @@ std::string Peer::getMyIp()
     struct hostent* hostInfo = gethostbyname(hostName);
 
     char* ipAddress = inet_ntoa(*(struct in_addr*)hostInfo->h_addr_list[0]);
-
-    std::string ip_address_list;
-
-    for (int i = 0; hostInfo->h_addr_list[i] != nullptr; i++) {
-        std::string ipAddress = inet_ntoa(*(struct in_addr*)hostInfo->h_addr_list[i]);
-        if (i > 0) {
-            ip_address_list += "|";
-        }
-        ip_address_list += ipAddress;
-    }
-
-
-    std::cout << "IP address of " << hostName << ": " << ip_address_list << std::endl;
+    std::cout << "IP address of " << hostName << ": " << ipAddress << std::endl;
 
     WSACleanup();
-    return ip_address_list;
+    return std::string(ipAddress);
+}
+
+
+// temporary function - after adding GUI we will update that to not requesting an input (will be set according to the GUI's buttons and the state of the call)
+void Peer::setType()
+{
+    int choice = 0;
+    std::cout << "Enter 0 to be a controlled pc, or any other key to be a controlling pc (TEMPORARY-WILL BE CHANGED AFTER ADDING GUI):\n";
+
+    std::cin >> choice;
+    this->_type = choice;  // will be true for a non-zero value, false for 0
+}
+
+// function receives an id from the connector
+int Peer::receiveId(SOCKET sock)
+{
+    char buffer[4] = { 0 };
+    recv(sock, buffer, 4, 0);
+
+    this->_id = atoi(buffer);
+    return this->_id;
 }
 
 std::vector<std::string> Peer::seperateBySign(std::string input, std::string sign)
@@ -219,25 +228,4 @@ std::vector<std::string> Peer::seperateBySign(std::string input, std::string sig
         pos = next_pos + 1;
     }
     return output;
-}
-
-
-// temporary function - after adding GUI we will update that to not requesting an input (will be set according to the GUI's buttons and the state of the call)
-void Peer::setType()
-{
-    int choice = 0;
-    std::cout << "Enter 0 to be a controlled pc, or any other key to be a controlling pc (TEMPORARY-WILL BE CHANGED AFTER ADDING GUI):\n";
-    
-    std::cin >> choice;
-    this->_type = choice;  // will be true for a non-zero value, false for 0
-}
-
-// function receives an id from the connector
-int Peer::receiveId(SOCKET sock)
-{
-    char buffer[4] = { 0 };
-    recv(sock, buffer, 4, 0);
-
-    this->_id = atoi(buffer);
-    return this->_id;
 }
