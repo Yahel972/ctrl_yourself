@@ -20,7 +20,6 @@
 
 
 #define BUFFER_SIZE 256
-#define DETAILS_SIZE 64
 
 class Peer
 {
@@ -40,6 +39,8 @@ private:
 	Message* setMessageType(std::string msg);
 	void sendMessages(std::string width, std::string height);
 	std::string getMyIp();
+	std::vector<std::string> seperateBySign(std::string input, std::string sign);
+
 
 	SOCKET _socket;
 	int _id;

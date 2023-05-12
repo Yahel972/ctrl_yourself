@@ -29,7 +29,7 @@ void Peer::connectToServer(std::string serverIP, int port)
 
     // trying to connect to the connector:
     if (connect(this->_socket, (struct sockaddr*)&sa, sizeof(sa)) == INVALID_SOCKET)
-        throw std::exception("Can't connect to the other Peer");
+        throw std::exception("Cant connect to the Connector");
 
     std::cout << "Connected with id=" << receiveId(this->_socket) << std::endl;  // setting an id to the user
     this->sendPeerDetails(this->_socket);
@@ -48,7 +48,7 @@ void Peer::startConversation()
     std::string value;
 
     std::getline(iss, value, '&');
-    std::string everyIP = value;
+    std::string ip = value;
 
     std::getline(iss, value, '&');
     std::string width = value;
@@ -56,7 +56,21 @@ void Peer::startConversation()
     std::getline(iss, value, '&');
     std::string height = value;
 
-    std::vector<std::string> ipList = this->seperateBySign(everyIP,"|");
+    //int i = 0;
+    //for (i; details[i] != '&'; i++)
+    //{
+    //    ip += details[i];
+    //}
+    //i++;
+    //for (i; details[i] != '&'; i++)
+    //{
+    //    width += details[i];
+    //}
+    //i++;
+    //for (i; i < details.size(); i++)
+    //{
+    //    height += details[i];
+    //}
 
 
     if (this->_type)  // controlling PC
@@ -77,21 +91,11 @@ void Peer::startConversation()
     }
     else  // controlled PC
     {
+        ip = "127.0.0.1";
         Peer peer2peer;
-        for (int i = 0; i < ipList.size(); i++)
-        {
-            std::cout << "Trying to connect..." << std::endl;
-            try
-            {
-                peer2peer.connectToServer(ipList[i], 5471);
-                peer2peer.sendMessages(width, height);
-            }
-            catch (const std::exception& e)
-            {
-                std::cout << e.what() << std::endl;
-            }
-        }
-        std::cout << "ERROR" << std::endl;
+        for(int i = 0;)
+        peer2peer.connectToServer(ip, 5471);
+        peer2peer.sendMessages(width, height);
 
     }
 
@@ -204,21 +208,6 @@ std::string Peer::getMyIp()
 
     WSACleanup();
     return ip_address_list;
-}
-
-std::vector<std::string> Peer::seperateBySign(std::string input, std::string sign)
-{
-    std::vector<std::string> output;
-    int pos = 0;
-    while (pos < input.length()) {
-        size_t next_pos = input.find('|', pos);
-        if (next_pos == std::string::npos) {
-            next_pos = input.length();
-        }
-        output.push_back(input.substr(pos, next_pos - pos));
-        pos = next_pos + 1;
-    }
-    return output;
 }
 
 
