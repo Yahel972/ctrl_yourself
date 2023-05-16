@@ -90,7 +90,7 @@ void Peer::startConversation()
                 std::cout << e.what() << std::endl;
             }
         }
-        //std::cout << "ERROR" << std::endl;
+        std::cout << "ERROR" << std::endl;
 
     }
 
