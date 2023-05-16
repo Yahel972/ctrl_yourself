@@ -187,11 +187,20 @@ std::string Peer::getMyIp()
 
     struct hostent* hostInfo = gethostbyname(hostName);
 
-    char* ipAddress = inet_ntoa(*(struct in_addr*)hostInfo->h_addr_list[0]);
-    std::cout << "IP address of " << hostName << ": " << ipAddress << std::endl;
+    std::string ip_address_list = "";//inet_ntoa(*(struct in_addr*)hostInfo->h_addr_list[0]);
+
+    for (int i = 0; hostInfo->h_addr_list[i] != nullptr; i++) {
+        std::string ipAddress = inet_ntoa(*(struct in_addr*)hostInfo->h_addr_list[i]);
+        if (i > 0) {
+            ip_address_list += "|";
+        }
+        ip_address_list += ipAddress;
+    }
+
+    std::cout << "IP address of " << hostName << ": " << ip_address_list << std::endl;
 
     WSACleanup();
-    return std::string(ipAddress);
+    return std::string(ip_address_list);
 }
 
 
