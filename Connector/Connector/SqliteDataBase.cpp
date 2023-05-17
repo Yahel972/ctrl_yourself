@@ -79,7 +79,7 @@ std::string SqliteDataBase::getUsersEmail(std::string username) {
 
 void SqliteDataBase::changePassword(std::string username, std::string newPassword)
 {
-
+    // TODO: update db
 }
 
 std::vector<std::string> SqliteDataBase::getUsers()
