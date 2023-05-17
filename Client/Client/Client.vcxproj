@@ -79,11 +79,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Shell32.lib;opencv_world340d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>main</EntryPointSymbol>
       <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>C:\opencv\build\x64\vc14\bin;C:\opencv\build\x64\vc15\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -108,11 +110,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>main</EntryPointSymbol>
       <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>C:\opencv\build\x64\vc14\bin;C:\opencv\build\x64\vc15\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -128,31 +132,51 @@
   <ItemGroup>
     <ClCompile Include="CodeSender.cpp" />
     <ClCompile Include="ForgotPasswordForm.cpp" />
+    <ClCompile Include="KeyboardMessage.cpp" />
+    <ClCompile Include="KeyLogger.cpp" />
     <ClCompile Include="LoginForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="Message.cpp" />
+    <ClCompile Include="MouseLogger.cpp" />
+    <ClCompile Include="MouseMessage.cpp" />
+    <ClCompile Include="MousePosMessage.cpp" />
+    <ClCompile Include="Peer.cpp" />
+    <ClCompile Include="PeerServer.cpp" />
     <ClCompile Include="RegistrationForm.cpp" />
     <ClCompile Include="ResetPasswordForm.cpp" />
+    <ClCompile Include="ScreenCapture.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="User.cpp" />
+    <ClCompile Include="WSAInitializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CodeSender.h" />
     <ClInclude Include="ForgotPasswordForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="KeyboardMessage.h" />
+    <ClInclude Include="KeyLogger.h" />
     <ClInclude Include="LoginForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="MouseLogger.h" />
+    <ClInclude Include="MouseMessage.h" />
+    <ClInclude Include="MousePosMessage.h" />
+    <ClInclude Include="Peer.h" />
+    <ClInclude Include="PeerServer.h" />
     <ClInclude Include="RegistrationForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="ResetPasswordForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="ScreenCapture.h" />
     <ClInclude Include="User.h" />
+    <ClInclude Include="WSAInitializer.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ForgotPasswordForm.resx">
