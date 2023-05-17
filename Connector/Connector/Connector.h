@@ -2,13 +2,9 @@
 
 #include <WinSock2.h>
 #include <Windows.h>
-#include <string>
 #include <exception>
-#include <iostream>
-#include <vector>
 #include <thread>
 #include <map>
-#include <algorithm>
 
 #include "PeerDetails.h"
 
@@ -29,6 +25,7 @@ private:
 	void handleNewClient(SOCKET sock);
 
 	SOCKET _listener;
+	SqliteDataBase _db;
 	std::map<int, SOCKET> _connections;  // saves all of the connections (sockets) with all peers
 	std::map<int, PeerDetails> _details;  // saves all of the connections (sockets) with all peers
 	// in order to distribute ids:
