@@ -17,7 +17,9 @@ namespace Client {
 	public ref class ForgotPasswordForm : public System::Windows::Forms::Form
 	{
 	public:
-		ForgotPasswordForm();
+		ForgotPasswordForm(Peer& p);
+
+		Peer& getPeer();
 
 	protected:
 		~ForgotPasswordForm();
@@ -36,6 +38,7 @@ namespace Client {
 		System::Windows::Forms::Label^ status_label;
 		System::ComponentModel::Container^ components;
 		int* _code;
+		Peer& _p;
 
 		System::Void button_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void login_link_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);

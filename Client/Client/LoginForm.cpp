@@ -1,6 +1,11 @@
 #include "LoginForm.h"
 
-Client::LoginForm::LoginForm() { InitializeComponent(); }
+Client::LoginForm::LoginForm(Peer& p): _p(p) { InitializeComponent(); }
+
+Peer& Client::LoginForm::getPeer()
+{
+	return this->_p;
+}
 
 Client::LoginForm::~LoginForm()
 {
@@ -30,10 +35,11 @@ System::Void Client::LoginForm::login_button_Click(System::Object^ sender, Syste
 		return;
 	}
 
-	// TODO: send a message to the connector, including the name & password
-	// check if details are correct and receive a response
-	// DEAN
-	
+	// creating login request
+	std::string msg = "3&" + msclr::interop::marshal_as<std::string>(this->username_textbox->text) + "&" + msclr::interop::marshal_as<std::string>(this->password_textbox->text);
+	send(this->getPeer().getSock(), msg.c_str(), msg.size(), 0);
+
+	// TODO: recieve login response
 	// fill here the result of the checking in the db (instead of the false)
 	if (false)
 	{

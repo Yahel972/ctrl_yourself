@@ -5,6 +5,7 @@
 #include "Windows.h"
 #include "MainForm.h"
 #include <msclr/marshal_cppstd.h>
+#include "Peer.h"
 
 namespace Client
 {
@@ -18,7 +19,9 @@ namespace Client
 	public ref class LoginForm : public System::Windows::Forms::Form
 	{
 	public:
-		LoginForm();
+		LoginForm(Peer& p);
+
+		Peer& getPeer();
 
 	protected:
 		~LoginForm();
@@ -35,6 +38,7 @@ namespace Client
 		System::Windows::Forms::Label^ label2;
 		System::Windows::Forms::Label^ label1;
 		System::ComponentModel::Container^ components;
+		Peer& _p;
 
 		System::Void register_linkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
 		System::Void forgotPassword_link_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);

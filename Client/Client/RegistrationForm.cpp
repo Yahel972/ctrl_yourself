@@ -1,6 +1,11 @@
 #include "RegistrationForm.h"
 
-Client::RegistrationForm::RegistrationForm() { InitializeComponent(); }
+Client::RegistrationForm::RegistrationForm(Peer& p): _p(p) { InitializeComponent(); }
+
+Peer& Client::RegistrationForm::getPeer()
+{
+	return this->_p;
+}
 
 Client::RegistrationForm::~RegistrationForm()
 {
@@ -28,9 +33,9 @@ System::Void Client::RegistrationForm::registration_button_Click(System::Object^
 		return;
 	}
 
-	// TODO: send a message to the connector, including the name, password
-	// check if details are correct and receive a response
-	// DEAN
+	// creating login request
+	std::string msg = "4&" + msclr::interop::marshal_as<std::string>(this->username_textbox->text) + "&" + msclr::interop::marshal_as<std::string>(this->password_textbox->text) + "&" + msclr::interop::marshal_as<std::string>(this->email_textbox->text);
+	send(this->getPeer().getSock(), msg.c_str(), msg.size(), 0);
 
 	MessageBox::Show("User registered successfully!", "Registration Complete", MessageBoxButtons::OK, MessageBoxIcon::Information);
 	login_link_clicked(nullptr, nullptr);

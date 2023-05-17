@@ -1,6 +1,11 @@
 #include "ForgotPasswordForm.h"
 
-Client::ForgotPasswordForm::ForgotPasswordForm(): _code(new int(0)) { InitializeComponent(); }
+Client::ForgotPasswordForm::ForgotPasswordForm(Peer& p): _p(p), _code(new int(0)) { InitializeComponent(); }
+
+Peer& Client::ForgotPasswordForm::getPeer()
+{
+	return this->_p;
+}
 
 Client::ForgotPasswordForm::~ForgotPasswordForm()
 {
@@ -26,15 +31,17 @@ System::Void Client::ForgotPasswordForm::button_Click(System::Object^ sender, Sy
 			return;
 		}
 
-		// TODO: check in the db if the username given exists
-		// DEAN
+		// checking if username exists and receiving email
+		std::string msg = "5&" + msclr::interop::marshal_as<std::string>(this->username_textbox->text);
+		send(this->getPeer().getSock(), msg.c_str(), msg.size(), 0);
+
+		String^ email = "yahelbareket@gmail.com"; // TODO: extract the email
 		if (false)
 		{
 			MessageBox::Show("Username doesn't exist", "Invalid Username", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			return;
 		}
-
-		String^ email = "yahelbareket@gmail.com"; // TODO: extract the email
+		
 		*this->_code = CodeSender::sendCode(msclr::interop::marshal_as<std::string>(email), msclr::interop::marshal_as<std::string>(username_textbox->text));
 
 		this->code_label->Visible = true;
@@ -60,7 +67,7 @@ System::Void Client::ForgotPasswordForm::button_Click(System::Object^ sender, Sy
 		}
 
 		// code is valid - openning ResetPasswordForm:
-		ResetPasswordForm^ rpf = gcnew ResetPasswordForm(msclr::interop::marshal_as<std::string>(this->username_textbox->text));
+		ResetPasswordForm^ rpf = gcnew ResetPasswordForm(_p, msclr::interop::marshal_as<std::string>(this->username_textbox->text));
 		rpf->Show();
 		this->Hide();
 	}
