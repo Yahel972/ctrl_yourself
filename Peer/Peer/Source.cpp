@@ -6,7 +6,7 @@
 #include <exception>
 
 #define SERVER_PORT 6969
-#define SERVER_IP "192.168.68.107"
+#define SERVER_IP "192.168.1.139"
 
 int main()
 {
