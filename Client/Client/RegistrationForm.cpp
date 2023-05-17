@@ -36,6 +36,11 @@ System::Void Client::RegistrationForm::registration_button_Click(System::Object^
 	login_link_clicked(nullptr, nullptr);
 }
 
+System::Void Client::RegistrationForm::OnFormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e)
+{
+	exit(0);
+}
+
 System::Void Client::RegistrationForm::login_link_clicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e)
 {
 	LoginForm^ lf = gcnew LoginForm();

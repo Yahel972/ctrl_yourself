@@ -1,5 +1,6 @@
 #pragma once
 
+#include "LoginForm.h"
 #include "User.h"
 
 namespace Client {
@@ -18,47 +19,40 @@ namespace Client {
 
 	protected:
 		~MainForm();
-	
+
 	private:
-
-
-
-
 		System::ComponentModel::Container ^components;
-	private: System::Windows::Forms::Panel^ panel;
+		System::Windows::Forms::Panel^ panel;
+		System::Windows::Forms::ListView^ friends_list;
+	private: Bunifu::Framework::UI::BunifuThinButton2^ invite_button;
 
-	private: System::Windows::Forms::ListView^ friends_list;
-
-
-	private: Bunifu::Framework::UI::BunifuThinButton2^ login_button;
-	private: System::Windows::Forms::Label^ register_label;
-
-
-
-	private: System::Windows::Forms::Label^ topic;
+		System::Windows::Forms::Label^ register_label;
+		System::Windows::Forms::Label^ topic;
+	private: System::Windows::Forms::Button^ logout_button;
+	private: System::Windows::Forms::Button^ add_friend_button;
 
 
-	private: System::Windows::Forms::Button^ button4;
-	private: System::Windows::Forms::Button^ button5;
-	private: System::Windows::Forms::Button^ button2;
-	private: Bunifu::Framework::UI::BunifuThinButton2^ new_message_alert;
+	private: System::Windows::Forms::Button^ notifications_button;
 
+		Bunifu::Framework::UI::BunifuThinButton2^ new_message_alert;
+		User* _user;  // logged in user
 
-		   User* _user;  // logged in user
+		System::Void logout_button_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void OnFormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
 
 #pragma region Windows Form Designer generated code
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->panel = (gcnew System::Windows::Forms::Panel());
-			this->button5 = (gcnew System::Windows::Forms::Button());
-			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->new_message_alert = (gcnew Bunifu::Framework::UI::BunifuThinButton2());
+			this->add_friend_button = (gcnew System::Windows::Forms::Button());
+			this->notifications_button = (gcnew System::Windows::Forms::Button());
+			this->logout_button = (gcnew System::Windows::Forms::Button());
 			this->topic = (gcnew System::Windows::Forms::Label());
 			this->register_label = (gcnew System::Windows::Forms::Label());
-			this->login_button = (gcnew Bunifu::Framework::UI::BunifuThinButton2());
+			this->invite_button = (gcnew Bunifu::Framework::UI::BunifuThinButton2());
 			this->friends_list = (gcnew System::Windows::Forms::ListView());
-			this->new_message_alert = (gcnew Bunifu::Framework::UI::BunifuThinButton2());
 			this->panel->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -68,12 +62,12 @@ namespace Client {
 			this->panel->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"panel.BackgroundImage")));
 			this->panel->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->panel->Controls->Add(this->new_message_alert);
-			this->panel->Controls->Add(this->button5);
-			this->panel->Controls->Add(this->button2);
-			this->panel->Controls->Add(this->button4);
+			this->panel->Controls->Add(this->add_friend_button);
+			this->panel->Controls->Add(this->notifications_button);
+			this->panel->Controls->Add(this->logout_button);
 			this->panel->Controls->Add(this->topic);
 			this->panel->Controls->Add(this->register_label);
-			this->panel->Controls->Add(this->login_button);
+			this->panel->Controls->Add(this->invite_button);
 			this->panel->Controls->Add(this->friends_list);
 			this->panel->Location = System::Drawing::Point(42, 30);
 			this->panel->Margin = System::Windows::Forms::Padding(0);
@@ -81,105 +75,6 @@ namespace Client {
 			this->panel->Padding = System::Windows::Forms::Padding(3);
 			this->panel->Size = System::Drawing::Size(808, 460);
 			this->panel->TabIndex = 3;
-			// 
-			// button5
-			// 
-			this->button5->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button5.BackgroundImage")));
-			this->button5->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->button5->FlatAppearance->BorderSize = 0;
-			this->button5->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button5->Location = System::Drawing::Point(733, 0);
-			this->button5->Name = L"button5";
-			this->button5->Size = System::Drawing::Size(75, 75);
-			this->button5->TabIndex = 20;
-			this->button5->UseVisualStyleBackColor = true;
-			// 
-			// button2
-			// 
-			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
-			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->button2->FlatAppearance->BorderSize = 0;
-			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button2->ForeColor = System::Drawing::Color::Transparent;
-			this->button2->Location = System::Drawing::Point(658, 0);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(75, 75);
-			this->button2->TabIndex = 19;
-			this->button2->UseVisualStyleBackColor = true;
-			// 
-			// button4
-			// 
-			this->button4->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button4.BackgroundImage")));
-			this->button4->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->button4->FlatAppearance->BorderSize = 0;
-			this->button4->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button4->Location = System::Drawing::Point(0, 0);
-			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(75, 75);
-			this->button4->TabIndex = 18;
-			this->button4->UseVisualStyleBackColor = true;
-			// 
-			// topic
-			// 
-			this->topic->AutoSize = true;
-			this->topic->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 48, System::Drawing::FontStyle::Italic));
-			this->topic->ForeColor = System::Drawing::Color::White;
-			this->topic->ImeMode = System::Windows::Forms::ImeMode::NoControl;
-			this->topic->Location = System::Drawing::Point(306, 0);
-			this->topic->Name = L"topic";
-			this->topic->Size = System::Drawing::Size(197, 89);
-			this->topic->TabIndex = 14;
-			this->topic->Text = L"Menu";
-			// 
-			// register_label
-			// 
-			this->register_label->AutoSize = true;
-			this->register_label->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->register_label->ForeColor = System::Drawing::Color::White;
-			this->register_label->ImeMode = System::Windows::Forms::ImeMode::NoControl;
-			this->register_label->Location = System::Drawing::Point(366, 100);
-			this->register_label->Margin = System::Windows::Forms::Padding(0);
-			this->register_label->Name = L"register_label";
-			this->register_label->Size = System::Drawing::Size(83, 26);
-			this->register_label->TabIndex = 9;
-			this->register_label->Text = L"Friends:";
-			// 
-			// login_button
-			// 
-			this->login_button->ActiveBorderThickness = 1;
-			this->login_button->ActiveCornerRadius = 20;
-			this->login_button->ActiveFillColor = System::Drawing::Color::White;
-			this->login_button->ActiveForecolor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
-				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->login_button->ActiveLineColor = System::Drawing::Color::White;
-			this->login_button->BackColor = System::Drawing::Color::Transparent;
-			this->login_button->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"login_button.BackgroundImage")));
-			this->login_button->ButtonText = L"Invite";
-			this->login_button->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->login_button->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12));
-			this->login_button->ForeColor = System::Drawing::Color::MintCream;
-			this->login_button->IdleBorderThickness = 1;
-			this->login_button->IdleCornerRadius = 20;
-			this->login_button->IdleFillColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->login_button->IdleForecolor = System::Drawing::Color::White;
-			this->login_button->IdleLineColor = System::Drawing::Color::White;
-			this->login_button->Location = System::Drawing::Point(314, 391);
-			this->login_button->Margin = System::Windows::Forms::Padding(0);
-			this->login_button->Name = L"login_button";
-			this->login_button->Size = System::Drawing::Size(180, 49);
-			this->login_button->TabIndex = 4;
-			this->login_button->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			// 
-			// friends_list
-			// 
-			this->friends_list->HideSelection = false;
-			this->friends_list->Location = System::Drawing::Point(104, 126);
-			this->friends_list->Name = L"friends_list";
-			this->friends_list->Size = System::Drawing::Size(600, 250);
-			this->friends_list->TabIndex = 2;
-			this->friends_list->UseCompatibleStateImageBehavior = false;
 			// 
 			// new_message_alert
 			// 
@@ -207,6 +102,106 @@ namespace Client {
 			this->new_message_alert->TabIndex = 17;
 			this->new_message_alert->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
+			// add_friend_button
+			// 
+			this->add_friend_button->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"add_friend_button.BackgroundImage")));
+			this->add_friend_button->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->add_friend_button->FlatAppearance->BorderSize = 0;
+			this->add_friend_button->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->add_friend_button->Location = System::Drawing::Point(733, 0);
+			this->add_friend_button->Name = L"add_friend_button";
+			this->add_friend_button->Size = System::Drawing::Size(75, 75);
+			this->add_friend_button->TabIndex = 20;
+			this->add_friend_button->UseVisualStyleBackColor = true;
+			// 
+			// notifications_button
+			// 
+			this->notifications_button->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"notifications_button.BackgroundImage")));
+			this->notifications_button->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->notifications_button->FlatAppearance->BorderSize = 0;
+			this->notifications_button->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->notifications_button->ForeColor = System::Drawing::Color::Transparent;
+			this->notifications_button->Location = System::Drawing::Point(658, 0);
+			this->notifications_button->Name = L"notifications_button";
+			this->notifications_button->Size = System::Drawing::Size(75, 75);
+			this->notifications_button->TabIndex = 19;
+			this->notifications_button->UseVisualStyleBackColor = true;
+			// 
+			// logout_button
+			// 
+			this->logout_button->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"logout_button.BackgroundImage")));
+			this->logout_button->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->logout_button->FlatAppearance->BorderSize = 0;
+			this->logout_button->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->logout_button->Location = System::Drawing::Point(0, 0);
+			this->logout_button->Name = L"logout_button";
+			this->logout_button->Size = System::Drawing::Size(75, 75);
+			this->logout_button->TabIndex = 18;
+			this->logout_button->UseVisualStyleBackColor = true;
+			this->logout_button->Click += gcnew System::EventHandler(this, &MainForm::logout_button_Click);
+			// 
+			// topic
+			// 
+			this->topic->AutoSize = true;
+			this->topic->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 48, System::Drawing::FontStyle::Italic));
+			this->topic->ForeColor = System::Drawing::Color::White;
+			this->topic->ImeMode = System::Windows::Forms::ImeMode::NoControl;
+			this->topic->Location = System::Drawing::Point(306, 0);
+			this->topic->Name = L"topic";
+			this->topic->Size = System::Drawing::Size(197, 89);
+			this->topic->TabIndex = 14;
+			this->topic->Text = L"Menu";
+			// 
+			// register_label
+			// 
+			this->register_label->AutoSize = true;
+			this->register_label->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->register_label->ForeColor = System::Drawing::Color::White;
+			this->register_label->ImeMode = System::Windows::Forms::ImeMode::NoControl;
+			this->register_label->Location = System::Drawing::Point(366, 100);
+			this->register_label->Margin = System::Windows::Forms::Padding(0);
+			this->register_label->Name = L"register_label";
+			this->register_label->Size = System::Drawing::Size(83, 26);
+			this->register_label->TabIndex = 9;
+			this->register_label->Text = L"Friends:";
+			// 
+			// invite_button
+			// 
+			this->invite_button->ActiveBorderThickness = 1;
+			this->invite_button->ActiveCornerRadius = 20;
+			this->invite_button->ActiveFillColor = System::Drawing::Color::White;
+			this->invite_button->ActiveForecolor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->invite_button->ActiveLineColor = System::Drawing::Color::White;
+			this->invite_button->BackColor = System::Drawing::Color::Transparent;
+			this->invite_button->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"invite_button.BackgroundImage")));
+			this->invite_button->ButtonText = L"Invite";
+			this->invite_button->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->invite_button->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12));
+			this->invite_button->ForeColor = System::Drawing::Color::MintCream;
+			this->invite_button->IdleBorderThickness = 1;
+			this->invite_button->IdleCornerRadius = 20;
+			this->invite_button->IdleFillColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->invite_button->IdleForecolor = System::Drawing::Color::White;
+			this->invite_button->IdleLineColor = System::Drawing::Color::White;
+			this->invite_button->Location = System::Drawing::Point(314, 391);
+			this->invite_button->Margin = System::Windows::Forms::Padding(0);
+			this->invite_button->Name = L"invite_button";
+			this->invite_button->Size = System::Drawing::Size(180, 49);
+			this->invite_button->TabIndex = 4;
+			this->invite_button->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			// 
+			// friends_list
+			// 
+			this->friends_list->HideSelection = false;
+			this->friends_list->Location = System::Drawing::Point(104, 126);
+			this->friends_list->Name = L"friends_list";
+			this->friends_list->Size = System::Drawing::Size(600, 250);
+			this->friends_list->TabIndex = 2;
+			this->friends_list->UseCompatibleStateImageBehavior = false;
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -226,7 +221,10 @@ namespace Client {
 			this->panel->PerformLayout();
 			this->ResumeLayout(false);
 
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MainForm::OnFormClosing);
 		}
 #pragma endregion
+private: 
+	
 };
 }

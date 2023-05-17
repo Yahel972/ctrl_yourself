@@ -48,3 +48,8 @@ System::Void Client::LoginForm::login_button_Click(System::Object^ sender, Syste
 	mf->Show();
 	this->Hide();
 }
+
+System::Void Client::LoginForm::OnFormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e)
+{
+	exit(0);
+}

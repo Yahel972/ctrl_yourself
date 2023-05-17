@@ -72,3 +72,8 @@ System::Void Client::ForgotPasswordForm::login_link_LinkClicked(System::Object^ 
 	lf->Show();
 	this->Hide();
 }
+
+System::Void Client::ForgotPasswordForm::OnFormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e)
+{
+	exit(0);
+}

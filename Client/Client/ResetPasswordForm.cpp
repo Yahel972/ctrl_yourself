@@ -36,3 +36,8 @@ System::Void Client::ResetPasswordForm::login_link_LinkClicked(System::Object^ s
 	lf->Show();
 	this->Hide();;
 }
+
+System::Void Client::ResetPasswordForm::OnFormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e)
+{
+	exit(0);
+}

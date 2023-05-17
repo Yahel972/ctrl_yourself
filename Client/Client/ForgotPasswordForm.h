@@ -39,6 +39,7 @@ namespace Client {
 
 		System::Void button_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void login_link_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
+		System::Void OnFormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
 		static bool isNumber(String^ s);
 
 #pragma region Windows Form Designer generated code
@@ -249,6 +250,7 @@ namespace Client {
 			this->panel->PerformLayout();
 			this->ResumeLayout(false);
 
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &ForgotPasswordForm::OnFormClosing);
 		}
 #pragma endregion
 };
