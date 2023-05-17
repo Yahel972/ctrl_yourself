@@ -80,6 +80,28 @@ void ScreenCapture::receiveCaptures(SOCKET sock, std::string width, std::string 
             // message received successfully
             // process the message in the buffer
             cv::Mat image(stoi(height), stoi(width), CV_8UC4, buffer);
+            RECT screenRect;
+            GetWindowRect(GetDesktopWindow(), &screenRect);
+
+            // Calculate the screen width and height
+            int screenWidth = screenRect.right - screenRect.left;
+            int screenHeight = screenRect.bottom - screenRect.top;
+
+            // Calculate the screen left and top coordinates
+            int screenLeft = screenRect.left;
+            int screenTop = screenRect.top;
+
+            // Get the current cursor position
+            POINT cursorPos;
+            GetCursorPos(&cursorPos);
+
+            // Offset the cursor position relative to the captured screen region
+            cursorPos.x -= screenLeft;
+            cursorPos.y -= screenTop;
+
+            // Draw a circle representing the cursor on the image
+            cv::circle(image, cv::Point(cursorPos.x, cursorPos.y), 10, cv::Scalar(0, 0, 255), -1);
+
             cv::imshow("Screen", image);
             cv::waitKey(5);
         }

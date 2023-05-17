@@ -20,7 +20,7 @@ Peer::~Peer()
     catch (...) {}
 }
 
-void Peer::connectToServer(std::string serverIP, int port)
+void Peer::connectToServer(std::string serverIP, int port, bool isMainServer)
 {
     struct sockaddr_in sa = { 0 };
     sa.sin_port = htons(port);
@@ -32,7 +32,10 @@ void Peer::connectToServer(std::string serverIP, int port)
         throw std::exception("Cant connect to the Connector");
 
     std::cout << "Connected with id=" << receiveId(this->_socket) << std::endl;  // setting an id to the user
-    this->sendPeerDetails(this->_socket);
+    if (isMainServer)
+    {
+        this->sendPeerDetails(this->_socket);
+    }
 }
 
 // function runs all of the loggers & receivers as threads
@@ -82,7 +85,7 @@ void Peer::startConversation()
             std::cout << "Trying to connect..." << std::endl;
             try
             {
-                peer2peer.connectToServer(ipList[i], 5471);
+                peer2peer.connectToServer(ipList[i], 5471, false);
                 peer2peer.sendMessages(width, height);
             }
             catch (const std::exception& e)

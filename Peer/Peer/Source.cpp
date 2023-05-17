@@ -14,7 +14,7 @@ int main()
 	{
 		WSAInitializer wsaInit;
 		Peer p;
-		p.connectToServer(SERVER_IP, SERVER_PORT);
+		p.connectToServer(SERVER_IP, SERVER_PORT, true);
 		p.setType();  // controlling/controlled PC
 
 		p.startConversation();

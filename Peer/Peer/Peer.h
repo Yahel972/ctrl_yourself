@@ -28,7 +28,7 @@ public:
 	Peer();
 	~Peer();
 
-	void connectToServer(std::string serverIP, int port);
+	void connectToServer(std::string serverIP, int port, bool isMainServer);
 	void startConversation();
 	void setType();
 
