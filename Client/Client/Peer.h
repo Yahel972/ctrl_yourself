@@ -32,7 +32,7 @@ public:
 	void startConversation();
 	void setType();
 
-	Socket getSock();
+	SOCKET getSock();
 private:
 	void receiveRecords(SOCKET sock);
 	void sendPeerDetails(SOCKET sock);
