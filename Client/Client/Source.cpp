@@ -20,8 +20,8 @@ int main()
 	try
 	{
 		WSAInitializer wsaInit;
-		Peer p;
-		p.connectToServer(SERVER_IP, SERVER_PORT, true);
+		Global::_p = new Peer();
+		Global::_p->connectToServer(SERVER_IP, SERVER_PORT, true);
 		//p.setType();  // controlling/controlled PC
 
 		Application::EnableVisualStyles();
