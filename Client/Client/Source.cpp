@@ -26,10 +26,10 @@ int main()
 		Application::EnableVisualStyles();
 		Application::SetCompatibleTextRenderingDefault(false);
 
-		LoginForm form(p);
+		LoginForm form;
 		Application::Run(% form);
 
-		//p.startConversation();
+		p.startConversation();
 	}
 	catch (std::exception& e)
 	{

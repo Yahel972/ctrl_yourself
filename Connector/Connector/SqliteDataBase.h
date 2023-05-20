@@ -10,19 +10,12 @@ class SqliteDataBase
 {
 public:
 	SqliteDataBase();
-	bool open();
 
-	// users db
+	bool open();
 	bool doesUserExist(std::string user);
 	bool doesPasswordMatch(std::string username, std::string passwordToMatch);
 	void addNewUser(std::string name, std::string password, std::string email);
 	std::vector<std::string> getUsers();
-	std::string getUsersEmail(std::string username);
-	void changePassword(std::string username, std::string newPassword);
-
-	// friends db
-
-	// friend requests db
 
 	// TODO: implement these functions:
 	int getID(std::string username);  // get the username's id (use db)

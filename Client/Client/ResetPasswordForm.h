@@ -15,9 +15,7 @@ namespace Client {
 	public ref class ResetPasswordForm : public System::Windows::Forms::Form
 	{
 	public:
-		ResetPasswordForm(Peer& p, std::string username);
-
-		Peer& getPeer();
+		ResetPasswordForm(std::string username);
 
 	protected:
 		~ResetPasswordForm();
@@ -35,7 +33,6 @@ namespace Client {
 		System::Windows::Forms::LinkLabel^ login_link;
 		System::ComponentModel::Container^ components;
 		std::string* _username;  // the username to reset it's password
-		Peer& _p;
 
 		System::Void login_button_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void login_link_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);

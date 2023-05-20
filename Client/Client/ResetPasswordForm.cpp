@@ -1,11 +1,6 @@
 #include "ResetPasswordForm.h"
 
-Client::ResetPasswordForm::ResetPasswordForm(Peer& p, std::string username): _p(p), _username(new std::string(username)) { InitializeComponent(); }
-
-Peer& Client::ResetPasswordForm::getPeer()
-{
-	return this->_p;
-}
+Client::ResetPasswordForm::ResetPasswordForm(std::string username): _username(new std::string(username)) { InitializeComponent(); }
 
 Client::ResetPasswordForm::~ResetPasswordForm()
 {
@@ -28,21 +23,16 @@ System::Void Client::ResetPasswordForm::login_button_Click(System::Object^ sende
 		return;
 	}
 
-	// creating login request
-	std::string msg = "6&" + std::string(this->_username->c_str()) + "&" + msclr::interop::marshal_as<std::string>(this->password_textbox->text);
-	send(this->getPeer().getSock(), msg.c_str(), msg.size(), 0);
-	
-	// TODO: receive response (change with the 'true')
-	if (true)
-	{
-		MessageBox::Show("Password Changed Successfully!", "Password Changed", MessageBoxButtons::OK, MessageBoxIcon::Information);
-		login_link_LinkClicked(nullptr, nullptr);
-	}
+	// TODO: set the new password for the user
+	// DEAN
+
+	MessageBox::Show("Password Changed Successfully!", "Password Changed", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	login_link_LinkClicked(nullptr, nullptr);
 }
 
 System::Void Client::ResetPasswordForm::login_link_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e)
 {
-	LoginForm^ lf = gcnew LoginForm(_p);
+	LoginForm^ lf = gcnew LoginForm();
 	lf->Show();
 	this->Hide();;
 }

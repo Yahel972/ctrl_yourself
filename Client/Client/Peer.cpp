@@ -217,11 +217,6 @@ void Peer::setType()
     this->_type = choice;  // will be true for a non-zero value, false for 0
 }
 
-SOCKET Peer::getSock()
-{
-    return this->_socket;
-}
-
 // function receives an id from the connector
 int Peer::receiveId(SOCKET sock)
 {

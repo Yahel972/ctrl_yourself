@@ -15,9 +15,7 @@ namespace Client {
 	public ref class RegistrationForm : public System::Windows::Forms::Form
 	{
 	public:
-		RegistrationForm(Peer& p);
-
-		Peer& getPeer();
+		RegistrationForm();
 
 	protected:
 		~RegistrationForm();
@@ -35,7 +33,6 @@ namespace Client {
 		System::Windows::Forms::Label^ label1;
 		System::Windows::Forms::Label^ label3;
 		System::ComponentModel::Container^ components;
-		Peer& _p;
 
 		System::Void login_link_clicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
 		System::Void registration_button_Click(System::Object^ sender, System::EventArgs^ e);

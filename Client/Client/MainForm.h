@@ -35,9 +35,7 @@ namespace Client {
 	private: System::Windows::Forms::Button^ notifications_button;
 
 		Bunifu::Framework::UI::BunifuThinButton2^ new_message_alert;
-	private: System::Windows::Forms::Panel^ panel1;
-	private: Bunifu::Framework::UI::BunifuTextbox^ username_textbox;
-		   User* _user;  // logged in user
+		User* _user;  // logged in user
 
 		System::Void logout_button_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void OnFormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
@@ -55,10 +53,7 @@ namespace Client {
 			this->register_label = (gcnew System::Windows::Forms::Label());
 			this->invite_button = (gcnew Bunifu::Framework::UI::BunifuThinButton2());
 			this->friends_list = (gcnew System::Windows::Forms::ListView());
-			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->username_textbox = (gcnew Bunifu::Framework::UI::BunifuTextbox());
 			this->panel->SuspendLayout();
-			this->panel1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// panel
@@ -207,30 +202,6 @@ namespace Client {
 			this->friends_list->TabIndex = 2;
 			this->friends_list->UseCompatibleStateImageBehavior = false;
 			// 
-			// panel1
-			// 
-			this->panel1->Controls->Add(this->username_textbox);
-			this->panel1->Location = System::Drawing::Point(658, 0);
-			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(250, 560);
-			this->panel1->TabIndex = 4;
-			// 
-			// username_textbox
-			// 
-			this->username_textbox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->username_textbox->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"username_textbox.BackgroundImage")));
-			this->username_textbox->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->username_textbox->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 8.25F));
-			this->username_textbox->ForeColor = System::Drawing::Color::MintCream;
-			this->username_textbox->Icon = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"username_textbox.Icon")));
-			this->username_textbox->Location = System::Drawing::Point(26, 69);
-			this->username_textbox->Margin = System::Windows::Forms::Padding(0);
-			this->username_textbox->Name = L"username_textbox";
-			this->username_textbox->Size = System::Drawing::Size(166, 50);
-			this->username_textbox->TabIndex = 2;
-			this->username_textbox->text = L"";
-			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -238,7 +209,6 @@ namespace Client {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(892, 521);
-			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->panel);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
@@ -247,12 +217,11 @@ namespace Client {
 			this->Name = L"MainForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Menu";
-			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MainForm::OnFormClosing);
 			this->panel->ResumeLayout(false);
 			this->panel->PerformLayout();
-			this->panel1->ResumeLayout(false);
 			this->ResumeLayout(false);
 
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MainForm::OnFormClosing);
 		}
 #pragma endregion
 private: 
