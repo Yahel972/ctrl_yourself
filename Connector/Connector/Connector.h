@@ -31,4 +31,6 @@ private:
 	// in order to distribute ids:
 	static int ID_COUNTER;
 	static int generateId(SOCKET sock);
+
+	std::vector<std::string> seperateBySign(std::string input, std::string sign);
 };

@@ -67,22 +67,22 @@ void SqliteDataBase::addNewUser(std::string name, std::string password, std::str
     sqlite3_exec(this->_db, sqlStatement.c_str(), nullptr, nullptr, errMessage);
 }
 
-//std::string SqliteDataBase::getUsersEmail(std::string username) {
-//    std::string email = "";
-//    char** errMessage = nullptr;
-//    std::string sqlStatement = "SELECT EMAIL FROM USERS WHERE USERNAME='" + username + "';";
-//
-//    sqlite3_exec(this->_db, sqlStatement.c_str(), callback_single_string, &email, errMessage);
-//
-//    return email;
-//}
-//
-//void SqliteDataBase::changePassword(std::string username, std::string newPassword)
-//{
-//
-//}
+std::string SqliteDataBase::getUsersEmail(std::string username) {
+    std::string email = "";
+    char** errMessage = nullptr;
+    std::string sqlStatement = "SELECT EMAIL FROM USERS WHERE USERNAME='" + username + "';";
 
-std::vector<std::string> SqliteDataBase::getUsers()
+    sqlite3_exec(this->_db, sqlStatement.c_str(), callback_single_string, &email, errMessage);
+
+    return email;
+}
+
+void SqliteDataBase::changePassword(std::string username, std::string newPassword)
+{
+
+}
+
+std::vector<std::string> SqliteDataBase::getAllUsers()
 {
     // TODO: get all of the users
     return std::vector<std::string>();

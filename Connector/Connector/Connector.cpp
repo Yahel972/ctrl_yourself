@@ -143,6 +143,58 @@ void Connector::handleNewClient(SOCKET sock)
 			std::string newDetails = ip + "&" + width + "&" + height;
 			send(this->_connections[std::stoi(id)], newDetails.c_str(), newDetails.size(), 0);
 		}
+		if (msg[0] == '3')  // login request
+		{
+			std::vector<std::string> details = seperateBySign(msg, "&");
+
+			if (_db.doesUserExist(details[1]) && _db.doesPasswordMatch(details[1], details[2]))
+			{
+
+			}
+			else
+			{
+
+			}
+		}
+		if (msg[0] == '4')  // registrarion request
+		{
+			std::vector<std::string> details = seperateBySign(msg, "&");
+
+			if (!_db.doesUserExist(details[1]))
+			{
+				_db.addNewUser(details[1], details[2], details[3]);
+
+				// return success
+			}
+			else
+			{
+				// return error
+			}
+		}
+		if (msg[0] == '5')  // email request
+		{
+			std::vector<std::string> details = seperateBySign(msg, "&");
+
+			if (!_db.doesUserExist(details[1]))
+			{
+				std::string email = _db.getUsersEmail(details[1]);
+				// send user's email
+			}
+			else
+			{
+				// return error - return ""
+			}
+		}
+		if (msg[0] == '6')  // password reset request
+		{
+			std::vector<std::string> details = seperateBySign(msg, "&");
+
+			// TODO: finish that
+			_db.changePassword(details[1], details[2]);
+
+			// send OK
+		}
+
 	}
 }
 
@@ -153,4 +205,19 @@ int Connector::generateId(SOCKET sock)
 	Connector::ID_COUNTER++;
 
 	return ID_COUNTER - 1;
+}
+
+std::vector<std::string> Connector::seperateBySign(std::string input, std::string sign)
+{
+	std::vector<std::string> output;
+	int pos = 0;
+	while (pos < input.length()) {
+		size_t next_pos = input.find(sign, pos);
+		if (next_pos == std::string::npos) {
+			next_pos = input.length();
+		}
+		output.push_back(input.substr(pos, next_pos - pos));
+		pos = next_pos + 1;
+	}
+	return output;
 }
