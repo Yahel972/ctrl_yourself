@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="CodeSender.cpp" />
     <ClCompile Include="ForgotPasswordForm.cpp" />
+    <ClCompile Include="Global.cpp" />
     <ClCompile Include="KeyboardMessage.cpp" />
     <ClCompile Include="KeyLogger.cpp" />
     <ClCompile Include="LoginForm.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="ForgotPasswordForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Global.h" />
     <ClInclude Include="KeyboardMessage.h" />
     <ClInclude Include="KeyLogger.h" />
     <ClInclude Include="LoginForm.h">

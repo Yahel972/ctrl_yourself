@@ -15,9 +15,7 @@
 #include "KeyboardMessage.h"
 #include <regex>
 #include <iphlpapi.h>
-
 #include <winsock2.h>
-
 
 #define BUFFER_SIZE 256
 #define DETAILS_SIZE 256
@@ -42,7 +40,6 @@ private:
 	void sendMessages(std::string width, std::string height);
 	std::string getMyIp();
 	std::vector<std::string> seperateBySign(std::string input, std::string sign);
-
 
 	SOCKET _socket;
 	int _id;

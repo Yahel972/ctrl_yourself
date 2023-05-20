@@ -6,6 +6,7 @@
 #include <iostream>
 #include <exception>
 #include "LoginForm.h"
+#include "Global.h"
 
 #define SERVER_PORT 6969
 #define SERVER_IP "192.168.1.139"
@@ -29,7 +30,7 @@ int main()
 		LoginForm form;
 		Application::Run(% form);
 
-		p.startConversation();
+		//Global::_p.startConversation();
 	}
 	catch (std::exception& e)
 	{
